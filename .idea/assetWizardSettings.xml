@@ -76,19 +76,14 @@
                                       <entry key="backgroundColor" value="ffffff" />
                                       <entry key="backgroundImage" value="C:\Users\midasang\Documents\GitHub\Wireless_Project_OPENUP\user.png" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
-                                      <entry key="foregroundImage" value="C:\Users\midasang\Documents\GitHub\Wireless_Project_OPENUP\ic_add_circle_white_48dp.png" />
-                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
-                                      <entry key="outputName" value="plus" />
+                                      <entry key="foregroundImage" value="C:\Users\midasang\Documents\GitHub\Wireless_Project_OPENUP\app.png" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_openup" />
+                                      <entry key="outputName" value="openup" />
                                     </map>
                                   </option>
                                 </PersistentState>
                               </value>
                             </entry>
-                          </map>
-                        </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>
