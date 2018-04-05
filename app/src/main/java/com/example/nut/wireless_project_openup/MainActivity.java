@@ -80,18 +80,33 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            System.out.println("home");
+        }
 
-        } else if (id == R.id.nav_slideshow) {
+        else if (id == R.id.nav_inbox) {
+            System.out.println("inbox");
 
-        } else if (id == R.id.nav_manage) {
+        }
 
-        } else if (id == R.id.nav_share) {
+        else if (id == R.id.nav_consult) {
+            System.out.println("consult");
+        }
 
-        } else if (id == R.id.nav_send) {
+        else if (id == R.id.nav_nearby) {
+            System.out.println("nearby");
+        }
 
+        else if (id == R.id.nav_shop) {
+            System.out.println("shop");
+        }
+
+        else if (id == R.id.nav_setting) {
+            System.out.println("setting");
+        }
+
+        else if (id == R.id.nav_about) {
+            System.out.println("about");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
