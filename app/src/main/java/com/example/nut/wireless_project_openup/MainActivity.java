@@ -97,9 +97,6 @@ public class MainActivity extends AppCompatActivity
             System.out.println("nearby");
         }
 
-        else if (id == R.id.nav_shop) {
-            System.out.println("shop");
-        }
 
         else if (id == R.id.nav_setting) {
             System.out.println("setting");

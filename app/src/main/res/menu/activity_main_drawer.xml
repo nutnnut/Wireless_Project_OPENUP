@@ -20,12 +20,7 @@
             android:id="@+id/nav_nearby"
             android:icon="@mipmap/locate"
             android:title="Nearby Clinic" />
-
-        <item
-        android:id="@+id/nav_shop"
-        android:icon="@mipmap/shop"
-        android:title="Shop" />
-
+        
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_manage"
