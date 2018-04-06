@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            System.out.println("home");
+            startActivity(new Intent(this,home.class));
         }
 
         else if (id == R.id.nav_inbox) {
@@ -94,16 +95,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_nearby) {
-            System.out.println("nearby");
         }
 
-
-        else if (id == R.id.nav_setting) {
-            System.out.println("setting");
+        else if (id == R.id.nav_profile) {
         }
-
-        else if (id == R.id.nav_about) {
-            System.out.println("about");
+        else if (id == R.id.nav_out) {
+            startActivity(new Intent(MainActivity.this,splash.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

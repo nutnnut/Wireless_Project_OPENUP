@@ -20,16 +20,16 @@
             android:id="@+id/nav_nearby"
             android:icon="@mipmap/locate"
             android:title="Nearby Clinic" />
-        
-        <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Setting" />
-        <item
-            android:id="@+id/nav_about"
-            android:icon="@mipmap/aboutus"
-            android:title="About Us" />
 
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@mipmap/aboutus"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_out"
+            android:icon="@mipmap/out"
+            android:title="Log out" />
     </group>
 
 
