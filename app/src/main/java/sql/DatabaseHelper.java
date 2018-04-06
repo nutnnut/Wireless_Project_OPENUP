@@ -1,5 +1,6 @@
 package sql;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -24,6 +25,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_PASSWORD = "user_password";
     private static final String COLUMN_USER_DISPLAYNAME = "user_displayName";
     private static final String COLUMN_USER_INFOID = "user_infoID";
+
+    // create table sql query
+    private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
+            + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
+            " TEXT," + COLUMN_USER_PASSWORD + " TEXT" + COLUMN_USER_DISPLAYNAME + " TEXT" +
+            COLUMN_USER_INFOID + " TEXT" + ")";
+
+    // drop table sql query
+    private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
+
+    /**
+     * Constructor
+     *
+     * @param context
+     */
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
