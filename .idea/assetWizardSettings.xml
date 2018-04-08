@@ -85,7 +85,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="63" />
+                                                <entry key="scalingPercent" value="85" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -101,8 +101,8 @@
                                       <entry key="backgroundImage" value="C:\Users\midasang\Documents\GitHub\Wireless_Project_OPENUP\user.png" />
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
                                       <entry key="foregroundImage" value="C:\Users\midasang\Documents\GitHub\Wireless_Project_OPENUP\app.png" />
-                                      <entry key="foregroundLayerName" value="appopenup" />
-                                      <entry key="outputName" value="openupppp" />
+                                      <entry key="foregroundLayerName" value="ic_launcher" />
+                                      <entry key="outputName" value="ic_launcher_app" />
                                     </map>
                                   </option>
                                 </PersistentState>
