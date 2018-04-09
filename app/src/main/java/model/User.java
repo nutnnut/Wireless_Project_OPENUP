@@ -10,7 +10,6 @@ public class User {
     private String email;
     private String password;
     private String displayName;
-    private String infoID;
 
     public String getID() {
         return ID;
@@ -42,14 +41,6 @@ public class User {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public String getInfoID() {
-        return infoID;
-    }
-
-    public void setInfoID(String infoID) {
-        this.infoID = infoID;
     }
 
 
