@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_nearby) {
+            startActivity(new Intent(MainActivity.this,NearbyClinics.class));
         }
 
         else if (id == R.id.nav_profile) {
