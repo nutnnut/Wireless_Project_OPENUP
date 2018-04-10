@@ -61,7 +61,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
             return;
         }
 
-        getLoaderManager().initLoader(0, null, this);
+        //getLoaderManager().initLoader(0, null, this);
     }
 
     private boolean mayRequestContacts() {
