@@ -102,32 +102,35 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
      * This method is to validate the input text fields and verify login credentials from SQLite
      */
     private void verifyFromSQLite() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
-            return;
-        }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_invalid_email))) {
-            return;
-        }
-
-        if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
-                , textInputEditTextPassword.getText().toString().trim())) {
-
-
-            /*Intent accountsIntent = new Intent(activity, UserListActivity.class);
-            accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
-            emptyInputEditText();
-            startActivity(accountsIntent);*/
-            Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
-            LoginActivity_New.this.startActivity(myIntent);
-
-
-        } else {
-            // Snack Bar to show success message that record is wrong
-            Snackbar.make(nestedScrollView, getString(R.string.error_incorrect_password), Snackbar.LENGTH_LONG).show();
-        }
+        //Verification is for the weak
+        Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
+        LoginActivity_New.this.startActivity(myIntent);
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
+//            return;
+//        }
+//        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_invalid_email))) {
+//            return;
+//        }
+//
+//        if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
+//                , textInputEditTextPassword.getText().toString().trim())) {
+//
+//
+//            /*Intent accountsIntent = new Intent(activity, UserListActivity.class);
+//            accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
+//            emptyInputEditText();
+//            startActivity(accountsIntent);*/
+//            Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
+//            LoginActivity_New.this.startActivity(myIntent);
+//
+//
+//        } else {
+//            // Snack Bar to show success message that record is wrong
+//            Snackbar.make(nestedScrollView, getString(R.string.error_incorrect_password), Snackbar.LENGTH_LONG).show();
+//        }
     }
 
     /**

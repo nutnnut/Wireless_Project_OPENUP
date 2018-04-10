@@ -39,8 +39,8 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng ICT = new LatLng(13.7945775, 100.3212284);
+        mMap.addMarker(new MarkerOptions().position(ICT).title("Golden Jubilee Medical Center").snippet("The best medical center for Mahidol students and others patients. High quality of medical treatment at a very low price."));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ICT));
     }
 }
