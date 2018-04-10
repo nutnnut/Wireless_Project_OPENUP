@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "UserManager.db";
+    private static final String DATABASE_NAME = "OpenUp.db";
 
     // User table name
     private static final String TABLE_USER = "user";
@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // create table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
-            " TEXT," + COLUMN_USER_PASSWORD + " TEXT" + COLUMN_USER_DISPLAYNAME + " TEXT" + ")";
+            " TEXT, " + COLUMN_USER_PASSWORD + " TEXT, " + COLUMN_USER_DISPLAYNAME + " TEXT " + " )";
 
     // drop table sql query
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
