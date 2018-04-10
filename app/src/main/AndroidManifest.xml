@@ -24,7 +24,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,8 @@
 
         <activity
             android:name=".NearbyClinics"
-            android:label="@string/title_activity_nearby_clinics"></activity>
+            android:label="@string/title_activity_nearby_clinics" />
+        <activity android:name=".LoginActivity_New"></activity>
     </application>
 
 </manifest>
