@@ -116,10 +116,12 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
                 , textInputEditTextPassword.getText().toString().trim())) {
 
 
-            Intent accountsIntent = new Intent(activity, UserListActivity.class);
+            /*Intent accountsIntent = new Intent(activity, UserListActivity.class);
             accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
             emptyInputEditText();
-            startActivity(accountsIntent);
+            startActivity(accountsIntent);*/
+            Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
+            LoginActivity_New.this.startActivity(myIntent);
 
 
         } else {
