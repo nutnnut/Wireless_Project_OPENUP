@@ -10,6 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class NearbyClinics extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -37,10 +39,21 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        ArrayList<LatLng> Pos = new ArrayList<LatLng>();
+        ArrayList<String> Title = new ArrayList<String>();
+        ArrayList<String> Details = new ArrayList<String>();
 
-        // Add a marker in Sydney and move the camera
-        LatLng ICT = new LatLng(13.7945775, 100.3212284);
-        mMap.addMarker(new MarkerOptions().position(ICT).title("Golden Jubilee Medical Center").snippet("The best medical center for Mahidol students and others patients. High quality of medical treatment at a very low price."));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ICT));
+        // Add static markers details
+        Pos.add(new LatLng(13.7949983, 100.3217247));
+        Title.add("Golden Jubilee Medical Center");
+        Details.add("The best medical center for Mahidol students and others patients. High quality of medical treatment at a very low price.");
+
+        //TODO: Retrieve details from Database
+
+
+        // Put markers on map
+        for(int i = 0; i<Pos.size(); i++){
+            mMap.addMarker(new MarkerOptions().position(Pos.get(i)).title(Title.get(i)).snippet(Details.get(i)));
+        }
     }
 }
