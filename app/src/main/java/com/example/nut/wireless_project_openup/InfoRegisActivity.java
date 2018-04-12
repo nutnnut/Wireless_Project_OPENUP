@@ -2,21 +2,25 @@ package com.example.nut.wireless_project_openup;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.EditText;
 
-public class InfoRegisActivity extends AppCompatActivity {
+public class InfoRegisActivity extends AppCompatActivity{
 
     private final AppCompatActivity activity = InfoRegisActivity.this;
 
     private NestedScrollView nestedScrollView;
+
+    private AppCompatButton appCompatButtonSaveInfo;
+    private AppCompatButton appCompatButtonSkipInfo;
 
     static TextInputEditText DateEdit;
 
@@ -25,7 +29,33 @@ public class InfoRegisActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_regis);
+        initViews();
+        initListeners();
+
+    }
+
+    private void initViews(){
+        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        appCompatButtonSaveInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSaveInfo);
+        appCompatButtonSkipInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSkipInfo);
         DateEdit = findViewById(R.id.textInputEditTextDate);
+    }
+
+    private void initListeners() {
+        appCompatButtonSaveInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                /*Intent myIntent = new Intent(InfoRegisActivity.this,MainActivity.class);
+                InfoRegisActivity.this.startActivity(myIntent);*/
+            }
+        });
+        appCompatButtonSkipInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent myIntent = new Intent(InfoRegisActivity.this,MainActivity.class);
+                InfoRegisActivity.this.startActivity(myIntent);
+            }
+        });
         DateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,6 +63,8 @@ public class InfoRegisActivity extends AppCompatActivity {
             }
         });
     }
+
+
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
