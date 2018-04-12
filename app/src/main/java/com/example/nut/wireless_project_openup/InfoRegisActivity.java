@@ -25,7 +25,7 @@ public class InfoRegisActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_regis);
-        DateEdit = findViewById(R.id.textInputLayoutDate);
+        DateEdit = findViewById(R.id.textInputEditTextDate);
         DateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
