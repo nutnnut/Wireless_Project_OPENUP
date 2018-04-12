@@ -3,7 +3,9 @@ package com.example.nut.wireless_project_openup;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.icu.util.Calendar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +13,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 public class InfoRegisActivity extends AppCompatActivity {
-    static EditText DateEdit;
+
+    private final AppCompatActivity activity = InfoRegisActivity.this;
+
+    private NestedScrollView nestedScrollView;
+
+    static TextInputEditText DateEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_regis);
-        DateEdit = (EditText) findViewById(R.id.textInputLayoutDate);
+        DateEdit = findViewById(R.id.textInputLayoutDate);
         DateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

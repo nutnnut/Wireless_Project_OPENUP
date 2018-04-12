@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 
 import com.google.android.gms.location.places.GeoDataApi;
+import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,7 +16,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class NearbyClinics extends FragmentActivity{
-    protected GeoDataClient mGeoDataClient;
 
     private GoogleMap mMap;
 
@@ -32,7 +32,7 @@ public class NearbyClinics extends FragmentActivity{
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
         // Construct a PlaceDetectionClient.
-        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
+        //mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
         // TODO: Start using the Places API.
     }
@@ -48,6 +48,7 @@ public class NearbyClinics extends FragmentActivity{
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
