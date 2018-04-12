@@ -20,7 +20,7 @@ public class NearbyClinics extends FragmentActivity{
     private GoogleMap mMap;
 
 
-    protected GeoDataClient mGeoDataClient;
+    //protected GeoDataClient mGeoDataClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class NearbyClinics extends FragmentActivity{
         setContentView(R.layout.activity_main);
 
         // Construct a GeoDataClient.
-        mGeoDataClient = Places.getGeoDataClient(this, null);
+        //mGeoDataClient = Places.getGeoDataClient(this, null);
 
         // Construct a PlaceDetectionClient.
         //mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
@@ -49,7 +49,6 @@ public class NearbyClinics extends FragmentActivity{
      * installed Google Play services and returned to the app.
      */
 
-    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         ArrayList<LatLng> Pos = new ArrayList<LatLng>();
