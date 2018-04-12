@@ -13,7 +13,8 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
@@ -56,6 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/mainbutton"
+            android:textColor="#ffffff"
             android:text="@string/action_sign_in" />
 
         <android.support.v7.widget.AppCompatTextView
