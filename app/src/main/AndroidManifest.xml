@@ -55,7 +55,8 @@
             android:label="@string/title_activity_nearby_clinics" />
         <activity android:name=".LoginActivity_New" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".UserListActivity"></activity>
+        <activity android:name=".UserListActivity" />
+        <activity android:name=".InfoRegisActivity"></activity>
     </application>
 
 </manifest>

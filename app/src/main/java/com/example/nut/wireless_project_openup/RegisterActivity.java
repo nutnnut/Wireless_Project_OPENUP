@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -136,13 +137,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             user.setDisplayName(textInputEditTextName.getText().toString().trim());
             user.setEmail(textInputEditTextEmail.getText().toString().trim());
             user.setPassword(textInputEditTextPassword.getText().toString().trim());
-
             databaseHelper.addUser(user);
 
             // Snack Bar to show success message that record saved successfully
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
             emptyInputEditText();
-
+            Intent myIntent = new Intent(RegisterActivity.this,InfoRegisActivity.class);
+            RegisterActivity.this.startActivity(myIntent);
 
         } else {
             // Snack Bar to show error message that record already exists
