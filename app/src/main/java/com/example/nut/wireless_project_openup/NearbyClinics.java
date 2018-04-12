@@ -15,12 +15,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class NearbyClinics extends FragmentActivity{
-    protected GeoDataClient mGeoDataClient;
+    //protected GeoDataClient mGeoDataClient;
 
     private GoogleMap mMap;
 
 
-    protected GeoDataClient mGeoDataClient;
+    //protected GeoDataClient mGeoDataClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,10 @@ public class NearbyClinics extends FragmentActivity{
         setContentView(R.layout.activity_main);
 
         // Construct a GeoDataClient.
-        mGeoDataClient = Places.getGeoDataClient(this, null);
+        //mGeoDataClient = Places.getGeoDataClient(this, null);
 
         // Construct a PlaceDetectionClient.
-        mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
+        //mPlaceDetectionClient = Places.getPlaceDetectionClient(this, null);
 
         // TODO: Start using the Places API.
     }
@@ -48,7 +48,7 @@ public class NearbyClinics extends FragmentActivity{
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-    @Override
+    //@Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         ArrayList<LatLng> Pos = new ArrayList<LatLng>();
