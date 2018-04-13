@@ -2,7 +2,6 @@ package com.example.nut.wireless_project_openup;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
->>>>>>> parent of 4074e05... nearby unsuccessful
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
