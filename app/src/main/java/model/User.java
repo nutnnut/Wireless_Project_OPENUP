@@ -6,17 +6,17 @@ package model;
 
 public class User {
 
-    private String ID;
+    private Integer ID;
     private String email;
     private String password;
     private String displayName;
     private Information info;
 
-    public String getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
@@ -44,5 +44,12 @@ public class User {
         this.displayName = displayName;
     }
 
+    public Information getInfo() {
+        return info;
+    }
+
+    public void setInfo(Information info) {
+        this.info = info;
+    }
 
 }

@@ -122,7 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 User user = new User();
-                user.setID(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID)));
+                user.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
                 user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
                 user.setDisplayName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_DISPLAYNAME)));
@@ -135,6 +135,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // return user list
         return userList;
+    }
+
+    public User getUser(String email){
+
+        String[] columns = {
+                COLUMN_USER_ID,
+                COLUMN_USER_EMAIL,
+                COLUMN_USER_PASSWORD,
+                COLUMN_USER_DISPLAYNAME
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_USER_EMAIL + " = ?";
+        String[] selectionArgs = {email};
+
+        // query user table with condition
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
+         */
+        Cursor cursor = db.query(TABLE_USER, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        User user = new User();
+        user.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
+        user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
+        user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
+        user.setDisplayName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_DISPLAYNAME)));
+        cursor.close();
+        db.close();
+
+        return user;
     }
     /**
      * This method to update user record
