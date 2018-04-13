@@ -106,6 +106,6 @@ public class InfoRegisActivity extends AppCompatActivity{
     }
 
     public void postDataToSQLite(){
-        
+
     }
 }
