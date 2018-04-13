@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Spinner;
+
+import model.Information;
+import sql.DatabaseHelper;
 
 public class InfoRegisActivity extends AppCompatActivity{
 
@@ -22,7 +26,14 @@ public class InfoRegisActivity extends AppCompatActivity{
     private AppCompatButton appCompatButtonSaveInfo;
     private AppCompatButton appCompatButtonSkipInfo;
 
-    static TextInputEditText DateEdit;
+
+    private static TextInputEditText DateEdit;
+    private Spinner spinnerOccupation;
+    private Spinner spinnerMedicalCondition;
+    private Spinner spinnerGender;
+
+    private Information information;
+    private DatabaseHelper databaseHelper;
 
 
     @Override
@@ -39,6 +50,9 @@ public class InfoRegisActivity extends AppCompatActivity{
         appCompatButtonSaveInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSaveInfo);
         appCompatButtonSkipInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSkipInfo);
         DateEdit = findViewById(R.id.textInputEditTextDate);
+        spinnerOccupation = findViewById(R.id.SpinnerOccupation);
+        spinnerMedicalCondition = findViewById(R.id.SpinnerCondition);
+        spinnerGender = findViewById(R.id.SpinnerGender);
     }
 
     private void initListeners() {
@@ -89,5 +103,9 @@ public class InfoRegisActivity extends AppCompatActivity{
             // Do something with the date chosen by the user
             DateEdit.setText(day + "/" + (month + 1) + "/" + year);
         }
+    }
+
+    public void postDataToSQLite(){
+        
     }
 }
