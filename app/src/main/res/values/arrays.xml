@@ -5,4 +5,16 @@
         <item>@string/gender_female</item>
         <item>@string/gender_none</item>
     </string-array>
+    <string-array name="occupation_list">
+        <item>@string/occupation_1</item>
+        <item>@string/occupation_2</item>
+        <item>@string/occupation_3</item>
+        <item>@string/occupation_4</item>
+        <item>@string/occupation_5</item>
+    </string-array>
+    <string-array name="condition_list">
+        <item>@string/condition_1</item>
+        <item>@string/condition_2</item>
+        <item>@string/condition_3</item>
+    </string-array>
 </resources>
