@@ -8,7 +8,8 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="20dp"
-    tools:context="com.example.nut.wireless_project_openup.LoginActivity_New">
+    tools:context="com.example.nut.wireless_project_openup.LoginActivity_New"
+    android:background="#ffffff">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -82,7 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_weight="1"
-            android:text="@string/action_sign_up" />
+            android:background="@drawable/mainbutton"
+            android:text="@string/action_sign_up"
+            android:textColor="#ffffff" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/appCompatTextViewLoginLink"
