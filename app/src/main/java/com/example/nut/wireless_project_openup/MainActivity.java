@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            startActivity(new Intent(MainActivity.this,home.class));
+            startActivity(new Intent(MainActivity.this,MainActivity.class));
         }
 
         else if (id == R.id.nav_inbox) {
