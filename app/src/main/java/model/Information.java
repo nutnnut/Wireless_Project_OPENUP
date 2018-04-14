@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class Information {
 
-    private String id;
-    private String name;
+    private Integer id;
+    private Integer userID;
     private String gender;
-    private Date birthdate;
+    private String birthdate;
     private String occupation;
     private String medicalCondition;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getGender() {
@@ -35,11 +35,11 @@ public class Information {
         this.gender = gender;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

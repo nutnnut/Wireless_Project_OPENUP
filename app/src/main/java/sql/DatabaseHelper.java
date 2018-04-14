@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import helpers.SessionManager;
+import model.Information;
 import model.User;
 
 /**
@@ -32,13 +34,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_PASSWORD = "user_password";
     private static final String COLUMN_USER_DISPLAYNAME = "user_displayName";
 
-    // create table sql query
+    //Info table name
+    private static final String TABLE_INFO = "info";
+
+    //Info Table Column names
+    private static final String COLUMN_INFO_ID = "info_id";
+    private static final String COLUMN_INFO_OCCUPATION = "info_occupation";
+    private static final String COLUMN_INFO_MENDICALCONDITION = "info_medicalCondition";
+    private static final String COLUMN_INFO_BIRTHDATE = "info_birthdate";
+    private static final String COLUMN_INFO_GENDER = "info_gender";
+    private static final String COLUMN_INFO_USERID = "info_userid";
+
+    // create user table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
             " TEXT, " + COLUMN_USER_PASSWORD + " TEXT, " + COLUMN_USER_DISPLAYNAME + " TEXT " + " )";
 
-    // drop table sql query
+    //create info table sql query
+    private String CREATE_INFO_TABLE = "CREATE TABLE " + TABLE_INFO + "(" + COLUMN_INFO_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_INFO_OCCUPATION + " TEXT, " +
+            COLUMN_INFO_MENDICALCONDITION + " TEXT, " + COLUMN_INFO_BIRTHDATE + " DATE, " +
+            COLUMN_INFO_GENDER + " TEXT, " + COLUMN_INFO_USERID + " INTEGER" + ")";
+
+    // drop user table sql query
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
+
+    //drop info table sql query
+    private String DROP_INFO_TABLE = "DROP TABLE IF EXISTS " + TABLE_INFO;
 
     /**
      * Constructor
@@ -52,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_INFO_TABLE);
     }
 
 
@@ -60,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Drop User Table if exist
         db.execSQL(DROP_USER_TABLE);
+        db.execSQL(DROP_INFO_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -81,6 +105,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Inserting Row
         db.insert(TABLE_USER, null, values);
+        db.close();
+    }
+
+    /**
+     * This method is to create information record
+     * @param info
+     */
+    public void addInfo(Information info){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_INFO_OCCUPATION, info.getOccupation());
+        values.put(COLUMN_INFO_MENDICALCONDITION, info.getMedicalCondition());
+        values.put(COLUMN_INFO_BIRTHDATE, info.getBirthdate());
+        values.put(COLUMN_INFO_GENDER, info.getGender());
+        values.put(COLUMN_INFO_USERID, info.getUserID());
+
+        db.insert(TABLE_INFO, null, values);
         db.close();
     }
     /**

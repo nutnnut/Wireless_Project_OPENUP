@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.NestedScrollView;
@@ -14,6 +15,11 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import helpers.SessionManager;
 import model.Information;
 import sql.DatabaseHelper;
 
@@ -34,6 +40,7 @@ public class InfoRegisActivity extends AppCompatActivity{
 
     private Information information;
     private DatabaseHelper databaseHelper;
+    private SessionManager sessionManager;
 
 
     @Override
@@ -42,7 +49,7 @@ public class InfoRegisActivity extends AppCompatActivity{
         setContentView(R.layout.activity_info_regis);
         initViews();
         initListeners();
-
+        initObjects();
     }
 
     private void initViews(){
@@ -50,17 +57,22 @@ public class InfoRegisActivity extends AppCompatActivity{
         appCompatButtonSaveInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSaveInfo);
         appCompatButtonSkipInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSkipInfo);
         DateEdit = findViewById(R.id.textInputEditTextDate);
-        /*spinnerOccupation = findViewById(R.id.SpinnerOccupation);
+        spinnerOccupation = findViewById(R.id.SpinnerOccupation);
         spinnerMedicalCondition = findViewById(R.id.SpinnerCondition);
-        spinnerGender = findViewById(R.id.SpinnerGender);*/
+        spinnerGender = findViewById(R.id.SpinnerGender);
     }
 
     private void initListeners() {
         appCompatButtonSaveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                /*Intent myIntent = new Intent(InfoRegisActivity.this,MainActivity.class);
-                InfoRegisActivity.this.startActivity(myIntent);*/
+                try {
+                    postDataToSQLite();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Intent myIntent = new Intent(InfoRegisActivity.this,MainActivity.class);
+                InfoRegisActivity.this.startActivity(myIntent);
             }
         });
         appCompatButtonSkipInfo.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +88,12 @@ public class InfoRegisActivity extends AppCompatActivity{
                 showDatePickerDialog(v);
             }
         });
+    }
+
+    private void initObjects(){
+        information = new Information();
+        databaseHelper = new DatabaseHelper(activity);
+        sessionManager = new SessionManager(activity);
     }
 
 
@@ -105,7 +123,12 @@ public class InfoRegisActivity extends AppCompatActivity{
         }
     }
 
-    /*public void postDataToSQLite(){
-        ;
-    }*/
+    public void postDataToSQLite() throws ParseException {
+        information.setOccupation(spinnerOccupation.getSelectedItem().toString());
+        information.setMedicalCondition(spinnerMedicalCondition.getSelectedItem().toString());
+        information.setBirthdate(DateEdit.getText().toString());
+        information.setGender(spinnerGender.getSelectedItem().toString());
+        information.setUserID(sessionManager.getUserID());
+        databaseHelper.addInfo(information);
+    }
 }
