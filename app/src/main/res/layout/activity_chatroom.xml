@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Chatroom"
+    android:padding="16dp"
+    >
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/chatroomsend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:src="@drawable/ic_menu_send"
+        android:tint="#ffffff"
+        app:backgroundTint="@color/colorPrimary" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="434dp"
+        android:layout_above="@+id/fab"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll">
+
+    </ListView>
+
+    <EditText
+        android:id="@+id/chatroomtextbook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/fab" />
+
+</RelativeLayout>
