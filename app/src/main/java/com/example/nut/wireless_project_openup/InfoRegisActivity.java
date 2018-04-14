@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import helpers.SessionManager;
 import model.Information;
 import sql.DatabaseHelper;
 
@@ -34,6 +35,7 @@ public class InfoRegisActivity extends AppCompatActivity{
 
     private Information information;
     private DatabaseHelper databaseHelper;
+    private SessionManager sessionManager;
 
 
     @Override
@@ -78,6 +80,12 @@ public class InfoRegisActivity extends AppCompatActivity{
         });
     }
 
+    private void initObjects(){
+        information = new Information();
+        databaseHelper = new DatabaseHelper(activity);
+        sessionManager = new SessionManager(activity);
+    }
+
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -106,6 +114,6 @@ public class InfoRegisActivity extends AppCompatActivity{
     }
 
     public void postDataToSQLite(){
-
+        
     }
 }
