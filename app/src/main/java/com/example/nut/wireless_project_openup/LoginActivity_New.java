@@ -12,6 +12,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import helpers.InputValidation;
+import helpers.SessionManager;
+import model.User;
 import sql.DatabaseHelper;
 
 public class LoginActivity_New extends AppCompatActivity implements View.OnClickListener {
@@ -31,6 +33,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
 
     private InputValidation inputValidation;
     private DatabaseHelper databaseHelper;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
     private void initObjects() {
         databaseHelper = new DatabaseHelper(activity);
         inputValidation = new InputValidation(activity);
-
+        sessionManager = new SessionManager(activity);
     }
 
     /**
@@ -103,9 +106,9 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
      */
     private void verifyFromSQLite() {
         //Verification is for the weak
-        Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
-        LoginActivity_New.this.startActivity(myIntent);
-        /*
+        /*Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
+        LoginActivity_New.this.startActivity(myIntent);*/
+
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
             return;
         }
@@ -117,14 +120,17 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
         }
 
         if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
-                , textInputEditTextPassword.getText().toString().trim())) {*/
+                , textInputEditTextPassword.getText().toString().trim())) {
 
 
             /*Intent accountsIntent = new Intent(activity, UserListActivity.class);
             accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
             emptyInputEditText();
             startActivity(accountsIntent);*/
-            /*Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
+            User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
+            Integer userID = loggedInUser.getID();
+            sessionManager.createLoginSession(userID);
+            Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
             LoginActivity_New.this.startActivity(myIntent);
 
 
@@ -132,7 +138,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
             // Snack Bar to show success message that record is wrong
             Snackbar.make(nestedScrollView, getString(R.string.error_incorrect_password), Snackbar.LENGTH_LONG).show();
         }
-        */
+
     }
 
     /**

@@ -13,6 +13,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import helpers.InputValidation;
+import helpers.SessionManager;
 import model.User;
 import sql.DatabaseHelper;
 
@@ -37,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private InputValidation inputValidation;
     private DatabaseHelper databaseHelper;
+    private SessionManager sessionManager;
     private User user;
 
     @Override
@@ -87,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void initObjects() {
         inputValidation = new InputValidation(activity);
         databaseHelper = new DatabaseHelper(activity);
+        sessionManager = new SessionManager(activity);
         user = new User();
 
     }
@@ -142,6 +145,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             // Snack Bar to show success message that record saved successfully
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
             emptyInputEditText();
+            User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
+            Integer userID = loggedInUser.getID();
+            sessionManager.createLoginSession(userID);
             Intent myIntent = new Intent(RegisterActivity.this,InfoRegisActivity.class);
             RegisterActivity.this.startActivity(myIntent);
 

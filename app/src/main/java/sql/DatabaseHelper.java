@@ -163,6 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,                      //filter by row groups
                 null);                      //The sort order
         User user = new User();
+        cursor.moveToFirst();
         user.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
         user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
         user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
