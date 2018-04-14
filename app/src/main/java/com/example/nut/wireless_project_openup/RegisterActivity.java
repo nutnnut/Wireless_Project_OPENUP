@@ -144,10 +144,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             // Snack Bar to show success message that record saved successfully
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
-            emptyInputEditText();
             User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getID();
             sessionManager.createLoginSession(userID);
+            emptyInputEditText();
             Intent myIntent = new Intent(RegisterActivity.this,InfoRegisActivity.class);
             RegisterActivity.this.startActivity(myIntent);
 
