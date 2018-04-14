@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home()).commit();
     }
 
     @Override
@@ -86,9 +90,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_home) {
-            startActivity(new Intent(MainActivity.this,MainActivity.class));
+            //startActivity(new Intent(MainActivity.this,MainActivity.class));
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home()).commit();
         }
 
         else if (id == R.id.nav_inbox) {
@@ -97,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_consult) {
-            System.out.println("consult");
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Consult()).commit();
         }
 
         else if (id == R.id.nav_nearby) {
