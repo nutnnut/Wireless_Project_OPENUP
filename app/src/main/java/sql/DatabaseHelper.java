@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import helpers.SessionManager;
+import model.Consultant;
 import model.Information;
 import model.User;
 
@@ -45,6 +46,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_INFO_GENDER = "info_gender";
     private static final String COLUMN_INFO_USERID = "info_userid";
 
+    //Consultant Table name
+    private static final String TABLE_CONSULTANT = "consultant";
+
+    //Consultant Column names
+    private static final String COLUMN_CONSULTANT_ID = "consultant_id";
+    private static final String COLUMN_CONSULTANT_EMAIL = "consultant_email";
+    private static final String COLUMN_CONSULTANT_PASSWORD = "consultant_password";
+    private static final String COLUMN_CONSULTANT_NAME = "consultant_name";
+
     // create user table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
@@ -56,11 +66,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_INFO_MENDICALCONDITION + " TEXT, " + COLUMN_INFO_BIRTHDATE + " DATE, " +
             COLUMN_INFO_GENDER + " TEXT, " + COLUMN_INFO_USERID + " INTEGER" + ")";
 
+    //create consultant table sql query
+    private String CREATE_CONSULTANT_TABLE = "CREATE TABLE " + TABLE_CONSULTANT + "(" +
+            COLUMN_CONSULTANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CONSULTANT_EMAIL
+            + " TEXT, " + COLUMN_CONSULTANT_PASSWORD + " TEXT, " + COLUMN_CONSULTANT_NAME +
+            " TEXT " + ")";
+
     // drop user table sql query
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
 
     //drop info table sql query
     private String DROP_INFO_TABLE = "DROP TABLE IF EXISTS " + TABLE_INFO;
+
+    //drop consultant table sql query
+    private String DROP_CONSULTANT_TABLE = "DROP TABLE IF EXISTS " + TABLE_CONSULTANT;
 
     /**
      * Constructor
@@ -75,6 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_INFO_TABLE);
+        db.execSQL(CREATE_CONSULTANT_TABLE);
     }
 
 
@@ -84,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Drop User Table if exist
         db.execSQL(DROP_USER_TABLE);
         db.execSQL(DROP_INFO_TABLE);
+        db.execSQL(DROP_CONSULTANT_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -125,6 +146,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_INFO, null, values);
         db.close();
     }
+
+    public void addConsultant(Consultant consultant){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CONSULTANT_EMAIL, consultant.getEmail());
+        values.put(COLUMN_CONSULTANT_PASSWORD, consultant.getPassword());
+        values.put(COLUMN_CONSULTANT_NAME, consultant.getName());
+
+        db.insert(TABLE_CONSULTANT, null, values);
+        db.close();
+    }
+
     /**
      * This method is to fetch all user and return the list of user records
      *
@@ -215,6 +249,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return user;
     }
+
+    public Consultant getConsultant(String email){
+        String[] columns = {
+                COLUMN_CONSULTANT_ID,
+                COLUMN_CONSULTANT_EMAIL,
+                COLUMN_CONSULTANT_PASSWORD,
+                COLUMN_CONSULTANT_NAME
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_CONSULTANT_EMAIL + " = ?";
+        String[] selectionArgs = {email};
+
+        // query user table with condition
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
+         */
+        Cursor cursor = db.query(TABLE_CONSULTANT, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        Consultant consultant = new Consultant();
+        cursor.moveToFirst();
+        consultant.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_CONSULTANT_ID)));
+        consultant.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_CONSULTANT_EMAIL)));
+        consultant.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_CONSULTANT_PASSWORD)));
+        consultant.setName(cursor.getString(cursor.getColumnIndex(COLUMN_CONSULTANT_NAME)));
+        cursor.close();
+        db.close();
+
+        return consultant;
+    }
     /**
      * This method to update user record
      *
@@ -274,6 +344,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
          */
         Cursor cursor = db.query(TABLE_USER, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        if (cursorCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkConsultant(String email){
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_CONSULTANT_ID
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // selection criteria
+        String selection = COLUMN_CONSULTANT_EMAIL + " = ?";
+
+        // selection argument
+        String[] selectionArgs = {email};
+
+        // query user table with condition
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
+         */
+        Cursor cursor = db.query(TABLE_CONSULTANT, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
                 selectionArgs,              //The values for the WHERE clause

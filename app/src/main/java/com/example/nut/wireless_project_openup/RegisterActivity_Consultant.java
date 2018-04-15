@@ -1,5 +1,7 @@
 package com.example.nut.wireless_project_openup;
 
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -49,22 +51,23 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
         initViews();
         initListeners();
+        initObjects();
     }
 
     private void initViews() {
-        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollViewConsultant);
 
-        textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutName);
-        textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
-        textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPassword);
-        textInputLayoutConfirmPassword = (TextInputLayout) findViewById(R.id.textInputLayoutConfirmPassword);
+        textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutNameConsultant);
+        textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmailConsultant);
+        textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPasswordConsultant);
+        textInputLayoutConfirmPassword = (TextInputLayout) findViewById(R.id.textInputLayoutConfirmPasswordConsultant);
 
-        textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextName);
-        textInputEditTextEmail = (TextInputEditText) findViewById(R.id.textInputEditTextEmail);
-        textInputEditTextPassword = (TextInputEditText) findViewById(R.id.textInputEditTextPassword);
-        textInputEditTextConfirmPassword = (TextInputEditText) findViewById(R.id.textInputEditTextConfirmPassword);
+        textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextNameConsultant);
+        textInputEditTextEmail = (TextInputEditText) findViewById(R.id.textInputEditTextEmailConsultant);
+        textInputEditTextPassword = (TextInputEditText) findViewById(R.id.textInputEditTextPasswordConsultant);
+        textInputEditTextConfirmPassword = (TextInputEditText) findViewById(R.id.textInputEditTextConfirmPasswordConsultant);
 
-        appCompatButtonRegister = (AppCompatButton) findViewById(R.id.appCompatButtonRegister);
+        appCompatButtonRegister = (AppCompatButton) findViewById(R.id.appCompatButtonRegisterConsultant);
 
         appCompatTextViewLoginLink = (AppCompatTextView) findViewById(R.id.appCompatTextViewLoginLink);
 
@@ -80,16 +83,67 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
         databaseHelper = new DatabaseHelper(activity);
         sessionManager = new SessionManager(activity);
         consultant = new Consultant();
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.appCompatButtonRegisterConsultant:
+                postDataToSQLite();
+                break;
+
             case R.id.appCompatTextViewLoginLink:
                 finish();
                 break;
         }
+    }
+
+    private void postDataToSQLite() {
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_invalid_name))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_invalid_password))) {
+            return;
+        }
+        if (!inputValidation.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword,
+                textInputLayoutConfirmPassword, getString(R.string.error_unmatched_password))) {
+            return;
+        }
+
+        if (!databaseHelper.checkConsultant(textInputEditTextEmail.getText().toString().trim())) {
+
+            consultant.setName(textInputEditTextName.getText().toString().trim());
+            consultant.setEmail(textInputEditTextEmail.getText().toString().trim());
+            consultant.setPassword(textInputEditTextPassword.getText().toString().trim());
+            databaseHelper.addConsultant(consultant);
+
+            // Snack Bar to show success message that record saved successfully
+            Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
+            Consultant loggedInUser =  databaseHelper.getConsultant(textInputEditTextEmail.getText().toString().trim());
+            Integer userID = loggedInUser.getId();
+            sessionManager.createLoginSession(userID);
+            emptyInputEditText();
+            Intent myIntent = new Intent(RegisterActivity_Consultant.this,LoginActivity_Consultant.class);
+            RegisterActivity_Consultant.this.startActivity(myIntent);
+
+        } else {
+            // Snack Bar to show error message that record already exists
+            Snackbar.make(nestedScrollView, getString(R.string.error_exist_email), Snackbar.LENGTH_LONG).show();
+        }
+
+
+    }
+    private void emptyInputEditText() {
+        textInputEditTextName.setText(null);
+        textInputEditTextEmail.setText(null);
+        textInputEditTextPassword.setText(null);
+        textInputEditTextConfirmPassword.setText(null);
     }
 
 }
