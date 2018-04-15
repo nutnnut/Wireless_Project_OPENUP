@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home(), "Home").commit();
     }
 
     @Override
@@ -74,7 +74,18 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //Go home if not at home, else close app;
+            Fragment_Home myFragment = (Fragment_Home)getFragmentManager().findFragmentByTag("Home");
+            if(myFragment == null){
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home(), "Home").commit();
+            }
+            else{
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
+            }
         }
     }
 
@@ -110,7 +121,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             //startActivity(new Intent(MainActivity.this,MainActivity.class));
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home(), "Home").commit();
         }
 
         else if (id == R.id.nav_inbox) {
@@ -119,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_consult) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Consult()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Consult(), "Consult").commit();
         }
 
         else if (id == R.id.nav_nearby) {
