@@ -85,7 +85,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:layout_weight="1"
-                    android:text="@string/action_skip_info" />
+                    android:background="@drawable/mainbutton"
+                    android:backgroundTint="#"
+                    android:text="@string/action_skip_info"
+                    android:textColor="#ffffff" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/appCompatButtonSaveInfo"
@@ -93,7 +96,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:layout_weight="1"
-                    android:text="@string/action_save_info" />
+                    android:background="@drawable/mainbutton"
+                    android:backgroundTint="#0E699C"
+                    android:text="@string/action_save_info"
+                    android:textColor="#ffffff" />
 
             </LinearLayout>
 
