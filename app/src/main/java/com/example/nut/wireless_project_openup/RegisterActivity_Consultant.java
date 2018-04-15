@@ -129,7 +129,7 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
             Integer userID = loggedInUser.getId();
             sessionManager.createLoginSession(userID);
             emptyInputEditText();
-            Intent myIntent = new Intent(RegisterActivity_Consultant.this,LoginActivity_Consultant.class);
+            Intent myIntent = new Intent(RegisterActivity_Consultant.this,InfoRegisActivity_Consultant.class);
             RegisterActivity_Consultant.this.startActivity(myIntent);
 
         } else {

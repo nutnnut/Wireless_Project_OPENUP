@@ -11,10 +11,20 @@
         <item>@string/occupation_3</item>
         <item>@string/occupation_4</item>
         <item>@string/occupation_5</item>
+        <item>@string/occupation_6</item>
     </string-array>
     <string-array name="condition_list">
         <item>@string/condition_1</item>
         <item>@string/condition_2</item>
         <item>@string/condition_3</item>
     </string-array>
+    <string-array name="expertise_list">
+        <item>@string/expertise_1</item>
+        <item>@string/expertise_2</item>
+        <item>@string/expertise_3</item>
+        <item>@string/expertise_4</item>
+        <item>@string/expertise_5</item>
+    </string-array>
+
+
 </resources>

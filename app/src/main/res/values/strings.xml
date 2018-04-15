@@ -17,6 +17,7 @@
     <string name="prompt_gender">Gender</string>
     <string name="prompt_occupation">Occupation</string>
     <string name="prompt_condition">Medical Condition</string>
+    <string name="prompt_expertise">Expertise</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="gender_none">Not Specified</string>
@@ -29,6 +30,11 @@
     <string name="condition_1">No Medical Condition</string>
     <string name="condition_2">Mental Disorder</string>
     <string name="condition_3">Chronic Disease</string>
+    <string name="expertise_1">Other Expertise</string>
+    <string name="expertise_2">Love</string>
+    <string name="expertise_3">Family</string>
+    <string name="expertise_4">Work</string>
+    <string name="expertise_5">School</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_up">Sign up</string>
     <string name="action_save_info">Save</string>

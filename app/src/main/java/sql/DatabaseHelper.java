@@ -11,6 +11,7 @@ import java.util.List;
 
 import helpers.SessionManager;
 import model.Consultant;
+import model.ConsultantInfo;
 import model.Information;
 import model.User;
 
@@ -55,6 +56,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CONSULTANT_PASSWORD = "consultant_password";
     private static final String COLUMN_CONSULTANT_NAME = "consultant_name";
 
+    //Consultant Info Table Name
+    private static  final String TABLE_CONINFO = "consultantInfo";
+
+    //Consultant Info column names
+    private static final String COLUMN_CONINFO_ID = "conInfo_id";
+    private static final String COLUMN_CONINFO_EXPERTISE = "conInfo_expertise";
+    private static final String COLUMN_CONINFO_BIRTHDATE = "conInfo_birthdate";
+    private static final String COLUMN_CONINFO_GENDER = "conInfo_gender";
+    private static final String COLUMN_CONINFO_CONID = "conInfo_conID";
+
     // create user table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
@@ -72,6 +83,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " TEXT, " + COLUMN_CONSULTANT_PASSWORD + " TEXT, " + COLUMN_CONSULTANT_NAME +
             " TEXT " + ")";
 
+    //create consultant info table sql query
+    private String CREATE_CONINFO_TABLE = "CREATE TABLE " + TABLE_CONINFO + "(" +
+            COLUMN_CONINFO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CONINFO_EXPERTISE +
+            " TEXT, " + COLUMN_CONINFO_BIRTHDATE + " DATE, " + COLUMN_CONINFO_GENDER + " TEXT, " +
+            COLUMN_CONINFO_CONID + " INTEGER" + ")";
+
     // drop user table sql query
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
 
@@ -80,6 +97,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //drop consultant table sql query
     private String DROP_CONSULTANT_TABLE = "DROP TABLE IF EXISTS " + TABLE_CONSULTANT;
+
+    //drop consultant info table sql query
+    private String DROP_CONINFO_TABLE = "DROP TABLE IF EXISTS " + TABLE_CONINFO;
 
     /**
      * Constructor
@@ -95,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_USER_TABLE);
         db.execSQL(CREATE_INFO_TABLE);
         db.execSQL(CREATE_CONSULTANT_TABLE);
+        db.execSQL(CREATE_CONINFO_TABLE);
     }
 
 
@@ -105,6 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_USER_TABLE);
         db.execSQL(DROP_INFO_TABLE);
         db.execSQL(DROP_CONSULTANT_TABLE);
+        db.execSQL(DROP_CONINFO_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -156,6 +178,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_CONSULTANT_NAME, consultant.getName());
 
         db.insert(TABLE_CONSULTANT, null, values);
+        db.close();
+    }
+
+    public void addConsultantInfo(ConsultantInfo consultantInfo){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CONINFO_EXPERTISE, consultantInfo.getExpertise());
+        values.put(COLUMN_CONINFO_BIRTHDATE, consultantInfo.getBirthdate());
+        values.put(COLUMN_CONINFO_GENDER, consultantInfo.getGender());
+        values.put(COLUMN_CONINFO_CONID, consultantInfo.getConsultantID());
+
+        db.insert(TABLE_CONINFO, null, values);
         db.close();
     }
 

@@ -7,7 +7,7 @@ public class Consultant {
     private String name;
     private String email;
     private String password;
-    private ConsultantRating rating;
+    private ConsultantInfo info;
 
     public Integer getId() {
         return id;
@@ -33,14 +33,6 @@ public class Consultant {
         this.email = email;
     }
 
-    public ConsultantRating getRating() {
-        return rating;
-    }
-
-    public void setRating(ConsultantRating rating) {
-        this.rating = rating;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -48,6 +40,15 @@ public class Consultant {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public ConsultantInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(ConsultantInfo info) {
+        this.info = info;
+    }
+
 
 
 }
