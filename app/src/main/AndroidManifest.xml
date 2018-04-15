@@ -82,6 +82,8 @@
         <activity android:name=".LoginActivity_Consultant" />
         <activity android:name=".RegisterActivity_Consultant" />
         <activity android:name=".InfoRegisActivity_Consultant"></activity>
+        <activity android:name=".VideoCall"
+            android:theme="@style/AppThemeDark"/>
     </application>
 
 </manifest>
