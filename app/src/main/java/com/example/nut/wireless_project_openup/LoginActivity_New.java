@@ -30,6 +30,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
     private AppCompatButton appCompatButtonLogin;
 
     private AppCompatTextView textViewLinkRegister;
+    private AppCompatTextView textViewLinkConsultant;
 
     private InputValidation inputValidation;
     private DatabaseHelper databaseHelper;
@@ -62,6 +63,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
         appCompatButtonLogin = (AppCompatButton) findViewById(R.id.appCompatButtonLogin);
 
         textViewLinkRegister = (AppCompatTextView) findViewById(R.id.textViewLinkRegister);
+        textViewLinkConsultant = (AppCompatTextView) findViewById(R.id.textViewLinkConsultant);
 
     }
 
@@ -71,6 +73,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
     private void initListeners() {
         appCompatButtonLogin.setOnClickListener(this);
         textViewLinkRegister.setOnClickListener(this);
+        textViewLinkConsultant.setOnClickListener(this);
     }
 
     /**
@@ -97,6 +100,10 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
                 // Navigate to RegisterActivity
                 Intent intentRegister = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intentRegister);
+                break;
+            case R.id.textViewLinkConsultant:
+                Intent intentConsultant = new Intent(getApplicationContext(), LoginActivity_Consultant.class);
+                startActivity(intentConsultant);
                 break;
         }
     }

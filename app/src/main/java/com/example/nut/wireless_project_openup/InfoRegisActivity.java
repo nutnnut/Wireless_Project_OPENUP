@@ -16,8 +16,6 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import helpers.SessionManager;
 import model.Information;

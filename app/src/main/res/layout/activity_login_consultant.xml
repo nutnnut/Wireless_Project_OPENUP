@@ -72,12 +72,12 @@
             android:textSize="16dp" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/textViewLinkConsultant"
+            android:id="@+id/textViewLinkLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="@string/action_sign_in_to_consultant"
+            android:text="@string/action_consultant_to_sign_in"
             android:textSize="16dp" />
     </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v4.widget.NestedScrollView>

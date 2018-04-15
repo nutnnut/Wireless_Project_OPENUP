@@ -12,6 +12,7 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="prompt_name">Display Name</string>
+    <string name="prompt_fullname">Full Name</string>
     <string name="prompt_date">Birthdate</string>
     <string name="prompt_gender">Gender</string>
     <string name="prompt_occupation">Occupation</string>
@@ -34,6 +35,8 @@
     <string name="action_skip_info">Skip</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="action_sign_in_to_register">No Account Yet? Sign Up</string>
+    <string name="action_sign_in_to_consultant">Are you a consultant? Click Here</string>
+    <string name="action_consultant_to_sign_in">Are you a client? Click Here</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_exist_email">This email address already exists</string>
     <string name="error_invalid_password">This password is too short</string>

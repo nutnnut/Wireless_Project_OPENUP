@@ -86,7 +86,6 @@
                     android:layout_marginTop="40dp"
                     android:layout_weight="1"
                     android:background="@drawable/mainbutton"
-                    android:backgroundTint="#"
                     android:text="@string/action_skip_info"
                     android:textColor="#ffffff" />
 

@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,12 +22,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Locale;
 
+import helpers.SessionManager;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SessionManager sessionManager;
+    private final AppCompatActivity activity = MainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sessionManager = new SessionManager(activity);
+        sessionManager.checkLogin();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,8 +62,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        sessionManager.checkLogin();
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        sessionManager.checkLogin();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -84,6 +99,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -116,7 +132,8 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_profile) {
         }
         else if (id == R.id.nav_out) {
-            startActivity(new Intent(MainActivity.this,splash.class));
+            sessionManager.logoutUser();
+            //startActivity(new Intent(MainActivity.this,splash.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
