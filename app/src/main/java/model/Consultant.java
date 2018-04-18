@@ -4,7 +4,6 @@ import android.media.Rating;
 
 public class Consultant {
     private Integer id;
-    private String name;
     private String email;
     private String password;
     private ConsultantInfo info;
@@ -15,14 +14,6 @@ public class Consultant {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {

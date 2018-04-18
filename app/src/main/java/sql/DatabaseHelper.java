@@ -34,13 +34,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_USER_EMAIL = "user_email";
     private static final String COLUMN_USER_PASSWORD = "user_password";
-    private static final String COLUMN_USER_DISPLAYNAME = "user_displayName";
 
     //Info table name
     private static final String TABLE_INFO = "info";
 
     //Info Table Column names
     private static final String COLUMN_INFO_ID = "info_id";
+    private static final String COLUMN_INFO_DISPLAYNAME = "info_displayName";
     private static final String COLUMN_INFO_OCCUPATION = "info_occupation";
     private static final String COLUMN_INFO_MENDICALCONDITION = "info_medicalCondition";
     private static final String COLUMN_INFO_BIRTHDATE = "info_birthdate";
@@ -54,13 +54,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CONSULTANT_ID = "consultant_id";
     private static final String COLUMN_CONSULTANT_EMAIL = "consultant_email";
     private static final String COLUMN_CONSULTANT_PASSWORD = "consultant_password";
-    private static final String COLUMN_CONSULTANT_NAME = "consultant_name";
 
     //Consultant Info Table Name
     private static  final String TABLE_CONINFO = "consultantInfo";
 
     //Consultant Info column names
     private static final String COLUMN_CONINFO_ID = "conInfo_id";
+    private static final String COLUMN_CONINFO_NAME = "conInfo_name";
     private static final String COLUMN_CONINFO_EXPERTISE = "conInfo_expertise";
     private static final String COLUMN_CONINFO_BIRTHDATE = "conInfo_birthdate";
     private static final String COLUMN_CONINFO_GENDER = "conInfo_gender";
@@ -69,23 +69,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // create user table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
-            " TEXT, " + COLUMN_USER_PASSWORD + " TEXT, " + COLUMN_USER_DISPLAYNAME + " TEXT " + " )";
+            " TEXT, " + COLUMN_USER_PASSWORD + " TEXT )";
 
     //create info table sql query
     private String CREATE_INFO_TABLE = "CREATE TABLE " + TABLE_INFO + "(" + COLUMN_INFO_ID +
-            " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_INFO_OCCUPATION + " TEXT, " +
-            COLUMN_INFO_MENDICALCONDITION + " TEXT, " + COLUMN_INFO_BIRTHDATE + " DATE, " +
-            COLUMN_INFO_GENDER + " TEXT, " + COLUMN_INFO_USERID + " INTEGER" + ")";
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_INFO_DISPLAYNAME + " TEXT, "
+            + COLUMN_INFO_OCCUPATION + " TEXT, " + COLUMN_INFO_MENDICALCONDITION + " TEXT, " +
+            COLUMN_INFO_BIRTHDATE + " DATE, " + COLUMN_INFO_GENDER + " TEXT, " +
+            COLUMN_INFO_USERID + " INTEGER" + ")";
 
     //create consultant table sql query
     private String CREATE_CONSULTANT_TABLE = "CREATE TABLE " + TABLE_CONSULTANT + "(" +
             COLUMN_CONSULTANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CONSULTANT_EMAIL
-            + " TEXT, " + COLUMN_CONSULTANT_PASSWORD + " TEXT, " + COLUMN_CONSULTANT_NAME +
-            " TEXT " + ")";
+            + " TEXT, " + COLUMN_CONSULTANT_PASSWORD + " TEXT " + ")";
 
     //create consultant info table sql query
     private String CREATE_CONINFO_TABLE = "CREATE TABLE " + TABLE_CONINFO + "(" +
-            COLUMN_CONINFO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CONINFO_EXPERTISE +
+            COLUMN_CONINFO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CONINFO_NAME +
+            " TEXT, " + COLUMN_CONINFO_EXPERTISE +
             " TEXT, " + COLUMN_CONINFO_BIRTHDATE + " DATE, " + COLUMN_CONINFO_GENDER + " TEXT, " +
             COLUMN_CONINFO_CONID + " INTEGER" + ")";
 
@@ -144,7 +145,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_EMAIL, user.getEmail());
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
-        values.put(COLUMN_USER_DISPLAYNAME, user.getDisplayName());
 
         // Inserting Row
         db.insert(TABLE_USER, null, values);
@@ -159,6 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(COLUMN_INFO_DISPLAYNAME, info.getDisplayName());
         values.put(COLUMN_INFO_OCCUPATION, info.getOccupation());
         values.put(COLUMN_INFO_MENDICALCONDITION, info.getMedicalCondition());
         values.put(COLUMN_INFO_BIRTHDATE, info.getBirthdate());
@@ -175,7 +176,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_CONSULTANT_EMAIL, consultant.getEmail());
         values.put(COLUMN_CONSULTANT_PASSWORD, consultant.getPassword());
-        values.put(COLUMN_CONSULTANT_NAME, consultant.getName());
 
         db.insert(TABLE_CONSULTANT, null, values);
         db.close();
@@ -185,6 +185,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(COLUMN_CONINFO_NAME, consultantInfo.getName());
         values.put(COLUMN_CONINFO_EXPERTISE, consultantInfo.getExpertise());
         values.put(COLUMN_CONINFO_BIRTHDATE, consultantInfo.getBirthdate());
         values.put(COLUMN_CONINFO_GENDER, consultantInfo.getGender());
@@ -204,8 +205,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = {
                 COLUMN_USER_ID,
                 COLUMN_USER_EMAIL,
-                COLUMN_USER_PASSWORD,
-                COLUMN_USER_DISPLAYNAME
+                COLUMN_USER_PASSWORD
         };
         // sorting orders
         String sortOrder =
@@ -236,7 +236,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 user.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
                 user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
-                user.setDisplayName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_DISPLAYNAME)));
                 // Adding user record to list
                 userList.add(user);
             } while (cursor.moveToNext());
@@ -253,8 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = {
                 COLUMN_USER_ID,
                 COLUMN_USER_EMAIL,
-                COLUMN_USER_PASSWORD,
-                COLUMN_USER_DISPLAYNAME
+                COLUMN_USER_PASSWORD
         };
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COLUMN_USER_EMAIL + " = ?";
@@ -278,7 +276,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         user.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
         user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
         user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
-        user.setDisplayName(cursor.getString(cursor.getColumnIndex(COLUMN_USER_DISPLAYNAME)));
         cursor.close();
         db.close();
 
@@ -289,8 +286,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = {
                 COLUMN_CONSULTANT_ID,
                 COLUMN_CONSULTANT_EMAIL,
-                COLUMN_CONSULTANT_PASSWORD,
-                COLUMN_CONSULTANT_NAME
+                COLUMN_CONSULTANT_PASSWORD
         };
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COLUMN_CONSULTANT_EMAIL + " = ?";
@@ -314,7 +310,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         consultant.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_CONSULTANT_ID)));
         consultant.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_CONSULTANT_EMAIL)));
         consultant.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_CONSULTANT_PASSWORD)));
-        consultant.setName(cursor.getString(cursor.getColumnIndex(COLUMN_CONSULTANT_NAME)));
         cursor.close();
         db.close();
 
@@ -331,7 +326,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_EMAIL, user.getEmail());
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
-        values.put(COLUMN_USER_DISPLAYNAME, user.getDisplayName());
 
         // updating row
         db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?",

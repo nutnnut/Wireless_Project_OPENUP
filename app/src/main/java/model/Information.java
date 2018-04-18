@@ -6,6 +6,8 @@ public class Information {
 
     private Integer id;
     private Integer userID;
+
+    private String displayName;
     private String gender;
     private String birthdate;
     private String occupation;
@@ -57,6 +59,14 @@ public class Information {
 
     public void setMedicalCondition(String medicalCondition) {
         this.medicalCondition = medicalCondition;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.icu.util.Calendar;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 
 import java.text.ParseException;
 
+import helpers.InputValidation;
 import helpers.SessionManager;
 import model.Information;
 import sql.DatabaseHelper;
@@ -31,6 +33,8 @@ public class InfoRegisActivity extends AppCompatActivity{
     private AppCompatButton appCompatButtonSkipInfo;
 
 
+    private TextInputLayout textInputLayoutName;
+    private TextInputEditText textInputEditTextName;
     private static TextInputEditText DateEdit;
     private Spinner spinnerOccupation;
     private Spinner spinnerMedicalCondition;
@@ -39,6 +43,7 @@ public class InfoRegisActivity extends AppCompatActivity{
     private Information information;
     private DatabaseHelper databaseHelper;
     private SessionManager sessionManager;
+    private InputValidation inputValidation;
 
 
     @Override
@@ -51,6 +56,8 @@ public class InfoRegisActivity extends AppCompatActivity{
     }
 
     private void initViews(){
+        textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutName);
+        textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextName);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         appCompatButtonSaveInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSaveInfo);
         appCompatButtonSkipInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSkipInfo);
@@ -92,6 +99,7 @@ public class InfoRegisActivity extends AppCompatActivity{
         information = new Information();
         databaseHelper = new DatabaseHelper(activity);
         sessionManager = new SessionManager(activity);
+        inputValidation = new InputValidation(activity);
     }
 
 
@@ -122,6 +130,10 @@ public class InfoRegisActivity extends AppCompatActivity{
     }
 
     public void postDataToSQLite() throws ParseException {
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_invalid_name))) {
+            return;
+        }
+        information.setDisplayName(textInputEditTextName.getText().toString().trim());
         information.setOccupation(spinnerOccupation.getSelectedItem().toString());
         information.setMedicalCondition(spinnerMedicalCondition.getSelectedItem().toString());
         information.setBirthdate(DateEdit.getText().toString());

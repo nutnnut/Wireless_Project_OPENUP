@@ -7,18 +7,10 @@ package model;
 public class ConsultantInfo {
     private Integer conInfoID;
     private Integer consultantID;
+    private String name;
     private String gender;
     private String birthdate;
     private String expertise;
-    private ConsultantRating rating;
-
-    public ConsultantRating getRating() {
-        return rating;
-    }
-
-    public void setRating(ConsultantRating rating) {
-        this.rating = rating;
-    }
 
     public Integer getConInfoID() {
         return conInfoID;
@@ -26,6 +18,14 @@ public class ConsultantInfo {
 
     public void setConInfoID(Integer conInfoID) {
         this.conInfoID = conInfoID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getConsultantID() {

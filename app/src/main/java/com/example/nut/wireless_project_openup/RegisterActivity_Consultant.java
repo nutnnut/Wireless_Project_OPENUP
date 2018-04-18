@@ -23,12 +23,10 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
     private NestedScrollView nestedScrollView;
 
-    private TextInputLayout textInputLayoutName;
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
     private TextInputLayout textInputLayoutConfirmPassword;
 
-    private TextInputEditText textInputEditTextName;
     private TextInputEditText textInputEditTextEmail;
     private TextInputEditText textInputEditTextPassword;
     private TextInputEditText textInputEditTextConfirmPassword;
@@ -57,12 +55,10 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
     private void initViews() {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollViewConsultant);
 
-        textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutNameConsultant);
         textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmailConsultant);
         textInputLayoutPassword = (TextInputLayout) findViewById(R.id.textInputLayoutPasswordConsultant);
         textInputLayoutConfirmPassword = (TextInputLayout) findViewById(R.id.textInputLayoutConfirmPasswordConsultant);
 
-        textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextNameConsultant);
         textInputEditTextEmail = (TextInputEditText) findViewById(R.id.textInputEditTextEmailConsultant);
         textInputEditTextPassword = (TextInputEditText) findViewById(R.id.textInputEditTextPasswordConsultant);
         textInputEditTextConfirmPassword = (TextInputEditText) findViewById(R.id.textInputEditTextConfirmPasswordConsultant);
@@ -99,9 +95,7 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
     }
 
     private void postDataToSQLite() {
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_invalid_name))) {
-            return;
-        }
+
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
             return;
         }
@@ -118,7 +112,6 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
         if (!databaseHelper.checkConsultant(textInputEditTextEmail.getText().toString().trim())) {
 
-            consultant.setName(textInputEditTextName.getText().toString().trim());
             consultant.setEmail(textInputEditTextEmail.getText().toString().trim());
             consultant.setPassword(textInputEditTextPassword.getText().toString().trim());
             databaseHelper.addConsultant(consultant);
@@ -140,7 +133,6 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
     }
     private void emptyInputEditText() {
-        textInputEditTextName.setText(null);
         textInputEditTextEmail.setText(null);
         textInputEditTextPassword.setText(null);
         textInputEditTextConfirmPassword.setText(null);
