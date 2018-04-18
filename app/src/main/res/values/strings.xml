@@ -58,6 +58,13 @@
 
     <string name="title_activity_nearby_clinics">Map</string>
 
+    <string name="title_filter">Filter</string>
+    <string name="card_name">Name</string>
+    <string name="card_gender">Gender</string>
+    <string name="card_age">Age</string>
+    <string name="card_expertise">Expertise</string>
+
+
     <string-array name="place_type">
         <item>doctor</item>
         <item>hospital</item>
