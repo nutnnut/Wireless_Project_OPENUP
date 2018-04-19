@@ -26,6 +26,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/Consult1"
                         android:layout_width="172dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="left"
