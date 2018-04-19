@@ -41,7 +41,7 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
     public void onBindViewHolder(ConsultantViewHolder holder, int position) {
         holder.textViewName.setText(list.get(position).getName());
         holder.textViewGender.setText(list.get(position).getGender());
-        holder.textViewAge.setText(list.get(position).getBirthdate());
+        holder.textViewAge.setText(list.get(position).getAge().toString());
         holder.textViewExpertise.setText(list.get(position).getExpertise());
     }
 

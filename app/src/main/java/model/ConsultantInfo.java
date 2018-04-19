@@ -1,5 +1,11 @@
 package model;
 
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+
+import java.text.ParseException;
+import java.util.Date;
+
 /**
  * Created by BAMBOOK on 4/15/2018.
  */
@@ -10,6 +16,7 @@ public class ConsultantInfo {
     private String name;
     private String gender;
     private String birthdate;
+    private Integer age;
     private String expertise;
 
     public Integer getConInfoID() {
@@ -50,6 +57,25 @@ public class ConsultantInfo {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+
+        try {
+            Calendar currentDate = Calendar.getInstance();
+            int year = currentDate.get(Calendar.YEAR);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+            Calendar birthDate = Calendar.getInstance();
+            birthDate.setTime(dateFormat.parse(birthdate));
+            int birthYear = birthDate.get(Calendar.YEAR);
+            this.age = year - birthYear;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public Integer getAge() {
+        return age;
     }
 
     public String getExpertise() {
