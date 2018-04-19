@@ -84,7 +84,8 @@
         <activity
             android:name=".VideoCall"
             android:theme="@style/AppThemeDark" />
-        <activity android:name=".ConsultantListActivity"></activity>
+        <activity android:name=".ConsultantListActivity" />
+        <activity android:name=".EditProfileActivity"></activity>
     </application>
 
 </manifest>
