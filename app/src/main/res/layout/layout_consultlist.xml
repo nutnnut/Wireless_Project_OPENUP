@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_filter"
                 android:textAlignment="viewStart"
+                android:textColor="#111111"
                 android:textSize="20sp" />
             ฃ
 

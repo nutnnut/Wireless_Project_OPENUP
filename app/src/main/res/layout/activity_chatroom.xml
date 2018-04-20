@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Chatroom"
     android:padding="16dp"
+    android:background="#ffffff"
     >
 
     <android.support.design.widget.FloatingActionButton

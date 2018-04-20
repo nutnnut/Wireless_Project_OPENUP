@@ -16,8 +16,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="23dp"
+        android:background="@drawable/mainbutton"
         android:onClick="EndCall"
-        android:text="End Call" />
+        android:text="End Call"
+        android:textColor="#ffffff" />
 
     <FrameLayout
         android:layout_width="match_parent"
