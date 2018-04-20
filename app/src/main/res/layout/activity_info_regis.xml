@@ -91,35 +91,35 @@
                 android:entries="@array/gender_list">
             </Spinner>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/appCompatButtonSkipInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/mainbutton"
-                    android:text="@string/action_skip_info"
-                    android:textColor="#ffffff" />
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/appCompatButtonSaveInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/mainbutton"
-                    android:backgroundTint="#0E699C"
-                    android:text="@string/action_save_info"
-                    android:textColor="#ffffff" />
-
-            </LinearLayout>
-
         </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/appCompatButtonSkipInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/mainbutton"
+                android:text="@string/action_skip_info"
+                android:textColor="#ffffff" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/appCompatButtonSaveInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/mainbutton"
+                android:backgroundTint="#0E699C"
+                android:text="@string/action_save_info"
+                android:textColor="#ffffff" />
+
+        </LinearLayout>
 
 
     </android.support.v7.widget.LinearLayoutCompat>
