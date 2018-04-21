@@ -41,7 +41,7 @@ public class ConsultantListActivity extends AppCompatActivity {
      */
     private void initViews() {
         textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
-        recyclerViewConsultant = (RecyclerView) findViewById(R.id.recyclerViewConsultant);
+        recyclerViewConsultant = (RecyclerView) findViewById(R.id.recyclerViewConsultant2);
     }
 
     /**
