@@ -5,68 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tgl"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="15 Apr 2018" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tgl"
-        android:gravity="left">
-
-        <ImageView
-            android:id="@+id/consultant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp"
-            android:background="@mipmap/ic_launcher" />
+        android:layout_margin="17dp"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/receiveusername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="name" />
+
+        <ImageView
+            android:id="@+id/receivepic"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_launcher" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/receivetext"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="80dp"
+            android:layout_weight="1"
             android:background="@drawable/senderchatbox"
-            android:text="5555"
+            android:text="55555555555555555555555555555555555555555555"
             android:textColor="@android:color/black" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="131dp"
-        android:gravity="right">
-
-        <ImageView
-            android:id="@+id/consultant2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="18dp"
-            android:background="@mipmap/ic_launcher" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/timesent"
+            android:layout_width="77dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="102dp"
-            android:background="@drawable/mainbutton"
-            android:text="5555"
-            android:textColor="@android:color/white" />
-    </RelativeLayout>
+            android:layout_alignParentStart="false"
+            android:layout_gravity="bottom|left"
+            android:layout_weight="1"
+            android:text="18:00" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>
