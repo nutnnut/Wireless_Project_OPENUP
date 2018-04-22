@@ -21,7 +21,6 @@ public class Fragment_Consult extends Fragment {
 
         consult1 = (CardView) myView.findViewById(R.id.Consult1);
         consult1.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
                 FragmentManager fragmentManager = getFragmentManager();
