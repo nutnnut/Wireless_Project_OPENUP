@@ -1,17 +1,21 @@
-package com.example.nut.wireless_project_openup;
+package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Chatmessage
 {
     private String messageText;
     private String messageUser;
-    private long messageTime;
+    private String messageTime;
 
     public Chatmessage(String messageText,String messageUser){
         this.messageText=messageText;
         this.messageUser=messageUser;
-        messageTime=new Date().getTime();
+        Long date=new Date().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        messageTime =dateFormat.format(date);
     }
 
     public Chatmessage(){
@@ -25,7 +29,7 @@ public class Chatmessage
         return messageUser;
     }
 
-    public long getMessageTime() {
+    public String getMessageTime() {
         return messageTime;
     }
 
@@ -37,7 +41,7 @@ public class Chatmessage
         this.messageUser = messageUser;
     }
 
-    public void setMessageTime(long messageTime) {
+    public void setMessageTime(String messageTime) {
         this.messageTime = messageTime;
     }
 }

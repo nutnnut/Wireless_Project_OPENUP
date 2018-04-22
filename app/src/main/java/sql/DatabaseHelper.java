@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import helpers.SessionManager;
+import model.Chatmessage;
 import model.Consultant;
 import model.ConsultantInfo;
 import model.Information;
@@ -524,4 +525,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+    public Collection<? extends Chatmessage> getMessage(User u) {
+        return u.getChat();
+    }
 }
