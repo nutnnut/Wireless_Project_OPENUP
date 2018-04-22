@@ -6,9 +6,9 @@
     android:layout_gravity="end">
 
     <LinearLayout
+        android:id="@+id/recreiver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/null"
         android:layout_alignParentEnd="true"
         android:layout_gravity="end"
         android:layout_margin="17dp"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/timesent"
-            android:layout_width="77dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="false"
             android:layout_gravity="bottom|left"
@@ -57,7 +57,8 @@
             android:layout_weight="1"
             android:background="@drawable/receiverchatbox"
             android:text="55555555555555555555555555555555555555555555"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content" />
 
     </LinearLayout>
 
