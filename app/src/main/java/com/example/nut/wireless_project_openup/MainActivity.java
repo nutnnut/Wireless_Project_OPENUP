@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_profile) {
+            startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
         }
         else if (id == R.id.nav_out) {
             sessionManager.logoutUser();

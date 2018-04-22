@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_INFO_ID = "info_id";
     private static final String COLUMN_INFO_DISPLAYNAME = "info_displayName";
     private static final String COLUMN_INFO_OCCUPATION = "info_occupation";
-    private static final String COLUMN_INFO_MENDICALCONDITION = "info_medicalCondition";
+    private static final String COLUMN_INFO_MEDICALCONDITION = "info_medicalCondition";
     private static final String COLUMN_INFO_BIRTHDATE = "info_birthdate";
     private static final String COLUMN_INFO_GENDER = "info_gender";
     private static final String COLUMN_INFO_USERID = "info_userid";
@@ -74,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //create info table sql query
     private String CREATE_INFO_TABLE = "CREATE TABLE " + TABLE_INFO + "(" + COLUMN_INFO_ID +
             " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_INFO_DISPLAYNAME + " TEXT, "
-            + COLUMN_INFO_OCCUPATION + " TEXT, " + COLUMN_INFO_MENDICALCONDITION + " TEXT, " +
+            + COLUMN_INFO_OCCUPATION + " TEXT, " + COLUMN_INFO_MEDICALCONDITION + " TEXT, " +
             COLUMN_INFO_BIRTHDATE + " DATE, " + COLUMN_INFO_GENDER + " TEXT, " +
             COLUMN_INFO_USERID + " INTEGER" + ")";
 
@@ -161,7 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_INFO_DISPLAYNAME, info.getDisplayName());
         values.put(COLUMN_INFO_OCCUPATION, info.getOccupation());
-        values.put(COLUMN_INFO_MENDICALCONDITION, info.getMedicalCondition());
+        values.put(COLUMN_INFO_MEDICALCONDITION, info.getMedicalCondition());
         values.put(COLUMN_INFO_BIRTHDATE, info.getBirthdate());
         values.put(COLUMN_INFO_GENDER, info.getGender());
         values.put(COLUMN_INFO_USERID, info.getUserID());
@@ -280,6 +280,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return user;
+    }
+
+    public Information getInfo(Integer userID){
+        String[] columns = {
+                COLUMN_INFO_ID,
+                COLUMN_INFO_USERID,
+                COLUMN_INFO_DISPLAYNAME,
+                COLUMN_INFO_OCCUPATION,
+                COLUMN_INFO_MEDICALCONDITION,
+                COLUMN_INFO_BIRTHDATE,
+                COLUMN_INFO_GENDER
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_INFO_USERID + " = ?";
+        String[] selectionArgs = {userID.toString()};
+
+        // query user table with condition
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
+         */
+        Cursor cursor = db.query(TABLE_INFO, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        Information information = new Information();
+        cursor.moveToFirst();
+        information.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_INFO_ID)));
+        information.setUserID(cursor.getInt(cursor.getColumnIndex(COLUMN_INFO_USERID)));
+        information.setDisplayName(cursor.getString(cursor.getColumnIndex(COLUMN_INFO_DISPLAYNAME)));
+        information.setOccupation(cursor.getString(cursor.getColumnIndex(COLUMN_INFO_OCCUPATION)));
+        information.setMedicalCondition(cursor.getString(cursor.getColumnIndex(COLUMN_INFO_MEDICALCONDITION)));
+        information.setBirthdate(cursor.getString(cursor.getColumnIndex(COLUMN_INFO_BIRTHDATE)));
+        information.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_INFO_GENDER)));
+        cursor.close();
+        db.close();
+
+        return information;
     }
 
     public Consultant getConsultant(String email){
