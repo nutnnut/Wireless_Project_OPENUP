@@ -3,6 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="20dp"
     card_view:cardCornerRadius="4dp">
 
 
@@ -33,21 +34,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:text="@string/card_age" />
+                        android:text="@string/card_name" />
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/textViewAge"
+                        android:id="@+id/textViewName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/card_age"
+                        android:text="@string/card_name"
                         android:textColor="@android:color/darker_gray" />
                 </LinearLayout>
 
@@ -82,6 +82,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:text="@string/card_age" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/textViewAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/card_age"
+                        android:textColor="@android:color/darker_gray" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:text="@string/card_expertise" />
 
                     <android.support.v7.widget.AppCompatTextView
@@ -93,25 +114,6 @@
                         android:textColor="@android:color/darker_gray" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="@string/card_name" />
-
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/textViewName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/card_name"
-                        android:textColor="@android:color/darker_gray" />
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
