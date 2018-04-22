@@ -376,6 +376,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateInfo(Information info){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_INFO_DISPLAYNAME, info.getDisplayName());
+        values.put(COLUMN_INFO_OCCUPATION, info.getOccupation());
+        values.put(COLUMN_INFO_MEDICALCONDITION, info.getMedicalCondition());
+        values.put(COLUMN_INFO_BIRTHDATE, info.getBirthdate());
+        values.put(COLUMN_INFO_GENDER, info.getGender());
+        values.put(COLUMN_INFO_USERID, info.getUserID());
+
+        db.update(TABLE_INFO, values, COLUMN_INFO_USERID + " = ?",
+                new String[]{String.valueOf(info.getUserID())});
+        db.close();
+    }
+
     public List<ConsultantInfo> getAllConsultantInfo(){
         // array of columns to fetch
         String[] columns = {

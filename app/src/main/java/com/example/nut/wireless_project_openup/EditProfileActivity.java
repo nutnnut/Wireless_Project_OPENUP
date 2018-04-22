@@ -73,15 +73,15 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initObjects(){
-        information = new Information();
         databaseHelper = new DatabaseHelper(activity);
         sessionManager = new SessionManager(activity);
         inputValidation = new InputValidation(activity);
+        Integer userID = sessionManager.getUserID();
+        information = databaseHelper.getInfo(userID);
     }
 
     private void initInfo(){
         Integer userID = sessionManager.getUserID();
-        information = databaseHelper.getInfo(userID);
 
         textInputEditTextName.setText(information.getDisplayName());
 
@@ -104,7 +104,8 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.appCompatButtonSaveInfoConsultant:
+            case R.id.buttonUpdate:
+                updateInfoSQL();
                 break;
 
             case R.id.textInputEditTextDateEdit:
@@ -137,6 +138,16 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             // Do something with the date chosen by the user
             DateEdit.setText(day + "/" + (month + 1) + "/" + year);
         }
+    }
+
+    private void updateInfoSQL(){
+        information.setDisplayName(textInputEditTextName.getText().toString().trim());
+        information.setOccupation(spinnerOccupation.getSelectedItem().toString());
+        information.setMedicalCondition(spinnerMedicalCondition.getSelectedItem().toString());
+        information.setBirthdate(DateEdit.getText().toString());
+        information.setGender(spinnerGender.getSelectedItem().toString());
+        information.setUserID(sessionManager.getUserID());
+        databaseHelper.updateInfo(information);
     }
 
 
