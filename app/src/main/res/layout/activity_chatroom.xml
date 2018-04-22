@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Chatroom"
-    android:padding="16dp"
     android:background="#ffffff"
-    >
+    android:padding="16dp"
+    tools:context=".Chatroom">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/chatroomsend"
@@ -27,13 +27,13 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/chatroomsend"
         android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@id/chatroomsend" >
+        android:layout_toLeftOf="@id/chatroomsend">
 
         <EditText
+            android:id="@+id/input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type here"
-            android:id="@+id/input"/>
+            android:hint="Type here" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -48,7 +48,6 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:stackFromBottom="true"
-        android:transcriptMode="alwaysScroll">
-    </ListView>
+        android:transcriptMode="alwaysScroll"></ListView>
 
 </RelativeLayout>
