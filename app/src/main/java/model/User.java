@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Collection;
+
 /**
  * Created by BAMBOOK on 4/6/2018.
  */
@@ -10,6 +12,7 @@ public class User {
     private String email;
     private String password;
     private Information info;
+    private Collection<Chatmessage> Chat;
 
     public Integer getID() {
         return ID;
@@ -43,4 +46,7 @@ public class User {
         this.info = info;
     }
 
+    public Collection<? extends Chatmessage> getChat() {
+        return Chat;
+    }
 }
