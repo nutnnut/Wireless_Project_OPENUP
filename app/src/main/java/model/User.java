@@ -46,7 +46,14 @@ public class User {
         this.info = info;
     }
 
-    public Collection<? extends Chatmessage> getChat() {
-        return Chat;
+    public Collection<? extends Chatmessage> getChat(Consultant c) {
+        Collection<Chatmessage> chatwithconsultant=null;
+        for (Chatmessage e: Chat)
+        {
+            if(e.getConsultantID().equals(c.getId())){
+                chatwithconsultant.add(e);
+            }
+        }
+        return chatwithconsultant;
     }
 }
