@@ -65,6 +65,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/Consult2"
                         android:layout_width="175dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
@@ -112,6 +113,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/Consult3"
                         android:layout_width="172dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="left"
@@ -149,6 +151,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/Consult4"
                         android:layout_width="175dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
@@ -196,6 +199,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/Consult5"
                         android:layout_width="172dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical|center"
