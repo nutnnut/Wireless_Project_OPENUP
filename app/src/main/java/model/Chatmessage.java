@@ -9,31 +9,18 @@ public class Chatmessage
     private String messageText;
     private Integer UserID;
     private Integer ConsultantID;
-    private Boolean send;
+    private Boolean sender;
     private String messageTime;
     private Boolean isread;
 
-    public Chatmessage(String messageText,Integer User,Integer Consultant,Integer sender){
+    public Chatmessage(String messageText,Integer User,Integer Consultant,Boolean sender){
         this.messageText=messageText;
         this.UserID=User;
         this.ConsultantID=Consultant;
         Long date=new Date().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         messageTime =dateFormat.format(date);
-
-        if(User.equals(sender))
-        {
-            this.isread=true;
-            this.send=true;
-        }
-        else if(Consultant.equals(sender)){
-            this.isread=true;
-            this.send=true;
-        }
-        else {
-            this.isread=false;
-            this.send=false;
-        }
+        this.sender = sender;
     }
 
     public Chatmessage(){
@@ -55,13 +42,14 @@ public class Chatmessage
         return messageTime;
     }
 
+    public Boolean getSender(){
+        return this.sender;
+    }
+
     public Boolean IsRead() {
         return isread;
     }
 
-    public Boolean IsSend() {
-        return send;
-    }
 
     public void setMessageText(String messageText) {
         this.messageText = messageText;
@@ -83,8 +71,8 @@ public class Chatmessage
         this.isread = isread;
     }
 
-    public void setSend(Boolean send) {
-        this.send = send;
+    public void setSender(Boolean sender) {
+        this.sender = sender;
     }
     
 }

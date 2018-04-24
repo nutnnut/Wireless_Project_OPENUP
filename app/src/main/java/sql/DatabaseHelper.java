@@ -67,6 +67,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CONINFO_GENDER = "conInfo_gender";
     private static final String COLUMN_CONINFO_CONID = "conInfo_conID";
 
+    //Chat message table name
+    private static final String TABLE_CHAT = "chat";
+
+    //Chat message column names
+    private static final String COLUMN_CHAT_ID = "chat_id";
+    private static final String COLUMN_CHAT_USERID = "chat_userID";
+    private static final String COLUMN_CHAT_CONID = "chat_conID";
+    private static final String COLUMN_CHAT_MESSAGETEXT = "chat_messageText";
+    private static final String COLUMN_CHAT_TIME = "chat_time";
+    private static final String COLUMN_CHAT_SENDER = "chat_sender";
+    private static final String COLUMN_CHAT_READ = "chat_read";
+
     // create user table sql query
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_USER_EMAIL +
@@ -91,6 +103,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             " TEXT, " + COLUMN_CONINFO_BIRTHDATE + " DATE, " + COLUMN_CONINFO_GENDER + " TEXT, " +
             COLUMN_CONINFO_CONID + " INTEGER" + ")";
 
+    //create chat table sql query
+    private String CREATE_CHAT_TABLE = "CREATE TABLE " + TABLE_CHAT + "(" + COLUMN_CHAT_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_CHAT_USERID + " INTEGER, " +
+            COLUMN_CHAT_CONID + " INTEGER, " + COLUMN_CHAT_MESSAGETEXT + " TEXT, " + COLUMN_CHAT_TIME
+            + " TEXT, " + COLUMN_CHAT_SENDER + " INTEGER, " + COLUMN_CHAT_READ + " INTEGER" + ")";
+
     // drop user table sql query
     private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
 
@@ -102,6 +120,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //drop consultant info table sql query
     private String DROP_CONINFO_TABLE = "DROP TABLE IF EXISTS " + TABLE_CONINFO;
+
+    //drop chat table sql query
+    private String DROP_CHAT_TABLE = "DROP TABLE IF EXISTS " + TABLE_CHAT;
 
     /**
      * Constructor
@@ -118,6 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_INFO_TABLE);
         db.execSQL(CREATE_CONSULTANT_TABLE);
         db.execSQL(CREATE_CONINFO_TABLE);
+        db.execSQL(CREATE_CHAT_TABLE);
     }
 
 
@@ -129,6 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(DROP_INFO_TABLE);
         db.execSQL(DROP_CONSULTANT_TABLE);
         db.execSQL(DROP_CONINFO_TABLE);
+        db.execSQL(DROP_CHAT_TABLE);
 
         // Create tables again
         onCreate(db);
@@ -193,6 +216,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_CONINFO_CONID, consultantInfo.getConsultantID());
 
         db.insert(TABLE_CONINFO, null, values);
+        db.close();
+    }
+
+    public void addChatMessage(Chatmessage chatmessage){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_CHAT_USERID, chatmessage.getUserID());
+        values.put(COLUMN_CHAT_CONID, chatmessage.getConsultantID());
+        values.put(COLUMN_CHAT_MESSAGETEXT, chatmessage.getMessageText());
+        values.put(COLUMN_CHAT_TIME, chatmessage.getMessageTime());
+        if(chatmessage.getSender()){
+            values.put(COLUMN_CHAT_SENDER, 1);
+        }
+        else{
+            values.put(COLUMN_CHAT_SENDER, 0);
+        }
+        values.put(COLUMN_CHAT_READ, 0);
+
+        db.insert(TABLE_CHAT, null, values);
         db.close();
     }
 
@@ -358,6 +400,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return consultant;
     }
+
     /**
      * This method to update user record
      *
@@ -443,6 +486,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // return user list
         return consultantInfoList;
+    }
+
+    public List<Chatmessage> getAllChatmessage(Integer userID, Integer consultantID){
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_CHAT_ID,
+                COLUMN_CHAT_USERID,
+                COLUMN_CHAT_CONID,
+                COLUMN_CHAT_MESSAGETEXT,
+                COLUMN_CHAT_TIME,
+                COLUMN_CHAT_SENDER,
+                COLUMN_CHAT_READ
+        };
+        // sorting orders
+        String sortOrder =
+                COLUMN_CHAT_TIME + " ASC";
+
+        String selection = COLUMN_CHAT_USERID + " = ?" + " AND " + COLUMN_CHAT_CONID + " = ?";
+
+        String[] selectionArgs = {userID.toString(), consultantID.toString()};
+
+        List<Chatmessage> chatmessageList = new ArrayList<Chatmessage>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_CHAT, //Table to query
+                columns,    //columns to return
+                selection,        //columns for the WHERE clause
+                selectionArgs,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Chatmessage chatmessage = new Chatmessage();
+                chatmessage.setUserID(cursor.getInt(cursor.getColumnIndex(COLUMN_INFO_USERID)));
+                chatmessage.setConsultantID(cursor.getInt(cursor.getColumnIndex(COLUMN_CHAT_CONID)));
+                chatmessage.setMessageText(cursor.getString(cursor.getColumnIndex(COLUMN_CHAT_MESSAGETEXT)));
+                chatmessage.setMessageTime(cursor.getString(cursor.getColumnIndex(COLUMN_CHAT_TIME)));
+                chatmessage.setSender(cursor.getInt(cursor.getColumnIndex(COLUMN_CHAT_SENDER)) == 1);
+                chatmessage.setIsread(cursor.getInt(cursor.getColumnIndex(COLUMN_CHAT_READ)) == 1);
+                chatmessageList.add(chatmessage);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return chatmessageList;
     }
 
     /**
@@ -583,7 +684,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+
+
     public Collection<? extends Chatmessage> getMessage(User u,Consultant c) {
         return u.getChat(c);
     }
+
 }
