@@ -30,43 +30,86 @@ public class Fragment_Consult extends Fragment {
         consult4 = (CardView) myView.findViewById(R.id.Consult4);
         consult5 = (CardView) myView.findViewById(R.id.Consult5);
 
-        final Intent listIntent = new Intent(getActivity().getBaseContext(), ConsultantListActivity.class);
+        final Intent listIntent = new Intent(getActivity(), ConsultantListActivity.class);
 
         final Bundle bundle = new Bundle();
+
         consult1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                /*FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_ConsultList(), "ConsultList").commit();*/
-                switch(v.getId()){
-                    case R.id.Consult1:
-                        bundle.putString("expertise", "Love");
-                        listIntent.putExtras(bundle);
-                        getActivity().startActivity(listIntent);
-                        break;
-                    case R.id.Consult2:
-                        bundle.putString("expertise", "Family");
-                        listIntent.putExtras(bundle);
-                        getActivity().startActivity(listIntent);
-                        break;
-                    case R.id.Consult3:
-                        bundle.putString("expertise", "Work");
-                        listIntent.putExtras(bundle);
-                        getActivity().startActivity(listIntent);
-                        break;
-                    case R.id.Consult4:
-                        bundle.putString("expertise", "School");
-                        listIntent.putExtras(bundle);
-                        getActivity().startActivity(listIntent);
-                        break;
-                    case R.id.Consult5:
-                        bundle.putString("expertise", "All");
-                        listIntent.putExtras(bundle);
-                        getActivity().startActivity(listIntent);
-                        break;
-                }
+            public void onClick(View arg0) {
+                bundle.putString("expertise", "Love");
+                listIntent.putExtras(bundle);
+                startActivity(listIntent);
             }
         });
+        consult2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                bundle.putString("expertise", "Family");
+                listIntent.putExtras(bundle);
+                startActivity(listIntent);
+            }
+        });
+        consult3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                bundle.putString("expertise", "Work");
+                listIntent.putExtras(bundle);
+                startActivity(listIntent);
+            }
+        });
+        consult4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                bundle.putString("expertise", "School");
+                listIntent.putExtras(bundle);
+                startActivity(listIntent);
+            }
+        });
+        consult5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                bundle.putString("expertise", "All");
+                listIntent.putExtras(bundle);
+                startActivity(listIntent);
+            }
+        });
+
+//        consult1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                /*FragmentManager fragmentManager = getFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_ConsultList(), "ConsultList").commit();*/
+//                switch(v.getId()){
+//                    case R.id.Consult1:
+//                        bundle.putString("expertise", "Love");
+//                        listIntent.putExtras(bundle);
+//                        getActivity().startActivity(listIntent);
+//                        break;
+//                    case R.id.Consult2:
+//                        bundle.putString("expertise", "Family");
+//                        listIntent.putExtras(bundle);
+//                        getActivity().startActivity(listIntent);
+//                        break;
+//                    case R.id.Consult3:
+//                        bundle.putString("expertise", "Work");
+//                        listIntent.putExtras(bundle);
+//                        getActivity().startActivity(listIntent);
+//                        break;
+//                    case R.id.Consult4:
+//                        bundle.putString("expertise", "School");
+//                        listIntent.putExtras(bundle);
+//                        getActivity().startActivity(listIntent);
+//                        break;
+//                    case R.id.Consult5:
+//                        bundle.putString("expertise", "All");
+//                        listIntent.putExtras(bundle);
+//                        getActivity().startActivity(listIntent);
+//                        break;
+//                }
+//            }
+//        });
+
         return myView;
     }
 }
