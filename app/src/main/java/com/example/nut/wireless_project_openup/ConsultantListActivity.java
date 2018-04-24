@@ -58,8 +58,6 @@ public class ConsultantListActivity extends AppCompatActivity {
         recyclerViewConsultant.setAdapter(consultantRecyclerAdapter);
         databaseHelper = new DatabaseHelper(activity);
 
-        String emailFromIntent = getIntent().getStringExtra("EMAIL");
-        textViewName.setText(emailFromIntent);
 
         getDataFromSQLite();
     }
