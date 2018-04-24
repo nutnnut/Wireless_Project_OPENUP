@@ -134,10 +134,11 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_nearby) {
-            Uri gmmIntentUri = Uri.parse("geo:13.79457750,100.3212284?q=Golden Jubilee Medical Center");
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-            startActivity(mapIntent);
+            startActivity(new Intent(MainActivity.this, NearbyClinics.class));
+//            Uri gmmIntentUri = Uri.parse("geo:13.79457750,100.3212284?q=Golden Jubilee Medical Center");
+//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//            mapIntent.setPackage("com.google.android.apps.maps");
+//            startActivity(mapIntent);
         }
 
         else if (id == R.id.nav_profile) {

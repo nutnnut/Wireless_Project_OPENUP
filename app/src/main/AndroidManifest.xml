@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-feature
@@ -38,12 +39,12 @@
         android:roundIcon="@mipmap/ic_launcher_app_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCx3jSJf67rhneZt72vHTcuh6pTAAxgXKo" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyCx3jSJf67rhneZt72vHTcuh6pTAAxgXKo" />-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyD9dVArWEWTZFEcqaqHKPOxV8v0YMvd8Lc" />
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MainActivity"
@@ -65,15 +66,12 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCx3jSJf67rhneZt72vHTcuh6pTAAxgXKo" />
 
         <activity android:name=".LoginActivity_New" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".InfoRegisActivity" />
         <activity
-            android:name=".Maps"
+            android:name=".NearbyClinics"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Chatroom" />
         <activity android:name=".LoginActivity_Consultant" />
