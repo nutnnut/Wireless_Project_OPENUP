@@ -14,6 +14,7 @@ import java.util.List;
 
 import helpers.MessageRecycle;
 import model.Chatmessage;
+import model.Consultant;
 import model.User;
 import sql.DatabaseHelper;
 
@@ -26,6 +27,7 @@ public class Chatroom extends AppCompatActivity {
     private MessageRecycle messageRecycle;
     private DatabaseHelper databaseHelper;
     private User user;
+    private Consultant consultant;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +38,12 @@ public class Chatroom extends AppCompatActivity {
         initObjects();
 
     }
+
+    public MessageRecycle getMessageRecycle() {
+        return messageRecycle;
+    }
+
+
 
     /**
      * This method is to initialize views
@@ -62,19 +70,19 @@ public class Chatroom extends AppCompatActivity {
         String emailFromIntent = getIntent().getStringExtra("EMAIL");
         textViewName.setText(emailFromIntent);
 
-        getDataFromSQLite(user);
+        getDataFromSQLite(user,consultant);
     }
 
     /**
      * This method is to fetch all user records from SQLite
      */
-    private void getDataFromSQLite(final User u) {
+    private void getDataFromSQLite(final User u, final Consultant c) {
         // AsyncTask is used that SQLite operation not blocks the UI Thread.
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 listText.clear();
-                listText.addAll(databaseHelper.getMessage(u));
+                listText.addAll(databaseHelper.getMessage(u,c));
 
                 return null;
             }

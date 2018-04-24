@@ -32,7 +32,7 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.textViewName.setText(list.get(position).getMessageUser());
+        holder.textViewName.setText(list.get(position).getUserID());
         holder.textViewTime.setText(list.get(position).getMessageTime());
         holder.textViewMessage.setText(list.get(position).getMessageText());
     }
