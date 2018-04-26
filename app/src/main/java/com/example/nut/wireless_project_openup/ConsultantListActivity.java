@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,10 +22,14 @@ public class ConsultantListActivity extends AppCompatActivity {
 
     private AppCompatActivity activity = ConsultantListActivity.this;
     private AppCompatTextView textViewName;
+    private AppCompatTextView textViewFilter;
     private RecyclerView recyclerViewConsultant;
     private List<ConsultantInfo> listConsultant;
     private ConsultantRecyclerAdapter consultantRecyclerAdapter;
     private DatabaseHelper databaseHelper;
+    private Intent intentExtras;
+    private Bundle extrasBundle;
+    private String filter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +46,12 @@ public class ConsultantListActivity extends AppCompatActivity {
      */
     private void initViews() {
         textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
+        textViewFilter = (AppCompatTextView) findViewById(R.id.AppCompatTextViewFilter);
         recyclerViewConsultant = (RecyclerView) findViewById(R.id.recyclerViewConsultant2);
+        intentExtras = getIntent();
+        extrasBundle = intentExtras.getExtras();
+        filter = extrasBundle.getString("expertise");
+        textViewFilter.setText(filter);
     }
 
     /**
@@ -71,7 +81,13 @@ public class ConsultantListActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 listConsultant.clear();
-                listConsultant.addAll(databaseHelper.getAllConsultantInfo());
+                if(filter == "All"){
+                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
+                }
+                else{
+                    listConsultant.addAll(databaseHelper.getAllConsultantInfo(filter));
+                }
+
 
                 return null;
             }

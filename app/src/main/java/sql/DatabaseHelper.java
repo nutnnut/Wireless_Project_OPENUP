@@ -488,6 +488,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return consultantInfoList;
     }
 
+    public List<ConsultantInfo> getAllConsultantInfo(String filter){
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_CONINFO_ID,
+                COLUMN_CONINFO_CONID,
+                COLUMN_CONINFO_NAME,
+                COLUMN_CONINFO_GENDER,
+                COLUMN_CONINFO_BIRTHDATE,
+                COLUMN_CONINFO_EXPERTISE
+        };
+        // sorting orders
+        String sortOrder =
+                COLUMN_CONINFO_CONID + " ASC";
+
+        // selection criteria
+        String selection = COLUMN_CONINFO_EXPERTISE + " = ?";
+
+        // selection argument
+        String[] selectionArgs = {filter};
+        List<ConsultantInfo> consultantInfoList = new ArrayList<ConsultantInfo>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_CONINFO, //Table to query
+                columns,    //columns to return
+                selection,        //columns for the WHERE clause
+                selectionArgs,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ConsultantInfo consultantInfo = new ConsultantInfo();
+                consultantInfo.setConInfoID(cursor.getInt(cursor.getColumnIndex(COLUMN_CONINFO_ID)));
+                consultantInfo.setConsultantID(cursor.getInt(cursor.getColumnIndex(COLUMN_CONINFO_CONID)));
+                consultantInfo.setName(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_NAME)));
+                consultantInfo.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_GENDER)));
+                consultantInfo.setBirthdate(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_BIRTHDATE)));
+                consultantInfo.setExpertise(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_EXPERTISE)));
+                consultantInfoList.add(consultantInfo);
+
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return consultantInfoList;
+    }
+
     public List<Chatmessage> getAllChatmessage(Integer userID, Integer consultantID){
         // array of columns to fetch
         String[] columns = {
