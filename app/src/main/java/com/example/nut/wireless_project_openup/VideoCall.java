@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 public class VideoCall extends AppCompatActivity {
 
@@ -37,19 +38,51 @@ public class VideoCall extends AppCompatActivity {
         }
 
         // Create an instance of Camera
-        mCamera = getCameraInstance();
-        if(mCamera!=null){
-            // Create our Preview view and set it as the content of our activity.
+//        mCamera = getCameraInstance();
+//        if(mCamera!=null){
+//            // Create our Preview view and set it as the content of our activity.
+//            mPreview = new CameraPreview(this, mCamera);
+//            FrameLayout preview = (FrameLayout) findViewById(R.id.videofeed);
+//            preview.addView(mPreview);
+//        }
+//        else{
+//            Log.d("Camera", "NULL!!!!");
+//        }
+
+        int cameraId = findFrontFacingCamera();
+        if (cameraId < 0) {
+            Toast.makeText(this, "No front facing camera found.",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            mCamera = Camera.open(cameraId);
+            //Create our Preview view and set it as the content of our activity.
             mPreview = new CameraPreview(this, mCamera);
             FrameLayout preview = (FrameLayout) findViewById(R.id.videofeed);
             preview.addView(mPreview);
         }
-        else{
-            Log.d("Camera", "NULL!!!!");
-        }
+
         setupCamera(1536,2048);
         setCameraDisplayOrientation(this,cameraID,mCamera);
 
+    }
+
+    private void SwitchCamera(){
+        
+    }
+
+    private int findFrontFacingCamera() {
+        int cameraId = -1;
+        // Search for the front facing camera
+        int numberOfCameras = Camera.getNumberOfCameras();
+        for (int i = 0; i < numberOfCameras; i++) {
+            Camera.CameraInfo info = new Camera.CameraInfo();
+            Camera.getCameraInfo(i, info);
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                cameraId = i;
+                break;
+            }
+        }
+        return cameraId;
     }
 
     private  void setupCamera(int width,int height)
