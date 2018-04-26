@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/D:/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_format_list_bulleted_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/D:/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_switch_camera_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -56,7 +56,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="C:\Users\midasang\Documents\GitHub\Wireless_Project_OPENUP\ic_add_white_48dp.png" />
-                                      <entry key="outputName" value="ic_list" />
+                                      <entry key="outputName" value="ic_switch" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="feffff" />
                                     </map>
