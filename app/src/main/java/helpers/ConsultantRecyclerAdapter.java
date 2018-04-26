@@ -26,6 +26,7 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
 
     private List<ConsultantInfo> list;
     private Context context;
+    private String TAG = "ConsultantRecycler";
 
     public ConsultantRecyclerAdapter(List<ConsultantInfo> list, Context context) {
         this.list = list;
@@ -79,6 +80,7 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
 
         @Override
         public void onClick(View view) {
+            Log.e(TAG, "onClick: DO U KNO DA WAE?");
             final Intent chatIntent = new Intent(context, Chatroom.class);
             final Bundle bundle = new Bundle();
             bundle.putInt("consultantID", consultantID);

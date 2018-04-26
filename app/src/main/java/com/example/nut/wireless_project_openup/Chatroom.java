@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class Chatroom extends AppCompatActivity {
     private Intent intentExtras;
     private Bundle extrasBundle;
     private Integer consultantID;
+    private String TAG = "Chatroom";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,8 +81,8 @@ public class Chatroom extends AppCompatActivity {
         recyclerViewMessage.setAdapter(messageRecycle);
         databaseHelper = new DatabaseHelper(activity);
 
-        String emailFromIntent = getIntent().getStringExtra("EMAIL");
-        textViewName.setText(emailFromIntent);
+        //String emailFromIntent = getIntent().getStringExtra("EMAIL");
+        //textViewName.setText(emailFromIntent);
 
         getDataFromSQLite(user,consultant);
     }
@@ -87,13 +90,20 @@ public class Chatroom extends AppCompatActivity {
     /**
      * This method is to fetch all user records from SQLite
      */
+    @SuppressLint("StaticFieldLeak")
     private void getDataFromSQLite(final User u, final Consultant c) {
         // AsyncTask is used that SQLite operation not blocks the UI Thread.
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 listText.clear();
-                listText.addAll(databaseHelper.getMessage(u,c));
+
+                try {
+                    listText.addAll(databaseHelper.getMessage(u, c));
+                }catch(Exception e){
+                    Log.e(TAG, e+"");
+                    Log.e(TAG, "doInBackground: Bam wants me to fetch some null in DB");
+                }
 
                 return null;
             }
@@ -104,5 +114,6 @@ public class Chatroom extends AppCompatActivity {
                 messageRecycle.notifyDataSetChanged();
             }
         }.execute();
+
     }
 }
