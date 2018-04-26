@@ -64,7 +64,6 @@ public class Chatroom extends AppCompatActivity {
         intentExtras = getIntent();
         extrasBundle = intentExtras.getExtras();
         consultantID = extrasBundle.getInt("consultantID");
-        message.setText(consultantID.toString());
     }
 
     /**

@@ -743,6 +743,72 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+    public boolean checkInfo(Integer userID){
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_INFO_ID
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // selection criteria
+        String selection = COLUMN_INFO_USERID + " = ?";
+
+        // selection argument
+        String[] selectionArgs = {userID.toString()};
+
+        // query user table with condition
+        Cursor cursor = db.query(TABLE_INFO, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        if (cursorCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean checkChat(Integer consultantID){
+
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_CHAT_CONID
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // selection criteria
+        String selection = COLUMN_CHAT_CONID + " = ?";
+
+        // selection argument
+        String[] selectionArgs = {consultantID.toString()};
+
+        // query user table with condition
+        Cursor cursor = db.query(TABLE_CHAT, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        if (cursorCount > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
 
 
     public Collection<? extends Chatmessage> getMessage(User u,Consultant c) {
