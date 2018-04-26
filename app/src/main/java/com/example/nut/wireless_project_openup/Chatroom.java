@@ -1,5 +1,6 @@
 package com.example.nut.wireless_project_openup;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +26,14 @@ public class Chatroom extends AppCompatActivity {
     private AppCompatTextView textViewName;
     private RecyclerView recyclerViewMessage;
     private List<Chatmessage> listText;
+    private EditText message;
     private MessageRecycle messageRecycle;
     private DatabaseHelper databaseHelper;
     private User user;
     private Consultant consultant;
+    private Intent intentExtras;
+    private Bundle extrasBundle;
+    private Integer consultantID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +57,11 @@ public class Chatroom extends AppCompatActivity {
     private void initViews() {
         textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
         recyclerViewMessage = (RecyclerView) findViewById(R.id.messagelist);
+        message = (EditText) findViewById(R.id.input);
+        intentExtras = getIntent();
+        extrasBundle = intentExtras.getExtras();
+        consultantID = extrasBundle.getInt("consultantID");
+        message.setText(consultantID.toString());
     }
 
     /**
