@@ -21,7 +21,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -42,11 +41,11 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBFORexhZ9B79qwzg9HxeZlKjTsnJiNWss" />
-        <!--AIzaSyCx3jSJf67rhneZt72vHTcuh6pTAAxgXKo-->
-        <!--AIzaSyCB09Ph3jpBcRhjY94BD-jfYiSKNuLClhQ-->
-        <!--<meta-data-->
-            <!--android:name="com.google.android.maps.v2.API_KEY"-->
-            <!--android:value="@string/google_maps_key" />-->
+        <!-- AIzaSyCx3jSJf67rhneZt72vHTcuh6pTAAxgXKo -->
+        <!-- AIzaSyCB09Ph3jpBcRhjY94BD-jfYiSKNuLClhQ -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.maps.v2.API_KEY" -->
+        <!-- android:value="@string/google_maps_key" /> -->
 
         <activity
             android:name=".MainActivity"
@@ -81,13 +80,10 @@
         <activity android:name=".InfoRegisActivity_Consultant" />
         <activity
             android:name=".VideoCall"
-            android:theme="@style/AppThemeDark"
             android:screenOrientation="portrait"
-        />
-
+            android:theme="@style/AppThemeDark" />
         <activity android:name=".ConsultantListActivity" />
-        <activity android:name=".EditProfileActivity"></activity>
-
+        <activity android:name=".EditProfileActivity" />
     </application>
 
 </manifest>
