@@ -1,8 +1,6 @@
 package helpers;
 
-/**
- * Created by BAMBOOK on 4/18/2018.
- */
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
@@ -27,9 +25,11 @@ import model.ConsultantInfo;
 public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRecyclerAdapter.ConsultantViewHolder> {
 
     private List<ConsultantInfo> list;
+    private Context context;
 
-    public ConsultantRecyclerAdapter(List<ConsultantInfo> list) {
+    public ConsultantRecyclerAdapter(List<ConsultantInfo> list, Context context) {
         this.list = list;
+        this.context = context;
     }
 
     @Override
@@ -79,9 +79,11 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
 
         @Override
         public void onClick(View view) {
-            //final Intent listIntent = new Intent(, Chatroom.class);
-
+            final Intent chatIntent = new Intent(context, Chatroom.class);
             final Bundle bundle = new Bundle();
+            bundle.putInt("consultantID", consultantID);
+            chatIntent.putExtras(bundle);
+            context.startActivity(chatIntent);
         }
     }
 }

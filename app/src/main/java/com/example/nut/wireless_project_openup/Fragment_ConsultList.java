@@ -50,7 +50,7 @@ public class Fragment_ConsultList extends Fragment {
      */
     private void initObjects() {
         listConsultant = new ArrayList<>();
-        consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant);
+        consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant, this.getContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerViewConsultant.setLayoutManager(mLayoutManager);

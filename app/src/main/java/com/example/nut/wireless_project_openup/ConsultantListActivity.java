@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import helpers.ConsultantRecyclerAdapter;
 import model.ConsultantInfo;
 import sql.DatabaseHelper;
 
-public class ConsultantListActivity extends AppCompatActivity {
+public class ConsultantListActivity extends AppCompatActivity{
 
     private AppCompatActivity activity = ConsultantListActivity.this;
     private AppCompatTextView textViewName;
@@ -59,7 +60,7 @@ public class ConsultantListActivity extends AppCompatActivity {
      */
     private void initObjects() {
         listConsultant = new ArrayList<>();
-        consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant);
+        consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant, this.getBaseContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewConsultant.setLayoutManager(mLayoutManager);
