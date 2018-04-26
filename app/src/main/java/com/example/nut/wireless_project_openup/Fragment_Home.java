@@ -14,13 +14,14 @@ public class Fragment_Home extends Fragment {
 
     View myView;
     CardView videoshortcut;
-
+    CardView consult;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.layout_home, container, false);
 
         videoshortcut = (CardView) myView.findViewById(R.id.videoshortcut);
+
         videoshortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -30,4 +31,6 @@ public class Fragment_Home extends Fragment {
         });
         return myView;
     }
+
+
 }
