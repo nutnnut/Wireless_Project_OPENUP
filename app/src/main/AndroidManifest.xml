@@ -83,6 +83,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDark" />
         <activity android:name=".ConsultantListActivity" />
+        <activity android:name=".InboxActivity" />
         <activity android:name=".EditProfileActivity" />
     </application>
 
