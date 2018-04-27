@@ -1,102 +1,153 @@
 package com.example.nut.wireless_project_openup;
 
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import helpers.ConsultantRecyclerAdapter;
-import model.ConsultantInfo;
+import helpers.InputValidation;
+import helpers.SessionManager;
+import model.Information;
 import sql.DatabaseHelper;
 
-public class InboxActivity extends AppCompatActivity{
+public class InboxActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private AppCompatActivity activity = InboxActivity.this;
-    private AppCompatTextView textViewName;
-    private AppCompatTextView textViewFilter;
-    private RecyclerView recyclerViewConsultant;
-    private List<ConsultantInfo> listConsultant;
-    private ConsultantRecyclerAdapter consultantRecyclerAdapter;
+    private final AppCompatActivity activity = InboxActivity.this;
+
+    private NestedScrollView nestedScrollView;
+
+    private Button buttonUpdate;
+    private Button buttonCancel;
+
+
+    private TextInputLayout textInputLayoutName;
+    private TextInputEditText textInputEditTextName;
+    private static TextInputEditText DateEdit;
+    private Spinner spinnerOccupation;
+    private Spinner spinnerMedicalCondition;
+    private Spinner spinnerGender;
+
+    private Information information;
     private DatabaseHelper databaseHelper;
-    private Intent intentExtras;
-    private Bundle extrasBundle;
-    private String filter;
+    private SessionManager sessionManager;
+    private InputValidation inputValidation;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inbox);
-        getSupportActionBar().setTitle("Inbox");
+        setContentView(R.layout.activity_edit_profile);
         initViews();
+        initListeners();
         initObjects();
+        initInfo();
 
     }
 
-    /**
-     * This method is to initialize views
-     */
-    private void initViews() {
-        textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
-        textViewFilter = (AppCompatTextView) findViewById(R.id.AppCompatTextViewFilter);
-        recyclerViewConsultant = (RecyclerView) findViewById(R.id.recyclerViewConsultant2);
-        intentExtras = getIntent();
-        textViewFilter.setText(filter);
+    private void initViews(){
+        textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutNameEdit);
+        textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextNameEdit);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        buttonUpdate = (Button) findViewById(R.id.buttonUpdate);
+        buttonCancel = (Button) findViewById(R.id.buttonCancel);
+        DateEdit = findViewById(R.id.textInputEditTextDateEdit);
+        spinnerOccupation = findViewById(R.id.SpinnerOccupationEdit);
+        spinnerMedicalCondition = findViewById(R.id.SpinnerConditionEdit);
+        spinnerGender = findViewById(R.id.SpinnerGenderEdit);
     }
 
-    /**
-     * This method is to initialize objects to be used
-     */
-    private void initObjects() {
-        listConsultant = new ArrayList<>();
-        consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant, this.getBaseContext());
+    private void initListeners(){
+        buttonUpdate.setOnClickListener(this);
+        buttonCancel.setOnClickListener(this);
+        DateEdit.setOnClickListener(this);
+    }
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewConsultant.setLayoutManager(mLayoutManager);
-        recyclerViewConsultant.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewConsultant.setHasFixedSize(true);
-        recyclerViewConsultant.setAdapter(consultantRecyclerAdapter);
+    private void initObjects(){
         databaseHelper = new DatabaseHelper(activity);
-
-
-        getDataFromSQLite();
+        sessionManager = new SessionManager(activity);
+        inputValidation = new InputValidation(activity);
+        Integer userID = sessionManager.getUserID();
+        information = databaseHelper.getInfo(userID);
     }
 
-    /**
-     * This method is to fetch all user records from SQLite
-     */
-    private void getDataFromSQLite() {
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                listConsultant.clear();
-                if(filter==null){
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
-                }
-                else if(filter.equals("All")){
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
-                }
-                else{
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo(filter));
-                }
+    private void initInfo(){
+        Integer userID = sessionManager.getUserID();
 
+        textInputEditTextName.setText(information.getDisplayName());
 
-                return null;
-            }
+        ArrayAdapter occupationAdapter = (ArrayAdapter) spinnerOccupation.getAdapter();
+        int occupationPosition = occupationAdapter.getPosition(information.getOccupation());
+        spinnerOccupation.setSelection(occupationPosition);
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                consultantRecyclerAdapter.notifyDataSetChanged();
-            }
-        }.execute();
+        ArrayAdapter medicalConditionAdapter = (ArrayAdapter) spinnerMedicalCondition.getAdapter();
+        int medicalPosition = medicalConditionAdapter.getPosition(information.getMedicalCondition());
+        spinnerMedicalCondition.setSelection(medicalPosition);
+
+        DateEdit.setText(information.getBirthdate());
+
+        ArrayAdapter genderAdapter = (ArrayAdapter) spinnerGender.getAdapter();
+        int genderPosition = genderAdapter.getPosition(information.getGender());
+        spinnerGender.setSelection(genderPosition);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.buttonUpdate:
+                updateInfoSQL();
+                break;
+
+            case R.id.textInputEditTextDateEdit:
+                showDatePickerDialog(v);
+                break;
+        }
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new InboxActivity.DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public static class DatePickerFragment extends DialogFragment implements
+            DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            DateEdit.setText(day + "/" + (month + 1) + "/" + year);
+        }
+    }
+
+    private void updateInfoSQL(){
+        information.setDisplayName(textInputEditTextName.getText().toString().trim());
+        information.setOccupation(spinnerOccupation.getSelectedItem().toString());
+        information.setMedicalCondition(spinnerMedicalCondition.getSelectedItem().toString());
+        information.setBirthdate(DateEdit.getText().toString());
+        information.setGender(spinnerGender.getSelectedItem().toString());
+        information.setUserID(sessionManager.getUserID());
+        databaseHelper.updateInfo(information);
+    }
+
+
 }
