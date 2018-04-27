@@ -9,19 +9,15 @@
     android:background="#111111"
     >
 
-    <ImageView
-        android:id="@+id/switchCamera"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_weight="1"
-        android:background="@drawable/mainbutton"
-        android:backgroundTint="@color/darkgrey"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_switch" />
+    <FrameLayout
+
+        android:id="@+id/videofeed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/EndCall"
@@ -37,14 +33,18 @@
         android:text="End Call"
         android:textColor="#ffffff" />
 
-    <FrameLayout
-
-        android:id="@+id/videofeed"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
-    </FrameLayout>
+    <ImageView
+        android:id="@+id/SwitchCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/mainbutton"
+        android:backgroundTint="@color/darkgrey"
+        android:scaleType="center"
+        app:srcCompat="@drawable/ic_switch" />
 
 </RelativeLayout>
