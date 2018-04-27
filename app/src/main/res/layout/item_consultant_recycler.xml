@@ -21,30 +21,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/consultant"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 card_view:srcCompat="@mipmap/aboutus" />
 
             <LinearLayout
-                android:layout_width="270dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="2"
                         android:text="@string/card_name" />
 
@@ -58,7 +59,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
@@ -66,6 +67,7 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="2"
                         android:text="@string/card_gender" />
 
@@ -79,7 +81,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
@@ -87,6 +89,7 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="2"
                         android:text="@string/card_age" />
 
@@ -100,7 +103,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
@@ -108,6 +111,7 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="2"
                         android:text="@string/card_expertise" />
 
@@ -121,6 +125,16 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:numStars="5"
+                android:rating="5"
+                android:visibility="visible" />
 
         </LinearLayout>
 
