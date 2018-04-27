@@ -6,32 +6,6 @@
     android:layout_gravity="end">
 
     <LinearLayout
-        android:id="@+id/recreiver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="end"
-        android:layout_margin="17dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/receiveusername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="name" />
-
-        <ImageView
-            android:id="@+id/receivepic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@mipmap/ic_launcher" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -50,15 +24,15 @@
 
         <TextView
             android:id="@+id/receivetext"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="80dp"
             android:layout_weight="1"
             android:background="@drawable/receiverchatbox"
             android:text="55555555555555555555555555555555555555555555"
-            android:textColor="@android:color/white"
-            android:layout_width="wrap_content" />
+            android:textAlignment="textStart"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

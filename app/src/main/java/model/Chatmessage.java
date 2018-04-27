@@ -18,7 +18,7 @@ public class Chatmessage
         this.UserID=User;
         this.ConsultantID=Consultant;
         Long date=new Date().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm");
         messageTime =dateFormat.format(date);
         this.sender = sender;
     }

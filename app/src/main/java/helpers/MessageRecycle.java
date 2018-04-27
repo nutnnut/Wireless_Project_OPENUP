@@ -18,21 +18,22 @@ import model.Chatmessage;
 public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageViewHolder> {
 
     List<Chatmessage> list;
+    boolean sender;
 
     public MessageRecycle(List<Chatmessage> receivemessage){
         this.list=receivemessage;
     }
 
     public MessageRecycle.MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.chat_receive, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.chat_receive, parent, false);
 
-        return new MessageViewHolder(itemView);
+            return new MessageViewHolder(itemView);
+
     }
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-        holder.textViewName.setText(list.get(position).getUserID().toString());
         holder.textViewTime.setText(list.get(position).getMessageTime());
         holder.textViewMessage.setText(list.get(position).getMessageText());
     }
@@ -44,16 +45,16 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder{
-    public TextView textViewName;
+    //public TextView textViewName;
     public TextView textViewMessage;
-    public ImageView UserPic;
+    //public ImageView UserPic;
     public TextView textViewTime;
 
     public MessageViewHolder(View view) {
         super(view);
-        textViewName = (TextView) view.findViewById(R.id.receiveusername);
+        //textViewName = (TextView) view.findViewById(R.id.receiveusername);
         textViewMessage = (TextView) view.findViewById(R.id.receivetext);
-        UserPic = (ImageView) view.findViewById(R.id.receivepic);
+        //UserPic = (ImageView) view.findViewById(R.id.receivepic);
         textViewTime = (AppCompatTextView) view.findViewById(R.id.receivetimesent);
     }
     }

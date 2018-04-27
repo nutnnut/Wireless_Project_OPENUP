@@ -32,7 +32,6 @@ import sql.DatabaseHelper;
 public class Chatroom extends AppCompatActivity implements View.OnClickListener{
 
     private AppCompatActivity activity = Chatroom.this;
-    private AppCompatTextView textViewName;
     private RecyclerView recyclerViewMessage;
     private List<Chatmessage> listText;
     private EditText message;
@@ -70,7 +69,6 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
      * This method is to initialize views
      */
     private void initViews() {
-        textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
         recyclerViewMessage = (RecyclerView) findViewById(R.id.messagelist);
         message = (EditText) findViewById(R.id.input);
         buttonSend = (FloatingActionButton) findViewById(R.id.chatroomsend);
@@ -87,7 +85,8 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         listText = new ArrayList<>();
         messageRecycle = new MessageRecycle(listText);
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager.setStackFromEnd(true);
         recyclerViewMessage.setLayoutManager(mLayoutManager);
         recyclerViewMessage.setItemAnimator(new DefaultItemAnimator());
         recyclerViewMessage.setHasFixedSize(true);
@@ -101,8 +100,6 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         databaseHelper = new DatabaseHelper(activity);
         consultantInfo = databaseHelper.getConsultantInfo(consultantID);
 
-        //String emailFromIntent = getIntent().getStringExtra("EMAIL");
-        //textViewName.setText(emailFromIntent);
 
         getDataFromSQLite();
     }
@@ -119,6 +116,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
 
                 try {
                     listText.addAll(databaseHelper.getAllChatmessage(userID, consultantID));
+                    recyclerViewMessage.scrollToPosition(listText.size()-1);
                 }catch(Exception e){
                     Log.e(TAG, e+"");
                     Log.e(TAG, "doInBackground: Bam wants me to fetch some null in DB");
@@ -140,6 +138,8 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         Chatmessage chatmessage = new Chatmessage(message.getText().toString()
                 , userID, consultantID, true);
         databaseHelper.addChatMessage(chatmessage);
+        listText.add(chatmessage);
+        recyclerViewMessage.scrollToPosition(listText.size()-1);
         message.setText(null);
         messageRecycle.notifyDataSetChanged();
     }
