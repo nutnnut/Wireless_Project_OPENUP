@@ -92,6 +92,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         recyclerViewMessage.setItemAnimator(new DefaultItemAnimator());
         recyclerViewMessage.setHasFixedSize(true);
         recyclerViewMessage.setAdapter(messageRecycle);
+
         sessionManager = new SessionManager(this);
         intentExtras = getIntent();
         extrasBundle = intentExtras.getExtras();
@@ -103,14 +104,13 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         //String emailFromIntent = getIntent().getStringExtra("EMAIL");
         //textViewName.setText(emailFromIntent);
 
-        getDataFromSQLite(userID,consultantID);
+        getDataFromSQLite();
     }
 
     /**
      * This method is to fetch all user records from SQLite
      */
-    @SuppressLint("StaticFieldLeak")
-    private void getDataFromSQLite(final Integer userID, final Integer consultantID) {
+    private void getDataFromSQLite() {
         // AsyncTask is used that SQLite operation not blocks the UI Thread.
         new AsyncTask<Void, Void, Void>() {
             @Override

@@ -82,7 +82,7 @@ public class ConsultantListActivity extends AppCompatActivity{
             @Override
             protected Void doInBackground(Void... params) {
                 listConsultant.clear();
-                if(filter == "All"){
+                if(filter.equals("All")){
                     listConsultant.addAll(databaseHelper.getAllConsultantInfo());
                 }
                 else{

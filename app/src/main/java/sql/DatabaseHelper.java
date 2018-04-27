@@ -595,7 +595,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
         // sorting orders
         String sortOrder =
-                COLUMN_CHAT_TIME + " ASC";
+                COLUMN_CHAT_ID + " ASC";
 
         String selection = COLUMN_CHAT_USERID + " = ?" + " AND " + COLUMN_CHAT_CONID + " = ?";
 
@@ -606,11 +606,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // query the user table
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
-         */
         Cursor cursor = db.query(TABLE_CHAT, //Table to query
                 columns,    //columns to return
                 selection,        //columns for the WHERE clause
@@ -624,7 +619,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Chatmessage chatmessage = new Chatmessage();
-                chatmessage.setUserID(cursor.getInt(cursor.getColumnIndex(COLUMN_INFO_USERID)));
+                chatmessage.setUserID(cursor.getInt(cursor.getColumnIndex(COLUMN_CHAT_USERID)));
                 chatmessage.setConsultantID(cursor.getInt(cursor.getColumnIndex(COLUMN_CHAT_CONID)));
                 chatmessage.setMessageText(cursor.getString(cursor.getColumnIndex(COLUMN_CHAT_MESSAGETEXT)));
                 chatmessage.setMessageTime(cursor.getString(cursor.getColumnIndex(COLUMN_CHAT_TIME)));
