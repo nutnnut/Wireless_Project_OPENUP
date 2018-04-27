@@ -33,7 +33,7 @@ public class VideoCall extends AppCompatActivity {
         setContentView(R.layout.activity_videocall);
 
         //Switch Camera Button
-        ImageView SwitchCamera = (ImageView) findViewById(R.id.switchCamera);
+        ImageView SwitchCamera = (ImageView) findViewById(R.id.SwitchCamera);
         // set a onclick listener for when the button gets clicked
         SwitchCamera.setOnClickListener(new View.OnClickListener() {
             // Start new list activity
