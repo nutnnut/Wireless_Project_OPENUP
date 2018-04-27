@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import helpers.ConsultantRecyclerAdapter;
+import helpers.SessionManager;
 import model.ConsultantInfo;
 import sql.DatabaseHelper;
 
@@ -26,6 +27,7 @@ public class InboxActivity extends AppCompatActivity{
     private List<ConsultantInfo> listConsultant;
     private ConsultantRecyclerAdapter consultantRecyclerAdapter;
     private DatabaseHelper databaseHelper;
+    private SessionManager sessionManager;
     private Intent intentExtras;
     private Bundle extrasBundle;
     private String filter;
@@ -64,6 +66,7 @@ public class InboxActivity extends AppCompatActivity{
         recyclerViewConsultant.setHasFixedSize(true);
         recyclerViewConsultant.setAdapter(consultantRecyclerAdapter);
         databaseHelper = new DatabaseHelper(activity);
+        sessionManager = new SessionManager(activity);
 
 
         getDataFromSQLite();
@@ -78,17 +81,7 @@ public class InboxActivity extends AppCompatActivity{
             @Override
             protected Void doInBackground(Void... params) {
                 listConsultant.clear();
-                if(filter==null){
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
-                }
-                else if(filter.equals("All")){
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
-                }
-                else{
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo(filter));
-                }
-
-
+                listConsultant.addAll(databaseHelper.getConsultantInfoInbox(sessionManager.getUserID()));
                 return null;
             }
 
