@@ -24,6 +24,8 @@ import helpers.MessageRecycle;
 import helpers.SessionManager;
 import model.Chatmessage;
 import model.Consultant;
+import model.ConsultantInfo;
+import model.Information;
 import model.User;
 import sql.DatabaseHelper;
 
@@ -42,6 +44,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
     private Intent intentExtras;
     private Bundle extrasBundle;
     private Integer consultantID;
+    private ConsultantInfo consultantInfo;
     private String TAG = "Chatroom";
     private SessionManager sessionManager;
 
@@ -49,10 +52,11 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
-        getSupportActionBar().setTitle("");
+
         initViews();
         initObjects();
         initListeners();
+        getSupportActionBar().setTitle(consultantInfo.getName());
 
     }
 
@@ -94,6 +98,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         consultantID = extrasBundle.getInt("consultantID");
         userID = sessionManager.getUserID();
         databaseHelper = new DatabaseHelper(activity);
+        consultantInfo = databaseHelper.getConsultantInfo(consultantID);
 
         //String emailFromIntent = getIntent().getStringExtra("EMAIL");
         //textViewName.setText(emailFromIntent);
@@ -136,6 +141,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
                 , userID, consultantID, true);
         databaseHelper.addChatMessage(chatmessage);
         message.setText(null);
+        messageRecycle.notifyDataSetChanged();
     }
 
     @Override

@@ -402,6 +402,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return consultant;
     }
 
+    public ConsultantInfo getConsultantInfo(Integer consultantID){
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_CONINFO_ID,
+                COLUMN_CONINFO_CONID,
+                COLUMN_CONINFO_NAME,
+                COLUMN_CONINFO_GENDER,
+                COLUMN_CONINFO_BIRTHDATE,
+                COLUMN_CONINFO_EXPERTISE
+        };
+        ConsultantInfo consultantInfo = new ConsultantInfo();
+        String selection = COLUMN_CONINFO_CONID + " = ?";
+        String[] selectionArgs = {consultantID.toString()};
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_CONINFO, //Table to query
+                columns,    //columns to return
+                selection,        //columns for the WHERE clause
+                selectionArgs,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                null); //The sort order
+        cursor.moveToFirst();
+        consultantInfo.setConInfoID(cursor.getInt(cursor.getColumnIndex(COLUMN_CONINFO_ID)));
+        consultantInfo.setConsultantID(cursor.getInt(cursor.getColumnIndex(COLUMN_CONINFO_CONID)));
+        consultantInfo.setName(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_NAME)));
+        consultantInfo.setGender(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_GENDER)));
+        consultantInfo.setBirthdate(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_BIRTHDATE)));
+        consultantInfo.setExpertise(cursor.getString(cursor.getColumnIndex(COLUMN_CONINFO_EXPERTISE)));
+        cursor.close();
+        db.close();
+        return consultantInfo;
+    }
+
     /**
      * This method to update user record
      *
