@@ -15,17 +15,34 @@ public class Fragment_Home extends Fragment {
     View myView;
     CardView videoshortcut;
     CardView consult;
+    CardView nearby;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.layout_home, container, false);
 
         videoshortcut = (CardView) myView.findViewById(R.id.videoshortcut);
+        consult = (CardView) myView.findViewById(R.id.homeconsult);
+        nearby = (CardView) myView.findViewById(R.id.homenearby);
 
         videoshortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent myIntent = new Intent(getActivity(),VideoCall.class);
+                startActivity(myIntent);
+            }
+        });
+        consult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Consult(), "Consult").commit();
+            }
+        });
+        nearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(getActivity(), NearbyClinics.class);
                 startActivity(myIntent);
             }
         });

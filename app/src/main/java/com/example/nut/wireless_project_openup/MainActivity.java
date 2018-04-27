@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_inbox) {
-            System.out.println("inbox");
+            startActivity(new Intent(MainActivity.this, InboxActivity.class));
 
         }
 
