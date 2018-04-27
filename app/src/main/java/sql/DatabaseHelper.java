@@ -221,6 +221,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void addChatMessage(Chatmessage chatmessage){
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(COLUMN_CHAT_USERID, chatmessage.getUserID());
         values.put(COLUMN_CHAT_CONID, chatmessage.getConsultantID());

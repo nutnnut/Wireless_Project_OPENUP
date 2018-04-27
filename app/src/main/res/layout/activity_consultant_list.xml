@@ -17,7 +17,7 @@
             android:text="@string/title_filter"
             android:textAlignment="viewStart"
             android:textSize="20sp" />
-        ฃ
+
 
 
     </android.support.v7.widget.LinearLayoutCompat>
