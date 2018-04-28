@@ -17,6 +17,9 @@ import model.Consultant;
 import model.User;
 import sql.DatabaseHelper;
 
+/**
+ * This activity is to register consultant account to SQLite
+ */
 public class RegisterActivity_Consultant extends AppCompatActivity implements View.OnClickListener {
 
     private final AppCompatActivity activity = RegisterActivity_Consultant.this;
@@ -52,6 +55,9 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
         initObjects();
     }
 
+    /**
+     * This method is to initialize views
+     */
     private void initViews() {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollViewConsultant);
 
@@ -69,11 +75,17 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
     }
 
+    /**
+     * This method is to initialize listeners
+     */
     private void initListeners() {
         appCompatButtonRegister.setOnClickListener(this);
         appCompatTextViewLoginLink.setOnClickListener(this);
     }
 
+    /**
+     * This method is to initialize objects to be used
+     */
     private void initObjects() {
         inputValidation = new InputValidation(activity);
         databaseHelper = new DatabaseHelper(activity);
@@ -81,6 +93,11 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
         consultant = new Consultant();
     }
 
+    /**
+     * This implemented method is to listen the click on view
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -94,6 +111,9 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
         }
     }
 
+    /**
+     * This method is to validate the input text fields and post data to SQLite
+     */
     private void postDataToSQLite() {
 
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
@@ -112,16 +132,21 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
         if (!databaseHelper.checkConsultant(textInputEditTextEmail.getText().toString().trim())) {
 
+            //get texts from inputs and add to SQLite
             consultant.setEmail(textInputEditTextEmail.getText().toString().trim());
             consultant.setPassword(textInputEditTextPassword.getText().toString().trim());
             databaseHelper.addConsultant(consultant);
 
             // Snack Bar to show success message that record saved successfully
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
+
+            //Create session (Preference) and record consultant ID to the session
             Consultant loggedInUser =  databaseHelper.getConsultant(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getId();
             sessionManager.createLoginSession(userID, false);
             emptyInputEditText();
+
+            //Move on to information register for consultant
             Intent myIntent = new Intent(RegisterActivity_Consultant.this,InfoRegisActivity_Consultant.class);
             RegisterActivity_Consultant.this.startActivity(myIntent);
 
@@ -132,6 +157,10 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
 
 
     }
+
+    /**
+     * This method is to empty all input edit text
+     */
     private void emptyInputEditText() {
         textInputEditTextEmail.setText(null);
         textInputEditTextPassword.setText(null);

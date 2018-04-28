@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * This fragment is to show filter choice for selecting consultant
+ */
 public class Fragment_Consult extends Fragment {
 
     View myView;
@@ -24,16 +27,19 @@ public class Fragment_Consult extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.layout_consult, container, false);
 
+        //Initialize views
         consult1 = (CardView) myView.findViewById(R.id.Consult1);
         consult2 = (CardView) myView.findViewById(R.id.Consult2);
         consult3 = (CardView) myView.findViewById(R.id.Consult3);
         consult4 = (CardView) myView.findViewById(R.id.Consult4);
         consult5 = (CardView) myView.findViewById(R.id.Consult5);
 
+        //initialize intent and bundle to be sent along
         final Intent listIntent = new Intent(getActivity(), ConsultantListActivity.class);
 
         final Bundle bundle = new Bundle();
 
+        //Set expertise filter keyword by the selected card
         consult1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -75,40 +81,6 @@ public class Fragment_Consult extends Fragment {
             }
         });
 
-//        consult1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                /*FragmentManager fragmentManager = getFragmentManager();
-//                fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_ConsultList(), "ConsultList").commit();*/
-//                switch(v.getId()){
-//                    case R.id.Consult1:
-//                        bundle.putString("expertise", "Love");
-//                        listIntent.putExtras(bundle);
-//                        getActivity().startActivity(listIntent);
-//                        break;
-//                    case R.id.Consult2:
-//                        bundle.putString("expertise", "Family");
-//                        listIntent.putExtras(bundle);
-//                        getActivity().startActivity(listIntent);
-//                        break;
-//                    case R.id.Consult3:
-//                        bundle.putString("expertise", "Work");
-//                        listIntent.putExtras(bundle);
-//                        getActivity().startActivity(listIntent);
-//                        break;
-//                    case R.id.Consult4:
-//                        bundle.putString("expertise", "School");
-//                        listIntent.putExtras(bundle);
-//                        getActivity().startActivity(listIntent);
-//                        break;
-//                    case R.id.Consult5:
-//                        bundle.putString("expertise", "All");
-//                        listIntent.putExtras(bundle);
-//                        getActivity().startActivity(listIntent);
-//                        break;
-//                }
-//            }
-//        });
 
         return myView;
     }

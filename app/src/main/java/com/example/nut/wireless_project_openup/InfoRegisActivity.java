@@ -139,6 +139,13 @@ public class InfoRegisActivity extends AppCompatActivity{
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+        /**
+         * Set text in DateEdit to selected date
+         * @param view
+         * @param year
+         * @param month
+         * @param day
+         */
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
             DateEdit.setText(day + "/" + (month + 1) + "/" + year);

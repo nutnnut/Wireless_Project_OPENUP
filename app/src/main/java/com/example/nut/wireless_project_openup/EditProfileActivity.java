@@ -21,6 +21,9 @@ import helpers.SessionManager;
 import model.Information;
 import sql.DatabaseHelper;
 
+/**
+ * This activity allows user to view and edit their profile information
+ */
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
     private final AppCompatActivity activity = EditProfileActivity.this;
@@ -54,6 +57,9 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+    /**
+     * This method is to initialize views
+     */
     private void initViews(){
         textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutNameEdit);
         textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextNameEdit);
@@ -66,22 +72,31 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         spinnerGender = findViewById(R.id.SpinnerGenderEdit);
     }
 
+    /**
+     * This method is to initialize listeners
+     */
     private void initListeners(){
         buttonUpdate.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
         DateEdit.setOnClickListener(this);
     }
 
+    /**
+     * This method is to initialize objects to be used
+     */
     private void initObjects(){
         databaseHelper = new DatabaseHelper(activity);
         sessionManager = new SessionManager(activity);
         inputValidation = new InputValidation(activity);
         Integer userID = sessionManager.getUserID();
+        //get user information from database through databaseHelper using user ID
         information = databaseHelper.getInfo(userID);
     }
 
+    /**
+     * This method is to set views to contain information that is selected from SQLite
+     */
     private void initInfo(){
-        Integer userID = sessionManager.getUserID();
 
         textInputEditTextName.setText(information.getDisplayName());
 
@@ -100,6 +115,11 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         spinnerGender.setSelection(genderPosition);
     }
 
+    /**
+     * This implemented method is to listen the click on view
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -118,11 +138,18 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /**
+     * This method is to show dialog for picking user birthdate
+     * @param v
+     */
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new EditProfileActivity.DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    /**
+     * This inner class is to define date picker dialog
+     */
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
@@ -138,12 +165,22 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+        /**
+         * Set text in DateEdit to selected date
+         * @param view
+         * @param year
+         * @param month
+         * @param day
+         */
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
             DateEdit.setText(day + "/" + (month + 1) + "/" + year);
         }
     }
 
+    /**
+     * Update the user information with current input values
+     */
     private void updateInfoSQL(){
         information.setDisplayName(textInputEditTextName.getText().toString().trim());
         information.setOccupation(spinnerOccupation.getSelectedItem().toString());

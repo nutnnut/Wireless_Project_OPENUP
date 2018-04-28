@@ -23,6 +23,9 @@ import model.ConsultantInfo;
 import model.Information;
 import sql.DatabaseHelper;
 
+/**
+ * This activity shows a list of users who sent messages to the consultant
+ */
 public class InboxActivity_Consultant extends AppCompatActivity {
 
     private AppCompatActivity activity = InboxActivity_Consultant.this;

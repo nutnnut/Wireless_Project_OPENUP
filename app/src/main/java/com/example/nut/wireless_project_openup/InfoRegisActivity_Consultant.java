@@ -23,6 +23,9 @@ import model.ConsultantInfo;
 import model.Information;
 import sql.DatabaseHelper;
 
+/**
+ * This class is for collecting consultant profile information, this is not optional
+ */
 public class InfoRegisActivity_Consultant extends AppCompatActivity implements View.OnClickListener{
     private final AppCompatActivity activity = InfoRegisActivity_Consultant.this;
 
@@ -52,6 +55,9 @@ public class InfoRegisActivity_Consultant extends AppCompatActivity implements V
         initObjects();
     }
 
+    /**
+     * This method is to initialize views
+     */
     private void initViews(){
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutNameConsultant);
@@ -62,11 +68,17 @@ public class InfoRegisActivity_Consultant extends AppCompatActivity implements V
         spinnerGender = findViewById(R.id.SpinnerGenderConsultant);
     }
 
+    /**
+     * This method is to initialize listeners
+     */
     private void initListeners(){
         appCompatButtonSaveInfo.setOnClickListener(this);
         DateEdit.setOnClickListener(this);
     }
 
+    /**
+     * This method is to initialize objects to be used
+     */
     private void initObjects(){
         consultantInfo = new ConsultantInfo();
         databaseHelper = new DatabaseHelper(activity);
@@ -74,7 +86,11 @@ public class InfoRegisActivity_Consultant extends AppCompatActivity implements V
         inputValidation = new InputValidation(activity);
     }
 
-
+    /**
+     * This implemented method is to listen the click on view
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -91,11 +107,18 @@ public class InfoRegisActivity_Consultant extends AppCompatActivity implements V
         }
     }
 
+    /**
+     * This method is to show dialog for picking consultant birthdate
+     * @param v
+     */
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new InfoRegisActivity_Consultant.DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    /**
+     * This inner class is to define date picker dialog
+     */
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
@@ -111,12 +134,23 @@ public class InfoRegisActivity_Consultant extends AppCompatActivity implements V
             return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
+        /**
+         * Set text in DateEdit to selected date
+         * @param view
+         * @param year
+         * @param month
+         * @param day
+         */
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
             DateEdit.setText(day + "/" + (month + 1) + "/" + year);
         }
     }
 
+    /**
+     * This method is to insert the information to SQLite through databaseHelper
+     *
+     */
     public void postDataToSQLite(){
         if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_invalid_name))) {
             return;

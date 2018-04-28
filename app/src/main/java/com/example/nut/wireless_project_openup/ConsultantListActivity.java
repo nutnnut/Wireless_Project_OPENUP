@@ -19,6 +19,9 @@ import helpers.ConsultantRecyclerAdapter;
 import model.ConsultantInfo;
 import sql.DatabaseHelper;
 
+/**
+ * This activity is to show a filtered list of consultant
+ */
 public class ConsultantListActivity extends AppCompatActivity{
 
     private AppCompatActivity activity = ConsultantListActivity.this;
@@ -59,6 +62,7 @@ public class ConsultantListActivity extends AppCompatActivity{
      * This method is to initialize objects to be used
      */
     private void initObjects() {
+        //Set up recycler views
         listConsultant = new ArrayList<>();
         consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant, this.getBaseContext());
 
@@ -74,7 +78,7 @@ public class ConsultantListActivity extends AppCompatActivity{
     }
 
     /**
-     * This method is to fetch all user records from SQLite
+     * This method is to fetch all consultant records from SQLite that matches the filter
      */
     private void getDataFromSQLite() {
         // AsyncTask is used that SQLite operation not blocks the UI Thread.
@@ -82,6 +86,7 @@ public class ConsultantListActivity extends AppCompatActivity{
             @Override
             protected Void doInBackground(Void... params) {
                 listConsultant.clear();
+                //If the user chose "ALL" card, then there will be no filter apply
                 if(filter.equals("All")){
                     listConsultant.addAll(databaseHelper.getAllConsultantInfo());
                 }

@@ -18,19 +18,18 @@ import helpers.SessionManager;
 import model.ConsultantInfo;
 import sql.DatabaseHelper;
 
+/**
+ * Similar to ConsultantList activity, this activity shows a list of consultant who
+ * the user has sent messages to
+ */
 public class InboxActivity extends AppCompatActivity{
 
     private AppCompatActivity activity = InboxActivity.this;
-    private AppCompatTextView textViewName;
-    private AppCompatTextView textViewFilter;
     private RecyclerView recyclerViewConsultant;
     private List<ConsultantInfo> listConsultant;
     private ConsultantRecyclerAdapter consultantRecyclerAdapter;
     private DatabaseHelper databaseHelper;
     private SessionManager sessionManager;
-    private Intent intentExtras;
-    private Bundle extrasBundle;
-    private String filter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,11 +45,7 @@ public class InboxActivity extends AppCompatActivity{
      * This method is to initialize views
      */
     private void initViews() {
-        textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
-        textViewFilter = (AppCompatTextView) findViewById(R.id.AppCompatTextViewFilter);
         recyclerViewConsultant = (RecyclerView) findViewById(R.id.recyclerViewConsultant2);
-        intentExtras = getIntent();
-        textViewFilter.setText(filter);
     }
 
     /**
@@ -73,7 +68,8 @@ public class InboxActivity extends AppCompatActivity{
     }
 
     /**
-     * This method is to fetch all user records from SQLite
+     * This method is to fetch all consultant records from SQLite that has been chatting with the
+     * user.
      */
     private void getDataFromSQLite() {
         // AsyncTask is used that SQLite operation not blocks the UI Thread.

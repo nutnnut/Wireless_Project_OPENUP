@@ -51,6 +51,9 @@ public class LoginActivity_Consultant extends AppCompatActivity implements View.
         initObjects();
     }
 
+    /**
+     * This method is to initialize views
+     */
     private void initViews() {
 
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
@@ -68,27 +71,39 @@ public class LoginActivity_Consultant extends AppCompatActivity implements View.
 
     }
 
+    /**
+     * This method is to initialize listeners
+     */
     private void initListeners() {
         appCompatButtonLogin.setOnClickListener(this);
         textViewLinkRegister.setOnClickListener(this);
         textViewLinkLogin.setOnClickListener(this);
     }
 
+    /**
+     * This method is to initialize objects to be used
+     */
     private void initObjects() {
         databaseHelper = new DatabaseHelper(activity);
         inputValidation = new InputValidation(activity);
         sessionManager = new SessionManager(activity);
     }
 
+    /**
+     * This implemented method is to listen the click on view
+     *
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textViewLinkRegister:
-                // Navigate to RegisterActivity
+                // Navigate to RegisterActivity for consultant
                 Intent intentRegister = new Intent(getApplicationContext(), RegisterActivity_Consultant.class);
                 startActivity(intentRegister);
                 break;
             case R.id.textViewLinkLogin:
+                // Navigate to user login
                 Intent intentLogin = new Intent(getApplicationContext(), LoginActivity_New.class);
                 startActivity(intentLogin);
                 break;
@@ -98,10 +113,10 @@ public class LoginActivity_Consultant extends AppCompatActivity implements View.
         }
     }
 
+    /**
+     * This method is to validate the input text fields and verify login credentials from SQLite
+     */
     private void verifyFromSQLite() {
-        //Verification is for the weak
-        /*Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
-        LoginActivity_New.this.startActivity(myIntent);*/
 
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
             return;
@@ -115,12 +130,7 @@ public class LoginActivity_Consultant extends AppCompatActivity implements View.
 
         if (databaseHelper.checkConsultant(textInputEditTextEmail.getText().toString().trim()
                 , textInputEditTextPassword.getText().toString().trim())) {
-
-
-            /*Intent accountsIntent = new Intent(activity, UserListActivity.class);
-            accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
-            emptyInputEditText();
-            startActivity(accountsIntent);*/
+            //Check email and password with record in SQLite. If match, allow user to go to main activity
             Consultant loggedInUser =  databaseHelper.getConsultant(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getId();
             sessionManager.createLoginSession(userID, false);
