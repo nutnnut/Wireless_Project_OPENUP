@@ -1,6 +1,7 @@
 package com.example.nut.wireless_project_openup;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.media.MediaCas;
@@ -8,13 +9,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -37,6 +42,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
     private EditText message;
     private MessageRecycle messageRecycle;
     private FloatingActionButton buttonSend;
+    private Button startcall;
 
     private DatabaseHelper databaseHelper;
     private Integer userID;
@@ -157,6 +163,29 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         messageRecycle.notifyDataSetChanged();
     }
 
+    public void videocalldialog(){
+        AlertDialog.Builder calldialog = new AlertDialog.Builder(Chatroom.this);
+        
+        calldialog.setMessage("Start video call?").setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent( Chatroom.this, VideoCall.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog dialog = calldialog.create();
+        dialog.setTitle("Video Call");
+        dialog.show();
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -164,5 +193,23 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
                 postDataToSQLite();
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_chat,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //In case we get more items(?)
+        switch (item.getItemId()){
+            case R.id.StartCall:
+                videocalldialog();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

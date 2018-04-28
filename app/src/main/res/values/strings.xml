@@ -75,5 +75,6 @@
         <item>Hospital</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="startvideocall">Start Video Call</string>
 </resources>
 
