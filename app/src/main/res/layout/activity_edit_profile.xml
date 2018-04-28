@@ -107,7 +107,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonUpdate"
+                android:id="@+id/buttonCancel"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,7 +116,7 @@
                 android:textColor="#ffffff" />
 
             <Button
-                android:id="@+id/buttonCancel"
+                android:id="@+id/buttonUpdate"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

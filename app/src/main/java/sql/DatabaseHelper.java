@@ -983,8 +983,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    public Collection<? extends Chatmessage> getMessage(User u,Consultant c) {
-        return u.getChat(c);
-    }
+
 
 }

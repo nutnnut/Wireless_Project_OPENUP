@@ -111,6 +111,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             case R.id.textInputEditTextDateEdit:
                 showDatePickerDialog(v);
                 break;
+
+            case R.id.buttonCancel:
+                finish();
+                break;
         }
     }
 
