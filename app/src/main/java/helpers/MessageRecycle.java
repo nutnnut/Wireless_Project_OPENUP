@@ -15,16 +15,24 @@ import java.util.List;
 
 import model.Chatmessage;
 
+/**
+ * This class is the recycler adapter for viewing chat messages in chatroom
+ */
 public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageViewHolder> {
 
     List<Chatmessage> list;
-    boolean isUser;
+    boolean isUser; //variable that identifies whether the logged in person is a user or consultant
 
     public MessageRecycle(List<Chatmessage> receivemessage, boolean isUser){
         this.list=receivemessage;
         this.isUser = isUser;
     }
 
+    /**
+     * This method identifies whether the message is sent or received
+     * @param position
+     * @return
+     */
     public int getItemViewType(int position){
         Chatmessage chatmessage = list.get(position);
         int isSender;
@@ -47,6 +55,12 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
         return isSender;
     }
 
+    /**
+     * This method set layout according to the type of message
+     * @param parent
+     * @param viewType
+     * @return
+     */
     public MessageRecycle.MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
         if(viewType == 1){
@@ -64,6 +78,11 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
 
     }
 
+    /**
+     * This method bind holder content to message content
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
         holder.textViewTime.setText(list.get(position).getMessageTime());
@@ -76,17 +95,16 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
         return list.size();
     }
 
+    /**
+     * ViewHolder class for chat messages
+     */
     public class MessageViewHolder extends RecyclerView.ViewHolder{
-    //public TextView textViewName;
     public TextView textViewMessage;
-    //public ImageView UserPic;
     public TextView textViewTime;
 
     public MessageViewHolder(View view) {
         super(view);
-        //textViewName = (TextView) view.findViewById(R.id.receiveusername);
         textViewMessage = (TextView) view.findViewById(R.id.receivetext);
-        //UserPic = (ImageView) view.findViewById(R.id.receivepic);
         textViewTime = (AppCompatTextView) view.findViewById(R.id.timesent);
     }
     }

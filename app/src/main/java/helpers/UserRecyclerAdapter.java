@@ -20,20 +20,25 @@ import model.ConsultantInfo;
 import model.Information;
 
 /**
- * Created by BAMBOOK on 4/28/2018.
+ * This class is a recycler adapter for viewing user list in consultant inbox
  */
 
 public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapter.UserViewHolder> {
 
     private List<Information> list;
     private Context context;
-    private String TAG = "UserRecycler";
 
     public UserRecyclerAdapter(List<Information> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
+    /**
+     * This method sets layout for user recycler holder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public UserRecyclerAdapter.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // inflating recycler item view
@@ -43,6 +48,11 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         return new UserRecyclerAdapter.UserViewHolder(itemView);
     }
 
+    /**
+     * This method binds user name and gender to holder content views
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(UserRecyclerAdapter.UserViewHolder holder, int position) {
         holder.userID = list.get(position).getUserID();
@@ -58,7 +68,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 
 
     /**
-     * ViewHolder class
+     * ViewHolder class for user list
      */
     public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -75,7 +85,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 
         @Override
         public void onClick(View view) {
-            Log.e(TAG, "onClick: DO U KNO DA WAE?");
+            //Create intent and bundle to send user ID to chatroom
             final Intent chatIntent = new Intent(context, Chatroom.class);
             final Bundle bundle = new Bundle();
             bundle.putInt("userID", userID);

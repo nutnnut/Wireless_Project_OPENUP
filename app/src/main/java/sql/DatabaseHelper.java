@@ -240,58 +240,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    /**
-     * This method is to fetch all user and return the list of user records
-     *
-     * @return list
-     */
-    public List<User> getAllUser() {
-        // array of columns to fetch
-        String[] columns = {
-                COLUMN_USER_ID,
-                COLUMN_USER_EMAIL,
-                COLUMN_USER_PASSWORD
-        };
-        // sorting orders
-        String sortOrder =
-                COLUMN_USER_ID + " ASC";
-        List<User> userList = new ArrayList<User>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // query the user table
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
-         */
-        Cursor cursor = db.query(TABLE_USER, //Table to query
-                columns,    //columns to return
-                null,        //columns for the WHERE clause
-                null,        //The values for the WHERE clause
-                null,       //group the rows
-                null,       //filter by row groups
-                sortOrder); //The sort order
-
-
-        // Traversing through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                User user = new User();
-                user.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
-                user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
-                user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
-                // Adding user record to list
-                userList.add(user);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-
-        // return user list
-        return userList;
-    }
-
     public User getUser(String email){
 
         String[] columns = {
@@ -435,24 +383,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return consultantInfo;
-    }
-
-    /**
-     * This method to update user record
-     *
-     * @param user
-     */
-    public void updateUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_EMAIL, user.getEmail());
-        values.put(COLUMN_USER_PASSWORD, user.getPassword());
-
-        // updating row
-        db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?",
-                new String[]{String.valueOf(user.getID())});
-        db.close();
     }
 
     public void updateInfo(Information info){
@@ -741,19 +671,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * This method is to delete user record
-     *
-     * @param user
-     */
-    public void deleteUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        // delete user record by id
-        db.delete(TABLE_USER, COLUMN_USER_ID + " = ?",
-                new String[]{String.valueOf(user.getID())});
-        db.close();
-    }
-
-    /**
      * This method to check user exist or not
      *
      * @param email
@@ -914,75 +831,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return false;
     }
-
-    public boolean checkInfo(Integer userID){
-
-        // array of columns to fetch
-        String[] columns = {
-                COLUMN_INFO_ID
-        };
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // selection criteria
-        String selection = COLUMN_INFO_USERID + " = ?";
-
-        // selection argument
-        String[] selectionArgs = {userID.toString()};
-
-        // query user table with condition
-        Cursor cursor = db.query(TABLE_INFO, //Table to query
-                columns,                    //columns to return
-                selection,                  //columns for the WHERE clause
-                selectionArgs,              //The values for the WHERE clause
-                null,                       //group the rows
-                null,                      //filter by row groups
-                null);                      //The sort order
-        int cursorCount = cursor.getCount();
-        cursor.close();
-        db.close();
-
-        if (cursorCount > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean checkChat(Integer consultantID){
-
-        // array of columns to fetch
-        String[] columns = {
-                COLUMN_CHAT_CONID
-        };
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // selection criteria
-        String selection = COLUMN_CHAT_CONID + " = ?";
-
-        // selection argument
-        String[] selectionArgs = {consultantID.toString()};
-
-        // query user table with condition
-        Cursor cursor = db.query(TABLE_CHAT, //Table to query
-                columns,                    //columns to return
-                selection,                  //columns for the WHERE clause
-                selectionArgs,              //The values for the WHERE clause
-                null,                       //group the rows
-                null,                      //filter by row groups
-                null);                      //The sort order
-        int cursorCount = cursor.getCount();
-        cursor.close();
-        db.close();
-
-        if (cursorCount > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-
 
 
 }

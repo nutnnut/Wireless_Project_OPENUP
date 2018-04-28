@@ -9,7 +9,7 @@ import com.example.nut.wireless_project_openup.LoginActivity_New;
 import java.util.HashMap;
 
 /**
- * Created by BAMBOOK on 4/13/2018.
+ * This class is a helper class that helps manage session preference
  */
 
 public class SessionManager {
@@ -55,6 +55,7 @@ public class SessionManager {
         // Storing ID in pref
         editor.putInt(KEY_ID, ID);
 
+        //Identify whether the user id a user or consultant
         editor.putBoolean(IS_USER, is_user);
 
         // commit changes
@@ -94,6 +95,10 @@ public class SessionManager {
         return userID;
     }
 
+    /**
+     * Chech whether the person is a user or consultant
+     * @return
+     */
     public boolean isUser(){
         boolean isUser = pref.getBoolean(IS_USER, true);
         return isUser;

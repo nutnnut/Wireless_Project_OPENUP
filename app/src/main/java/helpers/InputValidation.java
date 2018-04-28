@@ -9,7 +9,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 /**
- * Created by BAMBOOK on 4/9/2018.
+ * This class is to help validate inputs in LoginActivity, RegisterActivity, and InfoRegisActivity
+ * for both user and consultant
  */
 
 public class InputValidation {
@@ -66,6 +67,14 @@ public class InputValidation {
         return true;
     }
 
+    /**
+     * Check if two input matches (for checking password and confirm password)
+     * @param textInputEditText1
+     * @param textInputEditText2
+     * @param textInputLayout
+     * @param message
+     * @return
+     */
     public boolean isInputEditTextMatches(TextInputEditText textInputEditText1, TextInputEditText textInputEditText2, TextInputLayout textInputLayout, String message) {
         String value1 = textInputEditText1.getText().toString().trim();
         String value2 = textInputEditText2.getText().toString().trim();

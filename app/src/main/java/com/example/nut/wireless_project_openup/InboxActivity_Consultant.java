@@ -29,7 +29,6 @@ import sql.DatabaseHelper;
 public class InboxActivity_Consultant extends AppCompatActivity {
 
     private AppCompatActivity activity = InboxActivity_Consultant.this;
-    private AppCompatTextView textViewName;
     private RecyclerView recyclerViewUser;
     private List<Information> listUser;
     private UserRecyclerAdapter userRecyclerAdapter;
@@ -57,7 +56,6 @@ public class InboxActivity_Consultant extends AppCompatActivity {
      * This method is to initialize views
      */
     private void initViews() {
-        textViewName = (AppCompatTextView) findViewById(R.id.textViewNameUser);
         recyclerViewUser = (RecyclerView) findViewById(R.id.recyclerViewUser);
     }
 

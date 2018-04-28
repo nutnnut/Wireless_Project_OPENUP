@@ -19,20 +19,24 @@ import java.util.List;
 import model.ConsultantInfo;
 
 /**
- * Created by BAMBOOK on 4/18/2018.
+ * This class is the recycler adapter for consultant list
  */
-
 public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRecyclerAdapter.ConsultantViewHolder> {
 
     private List<ConsultantInfo> list;
     private Context context;
-    private String TAG = "ConsultantRecycler";
 
     public ConsultantRecyclerAdapter(List<ConsultantInfo> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
+    /**
+     * This method set layout and holder for consultant recycler
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ConsultantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // inflating recycler item view
@@ -42,6 +46,11 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
         return new ConsultantViewHolder(itemView);
     }
 
+    /**
+     * This method set holder content to chat message information
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ConsultantViewHolder holder, int position) {
         holder.consultantID = list.get(position).getConsultantID();
@@ -59,7 +68,7 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
 
 
     /**
-     * ViewHolder class
+     * ViewHolder class for consultant list
      */
     public class ConsultantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -80,9 +89,9 @@ public class ConsultantRecyclerAdapter extends RecyclerView.Adapter<ConsultantRe
 
         @Override
         public void onClick(View view) {
-            Log.e(TAG, "onClick: DO U KNO DA WAE?");
             final Intent chatIntent = new Intent(context, Chatroom.class);
             final Bundle bundle = new Bundle();
+            //Create bundle to send consultant ID to chatroom
             bundle.putInt("consultantID", consultantID);
             chatIntent.putExtras(bundle);
             context.startActivity(chatIntent);
