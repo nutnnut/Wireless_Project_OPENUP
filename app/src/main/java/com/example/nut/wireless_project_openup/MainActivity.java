@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Locale;
 
 import helpers.SessionManager;
+import model.Information;
 import sql.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity
@@ -44,10 +45,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         databaseHelper = new DatabaseHelper(activity);
-
-
+        int userID = sessionManager.getUserID();
+        Information information = databaseHelper.getInfo(userID);
+        String displayName = information.getDisplayName();
         textViewNavBarName = (TextView) findViewById(R.id.textViewNavBarName);
-        //textViewNavBarName.setText(databaseHelper.getInfo(sessionManager.getUserID()).getDisplayName());
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
