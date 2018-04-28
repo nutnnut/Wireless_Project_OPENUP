@@ -84,7 +84,10 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
      */
     private void initObjects() {
         listText = new ArrayList<>();
-        messageRecycle = new MessageRecycle(listText);
+
+        databaseHelper = new DatabaseHelper(activity);
+        sessionManager = new SessionManager(this);
+        messageRecycle = new MessageRecycle(listText, sessionManager.isUser());
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mLayoutManager.setStackFromEnd(true);
@@ -92,8 +95,6 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         recyclerViewMessage.setItemAnimator(new DefaultItemAnimator());
         recyclerViewMessage.setHasFixedSize(true);
         recyclerViewMessage.setAdapter(messageRecycle);
-        databaseHelper = new DatabaseHelper(activity);
-        sessionManager = new SessionManager(this);
         intentExtras = getIntent();
         extrasBundle = intentExtras.getExtras();
         if(sessionManager.isUser()){
@@ -148,7 +149,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
 
     private void postDataToSQLite(){
         Chatmessage chatmessage = new Chatmessage(message.getText().toString()
-                , userID, consultantID, true);
+                , userID, consultantID, sessionManager.isUser());
         databaseHelper.addChatMessage(chatmessage);
         listText.add(chatmessage);
         recyclerViewMessage.scrollToPosition(listText.size()-1);

@@ -18,17 +18,49 @@ import model.Chatmessage;
 public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageViewHolder> {
 
     List<Chatmessage> list;
-    boolean sender;
+    boolean isUser;
 
-    public MessageRecycle(List<Chatmessage> receivemessage){
+    public MessageRecycle(List<Chatmessage> receivemessage, boolean isUser){
         this.list=receivemessage;
+        this.isUser = isUser;
+    }
+
+    public int getItemViewType(int position){
+        Chatmessage chatmessage = list.get(position);
+        int isSender;
+        if(isUser){
+            if(chatmessage.getSender()){
+                isSender = 1;
+            }
+            else{
+                isSender = 0;
+            }
+        }
+        else{
+            if(chatmessage.getSender()){
+                isSender = 0;
+            }
+            else{
+                isSender = 1;
+            }
+        }
+        return isSender;
     }
 
     public MessageRecycle.MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
+        View itemView;
+        if(viewType == 1){
+
+            itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.chat_receive, parent, false);
 
-            return new MessageViewHolder(itemView);
+        }
+        else{
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.chat_send, parent, false);
+        }
+
+        return new MessageViewHolder(itemView);
 
     }
 
@@ -55,7 +87,7 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
         //textViewName = (TextView) view.findViewById(R.id.receiveusername);
         textViewMessage = (TextView) view.findViewById(R.id.receivetext);
         //UserPic = (ImageView) view.findViewById(R.id.receivepic);
-        textViewTime = (AppCompatTextView) view.findViewById(R.id.receivetimesent);
+        textViewTime = (AppCompatTextView) view.findViewById(R.id.timesent);
     }
     }
 

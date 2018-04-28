@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -23,12 +24,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Locale;
 
 import helpers.SessionManager;
+import sql.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private SessionManager sessionManager;
+    private DatabaseHelper databaseHelper;
     private final AppCompatActivity activity = MainActivity.this;
+
+    private TextView textViewNavBarName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +43,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        databaseHelper = new DatabaseHelper(activity);
 
 
-
+        textViewNavBarName = (TextView) findViewById(R.id.textViewNavBarName);
+        //textViewNavBarName.setText(databaseHelper.getInfo(sessionManager.getUserID()).getDisplayName());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
