@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 public class Fragment_Home extends Fragment {
 
     View myView;
-    CardView videoshortcut;
+    CardView homeinbox;
     CardView consult;
     CardView nearby;
     @Nullable
@@ -21,14 +21,14 @@ public class Fragment_Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.layout_home, container, false);
 
-        videoshortcut = (CardView) myView.findViewById(R.id.videoshortcut);
+        homeinbox = (CardView) myView.findViewById(R.id.homeinbox);
         consult = (CardView) myView.findViewById(R.id.homeconsult);
         nearby = (CardView) myView.findViewById(R.id.homenearby);
 
-        videoshortcut.setOnClickListener(new View.OnClickListener() {
+        homeinbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent myIntent = new Intent(getActivity(),VideoCall.class);
+                Intent myIntent = new Intent(getActivity(),InboxActivity.class);
                 startActivity(myIntent);
             }
         });
