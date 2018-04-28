@@ -10,6 +10,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class InboxActivity_Consultant extends AppCompatActivity {
     private UserRecyclerAdapter userRecyclerAdapter;
     private DatabaseHelper databaseHelper;
     private SessionManager sessionManager;
+    private Button logout;
 
 
     @Override
@@ -38,6 +41,14 @@ public class InboxActivity_Consultant extends AppCompatActivity {
         setContentView(R.layout.activity_inbox__consultant);
         initViews();
         initObjects();
+
+        logout = (Button) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sessionManager.logoutUser();
+            }
+        });
     }
     /**
      * This method is to initialize views
