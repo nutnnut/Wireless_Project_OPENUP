@@ -120,8 +120,8 @@ public class LoginActivity_Consultant extends AppCompatActivity implements View.
             startActivity(accountsIntent);*/
             Consultant loggedInUser =  databaseHelper.getConsultant(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getId();
-            sessionManager.createLoginSession(userID);
-            Intent myIntent = new Intent(LoginActivity_Consultant.this,InboxActivity.class);
+            sessionManager.createLoginSession(userID, false);
+            Intent myIntent = new Intent(LoginActivity_Consultant.this,InboxActivity_Consultant.class);
             LoginActivity_Consultant.this.startActivity(myIntent);
 
 

@@ -31,8 +31,11 @@ public class SessionManager {
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
 
-    // User name (make variable public to access from outside)
+    // User ID (make variable public to access from outside)
     public static final String KEY_ID = "userID";
+
+    //State whether session is user or not
+    public static final String IS_USER = "isUser";
 
 
     // Constructor
@@ -45,12 +48,14 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(Integer ID){
+    public void createLoginSession(Integer ID, boolean is_user){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
-        // Storing name in pref
+        // Storing ID in pref
         editor.putInt(KEY_ID, ID);
+
+        editor.putBoolean(IS_USER, is_user);
 
         // commit changes
         editor.commit();
@@ -87,6 +92,11 @@ public class SessionManager {
         Integer userID = pref.getInt(KEY_ID, 0);
         // return userID
         return userID;
+    }
+
+    public boolean isUser(){
+        boolean isUser = pref.getBoolean(IS_USER, true);
+        return isUser;
     }
 
     /**

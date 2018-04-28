@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.IDNA;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -632,6 +633,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // return user list
         return consultantIDList;
+    }
+
+    public List<Information> getUserInfoInbox(Integer consultantID){
+        List<Information> userInfoList = new ArrayList<Information>();
+        List<Integer> userIDList = getUserIDInbox(consultantID);
+        for(int i: userIDList){
+            Information userInfo = getInfo(i);
+            userInfoList.add(userInfo);
+        }
+        return userInfoList;
+    }
+
+    public List<Integer> getUserIDInbox(Integer consultantID){
+        // array of columns to fetch
+        String[] columns = {
+                COLUMN_CHAT_CONID,
+                COLUMN_CHAT_ID,
+                COLUMN_CHAT_USERID
+        };
+        // sorting orders
+        String sortOrder =
+                COLUMN_CHAT_ID + " DESC";
+
+        String selection = COLUMN_CHAT_CONID + " = ?";
+
+        String[] selectionArgs = {consultantID.toString()};
+
+        List<Integer> userIDList = new ArrayList<Integer>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // query the user table
+        Cursor cursor = db.query(
+                TABLE_CHAT, //Table to query
+                columns,    //columns to return
+                selection,        //columns for the WHERE clause
+                selectionArgs,//The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+        if (cursor.moveToFirst()) {
+            do {
+                Integer userID = cursor.getInt(cursor.getColumnIndex(COLUMN_CHAT_USERID));
+                if(!userIDList.contains(userID))
+                    userIDList.add(userID);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+
+        // return user list
+        return userIDList;
     }
 
     public List<Chatmessage> getAllChatmessage(Integer userID, Integer consultantID){

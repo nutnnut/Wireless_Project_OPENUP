@@ -44,6 +44,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
     private Bundle extrasBundle;
     private Integer consultantID;
     private ConsultantInfo consultantInfo;
+    private Information information;
     private String TAG = "Chatroom";
     private SessionManager sessionManager;
 
@@ -55,7 +56,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         initViews();
         initObjects();
         initListeners();
-        getSupportActionBar().setTitle(consultantInfo.getName());
+
 
     }
 
@@ -91,14 +92,25 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         recyclerViewMessage.setItemAnimator(new DefaultItemAnimator());
         recyclerViewMessage.setHasFixedSize(true);
         recyclerViewMessage.setAdapter(messageRecycle);
-
+        databaseHelper = new DatabaseHelper(activity);
         sessionManager = new SessionManager(this);
         intentExtras = getIntent();
         extrasBundle = intentExtras.getExtras();
-        consultantID = extrasBundle.getInt("consultantID");
-        userID = sessionManager.getUserID();
-        databaseHelper = new DatabaseHelper(activity);
-        consultantInfo = databaseHelper.getConsultantInfo(consultantID);
+        if(sessionManager.isUser()){
+            consultantID = extrasBundle.getInt("consultantID");
+            userID = sessionManager.getUserID();
+            consultantInfo = databaseHelper.getConsultantInfo(consultantID);
+            getSupportActionBar().setTitle(consultantInfo.getName());
+        }
+        else{
+            consultantID = sessionManager.getUserID();
+            userID = extrasBundle.getInt("userID");
+            information = databaseHelper.getInfo(userID);
+            getSupportActionBar().setTitle(information.getDisplayName());
+        }
+
+
+
 
 
         getDataFromSQLite();

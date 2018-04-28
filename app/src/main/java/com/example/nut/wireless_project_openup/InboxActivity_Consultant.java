@@ -9,57 +9,58 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import helpers.ConsultantRecyclerAdapter;
+import helpers.SessionManager;
+import helpers.UserRecyclerAdapter;
 import model.ConsultantInfo;
+import model.Information;
 import sql.DatabaseHelper;
 
 public class InboxActivity_Consultant extends AppCompatActivity {
 
     private AppCompatActivity activity = InboxActivity_Consultant.this;
     private AppCompatTextView textViewName;
-    private AppCompatTextView textViewFilter;
-    private RecyclerView recyclerViewConsultant;
-    private List<ConsultantInfo> listConsultant;
-    private ConsultantRecyclerAdapter consultantRecyclerAdapter;
+    private RecyclerView recyclerViewUser;
+    private List<Information> listUser;
+    private UserRecyclerAdapter userRecyclerAdapter;
     private DatabaseHelper databaseHelper;
-    private Intent intentExtras;
-    private Bundle extrasBundle;
-    private String filter;
+    private SessionManager sessionManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox__consultant);
+        initViews();
+        initObjects();
     }
     /**
      * This method is to initialize views
      */
     private void initViews() {
-        textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
-        textViewFilter = (AppCompatTextView) findViewById(R.id.AppCompatTextViewFilter);
-        recyclerViewConsultant = (RecyclerView) findViewById(R.id.recyclerViewConsultant2);
-        intentExtras = getIntent();
-        textViewFilter.setText(filter);
+        textViewName = (AppCompatTextView) findViewById(R.id.textViewNameUser);
+        recyclerViewUser = (RecyclerView) findViewById(R.id.recyclerViewUser);
     }
 
     /**
      * This method is to initialize objects to be used
      */
     private void initObjects() {
-        listConsultant = new ArrayList<>();
-        consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant, this.getBaseContext());
+        listUser = new ArrayList<>();
+        userRecyclerAdapter = new UserRecyclerAdapter(listUser, this.getBaseContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewConsultant.setLayoutManager(mLayoutManager);
-        recyclerViewConsultant.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewConsultant.setHasFixedSize(true);
-        recyclerViewConsultant.setAdapter(consultantRecyclerAdapter);
+        recyclerViewUser.setLayoutManager(mLayoutManager);
+        recyclerViewUser.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewUser.setHasFixedSize(true);
+        recyclerViewUser.setAdapter(userRecyclerAdapter);
         databaseHelper = new DatabaseHelper(activity);
+        sessionManager = new SessionManager(activity);
 
 
         getDataFromSQLite();
@@ -73,17 +74,8 @@ public class InboxActivity_Consultant extends AppCompatActivity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                listConsultant.clear();
-                if(filter==null){
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
-                }
-                else if(filter.equals("All")){
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo());
-                }
-                else{
-                    listConsultant.addAll(databaseHelper.getAllConsultantInfo(filter));
-                }
-
+                listUser.clear();
+                listUser.addAll(databaseHelper.getUserInfoInbox(sessionManager.getUserID()));
 
                 return null;
             }
@@ -91,7 +83,7 @@ public class InboxActivity_Consultant extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                consultantRecyclerAdapter.notifyDataSetChanged();
+                userRecyclerAdapter.notifyDataSetChanged();
             }
         }.execute();
     }

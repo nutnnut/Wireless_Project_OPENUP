@@ -136,7 +136,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
             startActivity(accountsIntent);*/
             User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getID();
-            sessionManager.createLoginSession(userID);
+            sessionManager.createLoginSession(userID, true);
             Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
             LoginActivity_New.this.startActivity(myIntent);
 

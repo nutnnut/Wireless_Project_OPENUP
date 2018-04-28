@@ -141,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
             User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getID();
-            sessionManager.createLoginSession(userID);
+            sessionManager.createLoginSession(userID, true);
             emptyInputEditText();
             Intent myIntent = new Intent(RegisterActivity.this,InfoRegisActivity.class);
             RegisterActivity.this.startActivity(myIntent);

@@ -81,6 +81,8 @@ public class InfoRegisActivity_Consultant extends AppCompatActivity implements V
 
             case R.id.appCompatButtonSaveInfoConsultant:
                 postDataToSQLite();
+                Intent intent = new Intent(InfoRegisActivity_Consultant.this, InboxActivity_Consultant.class);
+                startActivity(intent);
                 break;
 
             case R.id.textInputEditTextDateConsultant:

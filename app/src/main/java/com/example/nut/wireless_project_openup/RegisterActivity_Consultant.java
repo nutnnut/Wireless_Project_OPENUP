@@ -120,7 +120,7 @@ public class RegisterActivity_Consultant extends AppCompatActivity implements Vi
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
             Consultant loggedInUser =  databaseHelper.getConsultant(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getId();
-            sessionManager.createLoginSession(userID);
+            sessionManager.createLoginSession(userID, false);
             emptyInputEditText();
             Intent myIntent = new Intent(RegisterActivity_Consultant.this,InfoRegisActivity_Consultant.class);
             RegisterActivity_Consultant.this.startActivity(myIntent);
