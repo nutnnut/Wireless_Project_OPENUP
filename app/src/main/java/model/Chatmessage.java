@@ -4,15 +4,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * This class is object class for storing chat message information
+ */
 public class Chatmessage
 {
     private String messageText;
     private Integer UserID;
     private Integer ConsultantID;
-    private Boolean sender;
+    private Boolean sender; //identifies whether the sender is user(true) or consultant(false)
     private String messageTime;
     private Boolean isread;
 
+    /**
+     * Constructor for creating chatmessage with parameters
+     * @param messageText
+     * @param User
+     * @param Consultant
+     * @param sender
+     */
     public Chatmessage(String messageText,Integer User,Integer Consultant,Boolean sender){
         this.messageText=messageText;
         this.UserID=User;
@@ -23,8 +33,13 @@ public class Chatmessage
         this.sender = sender;
     }
 
+    /**
+     * Constructor for creating a blank chatmessage
+     */
     public Chatmessage(){
     }
+
+    //Getters and Setters
 
     public String getMessageText() {
         return messageText;

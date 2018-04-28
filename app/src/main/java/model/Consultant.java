@@ -1,12 +1,15 @@
 package model;
 
-import android.media.Rating;
-
+/**
+ * This class is an object class for storing consultant account information
+ */
 public class Consultant {
     private Integer id;
     private String email;
     private String password;
     private ConsultantInfo info;
+
+    //Getters and Setters
 
     public Integer getId() {
         return id;

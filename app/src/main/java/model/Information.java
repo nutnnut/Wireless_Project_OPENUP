@@ -2,6 +2,9 @@ package model;
 
 import java.util.Date;
 
+/**
+ * This class is an object class for storing user profile information
+ */
 public class Information {
 
     private Integer id;
@@ -12,6 +15,8 @@ public class Information {
     private String birthdate;
     private String occupation;
     private String medicalCondition;
+
+    //Getters and Setters
 
     public Integer getId() {
         return id;

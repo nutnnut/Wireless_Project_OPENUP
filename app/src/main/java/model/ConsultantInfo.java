@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Created by BAMBOOK on 4/15/2018.
+ * This class is an object class for storing consultant profile information
  */
 
 public class ConsultantInfo {
@@ -19,6 +19,7 @@ public class ConsultantInfo {
     private Integer age;
     private String expertise;
 
+    //Getters and Setters
     public Integer getConInfoID() {
         return conInfoID;
     }
@@ -55,25 +56,6 @@ public class ConsultantInfo {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-
-        try {
-            Calendar currentDate = Calendar.getInstance();
-            int year = currentDate.get(Calendar.YEAR);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            Calendar birthDate = Calendar.getInstance();
-            birthDate.setTime(dateFormat.parse(birthdate));
-            int birthYear = birthDate.get(Calendar.YEAR);
-            this.age = year - birthYear;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
     public Integer getAge() {
         return age;
     }
@@ -86,4 +68,22 @@ public class ConsultantInfo {
         this.expertise = expertise;
     }
 
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+
+        try {
+            //Calculate age from birthdate and current date
+            Calendar currentDate = Calendar.getInstance();
+            int year = currentDate.get(Calendar.YEAR);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar birthDate = Calendar.getInstance();
+            birthDate.setTime(dateFormat.parse(birthdate));
+            int birthYear = birthDate.get(Calendar.YEAR);
+            this.age = year - birthYear;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

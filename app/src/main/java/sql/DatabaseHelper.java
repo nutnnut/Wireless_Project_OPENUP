@@ -18,7 +18,7 @@ import model.Information;
 import model.User;
 
 /**
- * Created by BAMBOOK on 4/6/2018.
+ * This class is a helper class for executing SQL commands to SQLite database
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -134,6 +134,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Create all table on create
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_TABLE);
@@ -158,12 +162,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
 
     }
+
     /**
-     * This method is to create user record
+     * This method is to create user account record
      *
      * @param user
      */
-
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -177,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * This method is to create information record
+     * This method is to create user profile information record
      * @param info
      */
     public void addInfo(Information info){
@@ -195,6 +199,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method is to create consultant account record
+     * @param consultant
+     */
     public void addConsultant(Consultant consultant){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -206,6 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method is to create consultant profile information record
+     * @param consultantInfo
+     */
     public void addConsultantInfo(ConsultantInfo consultantInfo){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -220,6 +232,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method is to create a chat message log record
+     * @param chatmessage
+     */
     public void addChatMessage(Chatmessage chatmessage){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -240,6 +256,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method is to get user account information using email as key
+     * @param email
+     * @return
+     */
     public User getUser(String email){
 
         String[] columns = {
@@ -252,11 +273,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {email};
 
         // query user table with condition
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
-         */
         Cursor cursor = db.query(TABLE_USER, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
@@ -275,6 +291,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return user;
     }
 
+    /**
+     * This method is to get user profile information from user ID
+     * @param userID
+     * @return
+     */
     public Information getInfo(Integer userID){
         String[] columns = {
                 COLUMN_INFO_ID,
@@ -289,12 +310,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selection = COLUMN_INFO_USERID + " = ?";
         String[] selectionArgs = {userID.toString()};
 
-        // query user table with condition
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
-         */
+        // query user information table with condition
         Cursor cursor = db.query(TABLE_INFO, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
@@ -317,6 +333,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return information;
     }
 
+    /**
+     * This method is to get consultant account ID from email
+     * @param email
+     * @return
+     */
     public Consultant getConsultant(String email){
         String[] columns = {
                 COLUMN_CONSULTANT_ID,
@@ -327,12 +348,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selection = COLUMN_CONSULTANT_EMAIL + " = ?";
         String[] selectionArgs = {email};
 
-        // query user table with condition
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
-         */
+        // query consultant table with condition
         Cursor cursor = db.query(TABLE_CONSULTANT, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
@@ -351,6 +367,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return consultant;
     }
 
+    /**
+     * This method is to get consultant profile information record from consultant ID
+     * @param consultantID
+     * @return
+     */
     public ConsultantInfo getConsultantInfo(Integer consultantID){
         // array of columns to fetch
         String[] columns = {
@@ -385,6 +406,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return consultantInfo;
     }
 
+    /**
+     * This method is to update user profile information with input information
+     * @param info
+     */
     public void updateInfo(Information info){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -401,6 +426,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * This method is to return a list of consultant profile information without filter
+     * @return
+     */
     public List<ConsultantInfo> getAllConsultantInfo(){
         // array of columns to fetch
         String[] columns = {
@@ -418,12 +447,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // query the user table
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
-         */
+        // query the consultant info table
         Cursor cursor = db.query(TABLE_CONINFO, //Table to query
                 columns,    //columns to return
                 null,        //columns for the WHERE clause
@@ -450,10 +474,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        // return user list
+        // return consultant list
         return consultantInfoList;
     }
 
+    /**
+     * This method is to return a list of consultant profile information with expertise
+     * equals to filter
+     * @param filter
+     * @return
+     */
     public List<ConsultantInfo> getAllConsultantInfo(String filter){
         // array of columns to fetch
         String[] columns = {
@@ -477,12 +507,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // query the user table
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
-         */
+        // query the consultant info table
         Cursor cursor = db.query(TABLE_CONINFO, //Table to query
                 columns,    //columns to return
                 selection,        //columns for the WHERE clause
@@ -509,10 +534,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        // return user list
+        // return consultant info list
         return consultantInfoList;
     }
 
+    /**
+     * This method returns a list of consultant profile information of the consultants
+     * who has chat records with user who has user ID equals to parameter
+     * @param userID
+     * @return
+     */
     public List<ConsultantInfo> getConsultantInfoInbox(Integer userID){
         List<ConsultantInfo> consultantInfoList = new ArrayList<ConsultantInfo>();
         List<Integer> consultantIDList = getConsultantIDInbox(userID);
@@ -523,6 +554,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return consultantInfoList;
     }
 
+    /**
+     * This method returns a list of consultant ID of the consultants
+     * who has chat records with user who has user ID equals to parameter
+     * @param userID
+     * @return
+     */
     public List<Integer> getConsultantIDInbox(Integer userID){
         // array of columns to fetch
         String[] columns = {
@@ -542,7 +579,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // query the user table
+        // query the chat table
         Cursor cursor = db.query(
                 TABLE_CHAT, //Table to query
                 columns,    //columns to return
@@ -561,10 +598,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        // return user list
+        // return consultant ID list
         return consultantIDList;
     }
 
+    /**
+     * This method returns a list of user profile information of users who has chat recourds
+     * with consultant who has consultant ID equals to the parameter
+     * @param consultantID
+     * @return
+     */
     public List<Information> getUserInfoInbox(Integer consultantID){
         List<Information> userInfoList = new ArrayList<Information>();
         List<Integer> userIDList = getUserIDInbox(consultantID);
@@ -575,6 +618,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return userInfoList;
     }
 
+    /**
+     * This method returns a list of user ID of users who of the consultants
+     * who has chat records with consultant who has consultant ID equals to parameter
+     * @param consultantID
+     * @return
+     */
     public List<Integer> getUserIDInbox(Integer consultantID){
         // array of columns to fetch
         String[] columns = {
@@ -594,7 +643,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // query the user table
+        // query the chat table
         Cursor cursor = db.query(
                 TABLE_CHAT, //Table to query
                 columns,    //columns to return
@@ -613,10 +662,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        // return user list
+        // return user ID list
         return userIDList;
     }
 
+    /**
+     * This method returns a list of chat messages between a user with user ID
+     * and a consultant with consultant ID
+     * @param userID
+     * @param consultantID
+     * @return
+     */
     public List<Chatmessage> getAllChatmessage(Integer userID, Integer consultantID){
         // array of columns to fetch
         String[] columns = {
@@ -640,7 +696,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // query the user table
+        // query the chat table
         Cursor cursor = db.query(TABLE_CHAT, //Table to query
                 columns,    //columns to return
                 selection,        //columns for the WHERE clause
@@ -666,12 +722,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
 
-        // return user list
+        // return chat message list
         return chatmessageList;
     }
 
     /**
-     * This method to check user exist or not
+     * This method is to check if there is a user with this email exist or not
      *
      * @param email
      * @return true/false
@@ -691,11 +747,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {email};
 
         // query user table with condition
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
-         */
         Cursor cursor = db.query(TABLE_USER, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
@@ -714,6 +765,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+    /**
+     * This method is to check if there is a consultant with this email or not
+     * @param email
+     * @return
+     */
     public boolean checkConsultant(String email){
         // array of columns to fetch
         String[] columns = {
@@ -727,12 +783,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // selection argument
         String[] selectionArgs = {email};
 
-        // query user table with condition
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
-         */
+        // query consultant table with condition
         Cursor cursor = db.query(TABLE_CONSULTANT, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
@@ -750,8 +801,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return false;
     }
+
     /**
-     * This method to check user exist or not
+     * This method is to check user authentication
      *
      * @param email
      * @param password
@@ -771,11 +823,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {email, password};
 
         // query user table with conditions
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com' AND user_password = 'qwerty';
-         */
         Cursor cursor = db.query(TABLE_USER, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
@@ -795,6 +842,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
+    /**
+     * This method is to check consultant authentication
+     * @param email
+     * @param password
+     * @return
+     */
     public boolean checkConsultant(String email, String password){
         // array of columns to fetch
         String[] columns = {
@@ -808,12 +861,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // selection argument
         String[] selectionArgs = {email, password};
 
-        // query user table with condition
-        /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
-         */
+        // query consultant table with condition
         Cursor cursor = db.query(TABLE_CONSULTANT, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause

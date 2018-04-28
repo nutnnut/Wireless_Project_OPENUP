@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Collection;
-
 /**
- * Created by BAMBOOK on 4/6/2018.
+ * This class is an object class for storing user account information
  */
 
 public class User {
@@ -12,7 +10,8 @@ public class User {
     private String email;
     private String password;
     private Information info;
-    private Collection<Chatmessage> Chat;
+
+    //Getters and Setters
 
     public Integer getID() {
         return ID;
@@ -46,14 +45,4 @@ public class User {
         this.info = info;
     }
 
-    public Collection<? extends Chatmessage> getChat(Consultant c) {
-        Collection<Chatmessage> chatwithconsultant=null;
-        for (Chatmessage e: Chat)
-        {
-            if(e.getConsultantID().equals(c.getId())){
-                chatwithconsultant.add(e);
-            }
-        }
-        return chatwithconsultant;
-    }
 }
