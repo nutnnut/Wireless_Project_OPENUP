@@ -17,6 +17,9 @@ import helpers.SessionManager;
 import model.User;
 import sql.DatabaseHelper;
 
+/**
+ * This class is the activity class for user login.
+ */
 public class LoginActivity_New extends AppCompatActivity implements View.OnClickListener {
     private final AppCompatActivity activity = LoginActivity_New.this;
 
@@ -96,6 +99,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonLogin:
+                // check input
                 verifyFromSQLite();
                 break;
             case R.id.textViewLinkRegister:
@@ -104,6 +108,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
                 startActivity(intentRegister);
                 break;
             case R.id.textViewLinkConsultant:
+                // Navigate to Login for consultants
                 Intent intentConsultant = new Intent(getApplicationContext(), LoginActivity_Consultant.class);
                 startActivity(intentConsultant);
                 break;
@@ -114,10 +119,6 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
      * This method is to validate the input text fields and verify login credentials from SQLite
      */
     private void verifyFromSQLite() {
-        //Verification is for the weak
-        /*Intent myIntent = new Intent(LoginActivity_New.this,MainActivity.class);
-        LoginActivity_New.this.startActivity(myIntent);*/
-
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_invalid_email))) {
             return;
         }
@@ -127,15 +128,10 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
         if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_incorrect_password))) {
             return;
         }
-
+        //Check email and password with record in SQLite. If match, allow user to go to main activity
         if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
                 , textInputEditTextPassword.getText().toString().trim())) {
 
-
-            /*Intent accountsIntent = new Intent(activity, UserListActivity.class);
-            accountsIntent.putExtra("EMAIL", textInputEditTextEmail.getText().toString().trim());
-            emptyInputEditText();
-            startActivity(accountsIntent);*/
             User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getID();
             sessionManager.createLoginSession(userID, true);
@@ -150,12 +146,4 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
 
     }
 
-
-    /**
-     * This method is to empty all input edit text
-     */
-    private void emptyInputEditText() {
-        textInputEditTextEmail.setText(null);
-        textInputEditTextPassword.setText(null);
-    }
 }

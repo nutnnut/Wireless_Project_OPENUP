@@ -17,6 +17,9 @@ import model.Consultant;
 import model.User;
 import sql.DatabaseHelper;
 
+/**
+ * This class is the activity class for consultant login.
+ */
 public class LoginActivity_Consultant extends AppCompatActivity implements View.OnClickListener {
     private final AppCompatActivity activity = LoginActivity_Consultant.this;
 

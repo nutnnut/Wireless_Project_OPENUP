@@ -17,6 +17,9 @@ import helpers.SessionManager;
 import model.User;
 import sql.DatabaseHelper;
 
+/**
+ * This class is for register activity which collects user account information and insert to SQLite
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final AppCompatActivity activity = RegisterActivity.this;
@@ -107,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.appCompatTextViewLoginLink:
+                // Go back to login
                 finish();
                 break;
         }
@@ -132,17 +136,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (!databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim())) {
 
-            //user.setDisplayName(textInputEditTextName.getText().toString().trim());
+            //get texts from inputs and add to SQLite
             user.setEmail(textInputEditTextEmail.getText().toString().trim());
             user.setPassword(textInputEditTextPassword.getText().toString().trim());
             databaseHelper.addUser(user);
 
             // Snack Bar to show success message that record saved successfully
             Snackbar.make(nestedScrollView, getString(R.string.success_sign_up), Snackbar.LENGTH_LONG).show();
+
+            //Create session (Preference) and record user ID to the session
             User loggedInUser =  databaseHelper.getUser(textInputEditTextEmail.getText().toString().trim());
             Integer userID = loggedInUser.getID();
             sessionManager.createLoginSession(userID, true);
             emptyInputEditText();
+            //Move on to information register
             Intent myIntent = new Intent(RegisterActivity.this,InfoRegisActivity.class);
             RegisterActivity.this.startActivity(myIntent);
 

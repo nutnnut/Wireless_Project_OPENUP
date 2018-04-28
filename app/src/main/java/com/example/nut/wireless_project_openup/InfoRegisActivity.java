@@ -23,11 +23,12 @@ import helpers.SessionManager;
 import model.Information;
 import sql.DatabaseHelper;
 
+/**
+ * This class is used for registering user profile information which is optional for users.
+ */
 public class InfoRegisActivity extends AppCompatActivity{
 
     private final AppCompatActivity activity = InfoRegisActivity.this;
-
-    private NestedScrollView nestedScrollView;
 
     private AppCompatButton appCompatButtonSaveInfo;
     private AppCompatButton appCompatButtonSkipInfo;
@@ -55,10 +56,12 @@ public class InfoRegisActivity extends AppCompatActivity{
         initObjects();
     }
 
+    /**
+     * This method is to initialize views
+     */
     private void initViews(){
         textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutName);
         textInputEditTextName = (TextInputEditText) findViewById(R.id.textInputEditTextName);
-        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
         appCompatButtonSaveInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSaveInfo);
         appCompatButtonSkipInfo = (AppCompatButton) findViewById(R.id.appCompatButtonSkipInfo);
         DateEdit = findViewById(R.id.textInputEditTextDate);
@@ -67,6 +70,9 @@ public class InfoRegisActivity extends AppCompatActivity{
         spinnerGender = findViewById(R.id.SpinnerGender);
     }
 
+    /**
+     * This method is to initialize listeners
+     */
     private void initListeners() {
         appCompatButtonSaveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +89,7 @@ public class InfoRegisActivity extends AppCompatActivity{
         appCompatButtonSkipInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                postDefaultDataToSQLite();
                 Intent myIntent = new Intent(InfoRegisActivity.this,MainActivity.class);
                 InfoRegisActivity.this.startActivity(myIntent);
             }
@@ -95,6 +102,9 @@ public class InfoRegisActivity extends AppCompatActivity{
         });
     }
 
+    /**
+     * This method is to initialize objects to be used
+     */
     private void initObjects(){
         information = new Information();
         databaseHelper = new DatabaseHelper(activity);
@@ -102,12 +112,18 @@ public class InfoRegisActivity extends AppCompatActivity{
         inputValidation = new InputValidation(activity);
     }
 
-
+    /**
+     * This method is to show dialog for picking user birthdate
+     * @param v
+     */
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    /**
+     * This inner class is to define date picker dialog
+     */
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 
@@ -129,7 +145,12 @@ public class InfoRegisActivity extends AppCompatActivity{
         }
     }
 
-    public void postDataToSQLite() throws ParseException {
+    /**
+     * This method is to insert the information to SQLite through databaseHelper
+     * @throws ParseException
+     */
+    private void postDataToSQLite() throws ParseException {
+        //User display name must be filled
         if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_invalid_name))) {
             return;
         }
@@ -141,4 +162,23 @@ public class InfoRegisActivity extends AppCompatActivity{
         information.setUserID(sessionManager.getUserID());
         databaseHelper.addInfo(information);
     }
+
+    /**
+     * This method is to create default information for users who want to skip the process.
+     */
+    private void postDefaultDataToSQLite(){
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        information.setDisplayName("Anonymous");
+        information.setOccupation(spinnerOccupation.getSelectedItem().toString());
+        information.setMedicalCondition(spinnerMedicalCondition.getSelectedItem().toString());
+        information.setBirthdate(day + "/" + (month + 1) + "/" + year);
+        information.setGender(spinnerGender.getSelectedItem().toString());
+        information.setUserID(sessionManager.getUserID());
+        databaseHelper.addInfo(information);
+    }
+
 }

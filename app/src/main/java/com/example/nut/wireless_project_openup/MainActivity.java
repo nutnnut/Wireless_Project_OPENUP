@@ -27,6 +27,10 @@ import helpers.SessionManager;
 import model.Information;
 import sql.DatabaseHelper;
 
+/**
+ * This class is the main activity which show links to other features and can navigate with
+ * navigation bar.
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity
     private View navBarHeader;
     private TextView textViewName;
 
+    /**
+     * on Create is used to initialized components
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +85,10 @@ public class MainActivity extends AppCompatActivity
         sessionManager.checkLogin();
     }
 
+    /**
+     * This method is to close navigation bar when pressed back or if it is already closed
+     * pressing back will close the app instead of going back to login.
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -99,30 +111,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    //Unused option menu
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
+    /**
+     * This method defines the action of each item in navigation bar.
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -131,7 +124,6 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_home) {
-            //startActivity(new Intent(MainActivity.this,MainActivity.class));
             fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Home(), "Home").commit();
         }
 
@@ -146,10 +138,6 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_nearby) {
             startActivity(new Intent(MainActivity.this, NearbyClinics.class));
-//            Uri gmmIntentUri = Uri.parse("geo:13.79457750,100.3212284?q=Golden Jubilee Medical Center");
-//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-//            mapIntent.setPackage("com.google.android.apps.maps");
-//            startActivity(mapIntent);
         }
 
         else if (id == R.id.nav_profile) {
@@ -157,7 +145,6 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_out) {
             sessionManager.logoutUser();
-            //startActivity(new Intent(MainActivity.this,splash.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
