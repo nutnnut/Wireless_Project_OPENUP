@@ -79,8 +79,8 @@
         <activity android:name=".InfoRegisActivity_Consultant" />
         <activity
             android:name=".VideoCall"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeDark" />
+            android:screenOrientation="portrait"/>
+            <!--android:theme="@style/AppThemeDark" />-->
         <activity android:name=".ConsultantListActivity" />
         <activity android:name=".InboxActivity" />
         <activity android:name=".EditProfileActivity" />
