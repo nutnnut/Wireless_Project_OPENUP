@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity
     private SessionManager sessionManager;
     private DatabaseHelper databaseHelper;
     private final AppCompatActivity activity = MainActivity.this;
-
-    private TextView textViewNavBarName;
+    private NavigationView navView;
+    private View navBarHeader;
+    private TextView textViewName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         databaseHelper = new DatabaseHelper(activity);
+
         int userID = sessionManager.getUserID();
         Information information = databaseHelper.getInfo(userID);
         String displayName = information.getDisplayName();
-        textViewNavBarName = (TextView) findViewById(R.id.textViewNavBarName);
+
+        navView = findViewById(R.id.nav_view);
+        navBarHeader = navView.getHeaderView(0);
+        textViewName = navBarHeader.findViewById(R.id.textViewNavBarName);
+        textViewName.setText(displayName);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -8,6 +8,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
@@ -20,6 +21,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
     private final AppCompatActivity activity = LoginActivity_New.this;
 
     private NestedScrollView nestedScrollView;
+
 
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
@@ -147,6 +149,7 @@ public class LoginActivity_New extends AppCompatActivity implements View.OnClick
         }
 
     }
+
 
     /**
      * This method is to empty all input edit text
