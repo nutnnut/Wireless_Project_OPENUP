@@ -2,13 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
 
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:background="@drawable/mainbutton"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:paddingEnd="10dp"
+        android:text="Log out"
+        android:textColor="#ffffff" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewUser"
-        android:layout_marginTop="20px"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="20px" />
 
 </LinearLayout>
