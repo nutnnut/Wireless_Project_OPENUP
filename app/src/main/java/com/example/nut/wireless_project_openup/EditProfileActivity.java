@@ -126,6 +126,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.buttonUpdate:
                 updateInfoSQL();
+                finish();
                 break;
 
             case R.id.textInputEditTextDateEdit:
