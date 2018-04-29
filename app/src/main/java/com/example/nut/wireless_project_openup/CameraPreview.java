@@ -9,7 +9,9 @@ import android.view.SurfaceView;
 
 import java.io.IOException;
 
-/** A basic Camera preview class */
+/**
+ * This class is a basic Camera preview class used to preview camera in VideoCall activity
+ */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private SurfaceHolder mHolder;
     private Camera mCamera;
@@ -26,6 +28,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
+    /**
+     * Start preview
+     * @param holder
+     */
     public void surfaceCreated(SurfaceHolder holder) {
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
@@ -36,10 +42,27 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+    /**
+     * stop preview on surface destroyed
+     * @param holder
+     */
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // empty. Take care of releasing the Camera preview in your activity.
+        if (mHolder.getSurface() == null){
+            // preview surface does not exist
+            return;
+        }
+
+        // stop preview before making changes
+        try {
+            mCamera.stopPreview();
+        } catch (Exception e){
+            // ignore: tried to stop a non-existent preview
+        }
     }
 
+    /**
+     * This method restart the preview automatically when surface changes
+     */
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         // If your preview can change or rotate, take care of those events here.
         // Make sure to stop the preview before resizing or reformatting it.
@@ -69,7 +92,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    //this method used to detect screen orientation for the right camera display
+    /**
+     * This method used to detect screen orientation for the right camera display
+     */
     public static void setCameraDisplayOrientation(Activity activity,
                                                    int cameraId, android.hardware.Camera camera) {
         android.hardware.Camera.CameraInfo info =

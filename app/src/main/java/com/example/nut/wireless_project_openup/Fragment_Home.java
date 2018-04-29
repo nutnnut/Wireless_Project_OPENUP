@@ -25,7 +25,7 @@ public class Fragment_Home extends Fragment {
         consult = (CardView) myView.findViewById(R.id.homeconsult);
         nearby = (CardView) myView.findViewById(R.id.homenearby);
 
-        //there are 3 cardview button on home page
+        //Handles 3 cardview buttons on home page
         //to consult
         consult.setOnClickListener(new View.OnClickListener() {
             @Override

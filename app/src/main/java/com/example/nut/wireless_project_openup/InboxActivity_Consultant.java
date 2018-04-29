@@ -38,6 +38,7 @@ public class InboxActivity_Consultant extends AppCompatActivity {
         initViews();
         initObjects();
 
+        //logout button
         logout = (Button) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
