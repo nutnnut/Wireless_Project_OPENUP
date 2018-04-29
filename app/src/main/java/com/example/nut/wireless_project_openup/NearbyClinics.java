@@ -134,7 +134,8 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
         ArrayList<String> Details = new ArrayList<String>();
 
         // Add static markers details
-        Pos.add(new LatLng(13.7949983, 100.3217247));
+        Pos.add(new LatLng(13.7863707, 100.3215348));
+        //Mahidol 13.7949983,100.3217247
         Title.add("Golden Jubilee Medical Center");
         Details.add("The best medical center for Mahidol students and others patients. High quality of medical treatment at a very low price.");
 
