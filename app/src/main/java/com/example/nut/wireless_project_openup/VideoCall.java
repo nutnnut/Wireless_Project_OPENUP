@@ -63,11 +63,13 @@ public class VideoCall extends AppCompatActivity {
             previewlayout.addView(mPreview);
         }
 
-        setupCamera(1536,2048);
         setCameraDisplayOrientation(this,cameraID,mCamera);
 
     }
 
+    /**
+     * Change back and forth between front and back cameras.
+     */
     private void SwitchCamera(){
         //Find info
         Camera.CameraInfo info = new Camera.CameraInfo();
@@ -107,10 +109,13 @@ public class VideoCall extends AppCompatActivity {
             }
         }
 
-        setupCamera(1536,2048);
         setCameraDisplayOrientation(this,cameraID,mCamera);
     }
 
+    /**
+     * Find and return camera ID of front facing camera
+     * @return ID of front facing camera
+     */
     private int findFrontFacingCamera() {
         int cameraId = -1;
         // Search for the front facing camera
@@ -126,6 +131,10 @@ public class VideoCall extends AppCompatActivity {
         return cameraId;
     }
 
+    /**
+     * Find and return camera ID of back facing camera
+     * @return ID of back facing camera
+     */
     private int findBackFacingCamera() {
         int cameraId = -1;
         // Search for the front facing camera
@@ -141,21 +150,6 @@ public class VideoCall extends AppCompatActivity {
         return cameraId;
     }
 
-    private  void setupCamera(int width,int height)
-    {
-        //What is this even for???
-//        CameraManager Manager=(CameraManager) getSystemService(Context.CAMERA_SERVICE);
-//        try{
-//            for(String c:Manager.getCameraIdList()){
-//                CameraCharacteristics characteristics=Manager.getCameraCharacteristics(c);
-//                if(characteristics.get(characteristics.LENS_FACING)==characteristics.LENS_FACING_FRONT){
-//                    continue;
-//                }cameraID=Integer.parseInt(c);
-//            }
-//        } catch (CameraAccessException e) {
-//            e.printStackTrace();
-//        }
-    }
 
     /** A safe way to get an instance of the Camera object. */
     public static Camera getCameraInstance(){
@@ -169,17 +163,29 @@ public class VideoCall extends AppCompatActivity {
         return c; // returns null if camera is unavailable
     }
 
+    /**
+     * Release camera and go back
+     */
     public void EndCall(View view){
         if(mCamera!=null)mCamera.release();
         super.onBackPressed();
     }
 
+    /**
+     * Release camera and go back
+     */
     @Override
     public void onBackPressed() {
         if(mCamera!=null)mCamera.release();
         super.onBackPressed();
     }
 
+    /**
+     * Rotate camera according to orientation of phone
+     * @param activity
+     * @param cameraId
+     * @param camera
+     */
     public static void setCameraDisplayOrientation(Activity activity, int cameraId, android.hardware.Camera camera) {
         android.hardware.Camera.CameraInfo info =
                 new android.hardware.Camera.CameraInfo();

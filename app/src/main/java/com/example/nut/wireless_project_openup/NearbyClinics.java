@@ -60,6 +60,10 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    /**
+     * Initialize placepicker and Google map API
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -146,13 +150,10 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
         getDeviceLocation();
     }
 
-
+    /**
+     * Ask for location permission
+     */
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -164,6 +165,12 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * update location when location is permitted
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
@@ -181,6 +188,9 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
         updateLocationUI();
     }
 
+    /**
+     * Enable or disable location button if location is granted/denied
+     */
     private void updateLocationUI() {
         if (mMap == null) {
             return;
@@ -222,7 +232,7 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
                     new LatLng(mLastKnownLocation.getLatitude(),
                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
         } else {
-//            Log.d(TAG, "Current location is null. Using defaults.");
+//          Log.d(TAG, "Current location is null. Using defaults.");
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
@@ -248,6 +258,10 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
+    /**
+     * save last known location
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (mMap != null) {
@@ -257,6 +271,12 @@ public class NearbyClinics extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
+    /**
+     * Initialize place picker(Using places from Google)
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
