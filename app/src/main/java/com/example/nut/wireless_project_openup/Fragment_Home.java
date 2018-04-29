@@ -25,13 +25,8 @@ public class Fragment_Home extends Fragment {
         consult = (CardView) myView.findViewById(R.id.homeconsult);
         nearby = (CardView) myView.findViewById(R.id.homenearby);
 
-        homeinbox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent myIntent = new Intent(getActivity(),InboxActivity.class);
-                startActivity(myIntent);
-            }
-        });
+        //there are 3 cardview button on home page
+        //to consult
         consult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -39,6 +34,17 @@ public class Fragment_Home extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.content_frame, new Fragment_Consult(), "Consult").commit();
             }
         });
+
+        //to inbox
+        homeinbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(getActivity(),InboxActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        //to nearby clinic
         nearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nut.wireless_project_openup.R;
@@ -52,7 +51,7 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
                 isSender = 1;
             }
         }
-        return isSender;
+        return isSender; //sender 1, receiver 0
     }
 
     /**
@@ -63,17 +62,16 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
      */
     public MessageRecycle.MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
+        //if sender send message, use layout chat_send
+        //if receiver send message, use layout chat_receive
         if(viewType == 1){
-
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.chat_receive, parent, false);
-
         }
         else{
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.chat_send, parent, false);
         }
-
         return new MessageViewHolder(itemView);
 
     }
@@ -102,6 +100,7 @@ public class MessageRecycle extends RecyclerView.Adapter<MessageRecycle.MessageV
     public TextView textViewMessage;
     public TextView textViewTime;
 
+    //use layout to display message and sent time
     public MessageViewHolder(View view) {
         super(view);
         textViewMessage = (TextView) view.findViewById(R.id.receivetext);

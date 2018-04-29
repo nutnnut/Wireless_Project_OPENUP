@@ -68,15 +68,17 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
             //Log.d(TAG, "Error starting camera preview: " + e.getMessage());
         }
     }
+
+    //this method used to detect screen orientation for the right camera display
     public static void setCameraDisplayOrientation(Activity activity,
                                                    int cameraId, android.hardware.Camera camera) {
         android.hardware.Camera.CameraInfo info =
                 new android.hardware.Camera.CameraInfo();
         android.hardware.Camera.getCameraInfo(cameraId, info);
         int rotation = activity.getWindowManager().getDefaultDisplay()
-                .getRotation();
+                .getRotation(); //find current camera orientation
         int degrees = 0;
-        switch (rotation) {
+        switch (rotation) { //set the screen depend on camera orientation
             case Surface.ROTATION_0: degrees = 0; break;
             case Surface.ROTATION_90: degrees = 90; break;
             case Surface.ROTATION_180: degrees = 180; break;

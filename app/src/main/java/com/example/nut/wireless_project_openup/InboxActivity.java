@@ -1,11 +1,9 @@
 package com.example.nut.wireless_project_openup;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,7 +50,7 @@ public class InboxActivity extends AppCompatActivity{
      * This method is to initialize objects to be used
      */
     private void initObjects() {
-        listConsultant = new ArrayList<>();
+        listConsultant = new ArrayList<>(); //who users chatted with
         consultantRecyclerAdapter = new ConsultantRecyclerAdapter(listConsultant, this.getBaseContext());
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

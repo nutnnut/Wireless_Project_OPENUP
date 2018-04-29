@@ -1,27 +1,17 @@
 package com.example.nut.wireless_project_openup;
 
-import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.Locale;
 
 import helpers.SessionManager;
 import model.Information;
@@ -120,7 +110,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        int id = item.getItemId(); //get id of each item in navigator bar
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_home) {
@@ -143,7 +133,7 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_profile) {
             startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
         }
-        else if (id == R.id.nav_out) {
+        else if (id == R.id.nav_out) { //the session will end if users logout
             sessionManager.logoutUser();
         }
 

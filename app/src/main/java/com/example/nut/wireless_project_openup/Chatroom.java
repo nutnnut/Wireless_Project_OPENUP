@@ -1,17 +1,13 @@
 package com.example.nut.wireless_project_openup;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.icu.util.Calendar;
-import android.media.MediaCas;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,10 +24,8 @@ import java.util.List;
 import helpers.MessageRecycle;
 import helpers.SessionManager;
 import model.Chatmessage;
-import model.Consultant;
 import model.ConsultantInfo;
 import model.Information;
-import model.User;
 import sql.DatabaseHelper;
 
 public class Chatroom extends AppCompatActivity implements View.OnClickListener{
@@ -163,6 +157,7 @@ public class Chatroom extends AppCompatActivity implements View.OnClickListener{
         messageRecycle.notifyDataSetChanged();
     }
 
+    //this method allow users choose whether they want to make a video call by connecting to camera or not
     public void videocalldialog(){
         AlertDialog.Builder calldialog = new AlertDialog.Builder(Chatroom.this);
         
